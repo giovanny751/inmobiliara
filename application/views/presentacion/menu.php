@@ -160,13 +160,7 @@
             });
             $('#cuerpomodulo').append(tabla);
             $('#modulo').val('');
-            $('#myModal2').modal('hide');
-            $.notific8('Los Datos en Formacion Fueron Guardados.', {
-                horizontalEdge: 'bottom',
-                life: 5000,
-                theme: 'amethyst',
-                heading: 'EXITO'
-            });
+            
         });
     });
 

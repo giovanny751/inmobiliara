@@ -287,9 +287,7 @@ class Presentacion extends My_Controller {
     function roles() {
 
         $this->data['content'] = $this->permisoroles('prueba', null);
-
         $this->data['roles'] = $this->Roles_model->roles();
-
 //        var_dump($this->data['roles']);die;
 
         $this->layout->view('presentacion/roles', $this->data);

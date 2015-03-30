@@ -1,6 +1,6 @@
 <div class="alert alert-info"><center><b>ADMINISTRACIÒN DE ROLES</b></center></div>
 <div class="row">
-    <button type="button" data-toggle="modal" data-target="#myModal"  class="btn btn-info opciones">Nuevo Rol</button>
+    <button type="button"  data-reveal-id="firstModal2"  class="btn btn-info opciones">Nuevo Rol</button>
 </div>
 <div class="row">
     <div class="table-responsive ">
@@ -16,8 +16,8 @@
                     <tr>
                         <td><?php echo $datos['rol_nombre']; ?></td>
                         <td><?php echo $datos['rol_estado']; ?></td>
-                        <td align="center"><button type="button" rol="<?php echo $datos['rol_id']; ?>"  data-toggle="modal" data-target="#myModal"  class="btn btn-info modificar">Opciones</button></td>
-                        <td align="center"><button type="button" rol="<?php echo $datos['rol_id']; ?>" class="btn btn-danger eliminar">Eliminar</button></td>
+                        <td align="center"><button type="button" rol="<?php echo $datos['rol_id']; ?>"  data-toggle="modal" data-target="#myModal"  class="button radius modificar">Opciones</button></td>
+                        <td align="center"><button type="button" rol="<?php echo $datos['rol_id']; ?>" class="button alert radius eliminar">Eliminar</button></td>
                     </tr>
                 <?php } ?>
             </tbody>
@@ -25,19 +25,10 @@
     </div>    
 </div>
 
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <h4 class="modal-title" id="myModalLabel">Modificación</h4>
-            </div>
-            <div class="col-md-12 col-lg-12 col-sm-12 col-sx-12">
-                <div class=" marginV20">
-                    <div class="widgetTitle">
-                        <h5><i class="glyphicon glyphicon-pencil"></i> Nuevo</h5>
-                    </div>
-                    <div class="well" >
+<div id="firstModal2" class="reveal-modal" data-reveal aria-labelledby="firstModalTitle" aria-hidden="true" role="dialog"> 
+    <div id="firstModal"  data-reveal aria-labelledby="firstModalTitle" aria-hidden="true" role="dialog"> 
+            <h2 id="firstModalTitle">ROLES</h2> 
+        <div class="row" >
                         <form id="nuevorol" method="post">
                             <input type="hidden" id="rol" name="rol">
                             <div class="form-group agregarrol">
@@ -51,23 +42,14 @@
                             </div>
                         </form>    
                     </div>
-                </div>
-            </div>		
-            <div class="modal-footer">
-                <div class="row marginV10">
-                    <div class='col-md-2 col-lg-2 col-sm-2 col-sx-2 col-md-offset-8 col-lg-offset-8 col-sm-offset-8 col-sx-offset-8 margenlogo' align='center' >
-                        <button type="button" class="btn btn-primary guardar">Guardar</button>
-                    </div>
-                    <div class='col-md-2 col-lg-2 col-sm-2 col-sx-2 margenlogo' align='center' >
-                        <button type="button" data-dismiss="modal" class="btn btn-default">Cerrar</button>
-                    </div>
-                </div>
-            </div>
+        <div class="row" style="margin-top: 10px">
+            <button type="button" class="button guardar">Guardar</button>
         </div>
-    </div>
-</div>    
+    </div> 
+    <a class="close-reveal-modal" aria-label="Close">&#215;</a> 
+</div>   
 
-<script>
+    <script>
 
 
 //------------------------------------------------------------------------------
@@ -79,13 +61,10 @@
         var id = $(this).attr('rol');
 
         var url = "<?php echo base_url('index.php/presentacion/eliminarrol'); ?>";
-        modal();
         $.post(url, {id: id}).done(function(msg){
-            quit_modal();
-            alerta('verde','ELIMINADO CORRECTAMENTE');
+            
         }).fail(function(msg){
-            quit_modal();
-            alerta('rojo','COMUNICARCE CON EL ADMINISTRADOR');
+            
         });
         $(this).parents('tr').remove();
     });
@@ -98,9 +77,6 @@
         var url = "<?php echo base_url('index.php/presentacion/guardarroles'); ?>";
 
         $.post(url, $('#nuevorol').serialize(), function(data) {
-            $('#myModal').modal('hide');
-
-            
                 var filas = "";
                 $.each(data, function(key, val) {
 

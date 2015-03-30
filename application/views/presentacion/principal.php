@@ -1,9 +1,6 @@
-<div class="widgetTitle" >
-    <h5>
-        <i class="glyphicon glyphicon-ok"></i>
-            BIENVENIDO
-    </h5>
-</div>
+
+<fieldset><legend>BIENVENIDO</legend>
+
 <?php
 if (isset($inicio[0]->ini_p_inicio)) {
     ?>
@@ -22,3 +19,6 @@ if (isset($inicio2[0]->emp_inicio)) {
     <?php
 }
 ?>
+</fieldset>
+
+

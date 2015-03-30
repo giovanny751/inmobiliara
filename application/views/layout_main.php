@@ -57,13 +57,12 @@ function modulos($datosmodulos, $idusuario, $dato = null, $papito = null) {
     <div class="inner-wrap"> <nav class="tab-bar"> 
             <section class="left-small"> <a class="left-off-canvas-toggle menu-icon" ><span></span></a> </section> 
             <section class="middle tab-bar-section"> <h1 class="title">NYGSOFT</h1> </section> 
-            <!--<section class="right-small"> <a class="right-off-canvas-toggle menu-icon" ><span></span></a> </section>--> 
+            <section class="right tab-bar-section" style="cursor:pointer"><h5 class="title"><a href="<?php echo base_url('index.php/login/logout') ?>">Cerrar Sesion</a></h5></section>
         </nav> 
         <aside class="left-off-canvas-menu"> 
             <?php  echo modulos('prueba', 1); ?>
         </aside> 
         <section class="main-section" style="height: 100%">
-
             <?php echo $content_for_layout ?>
         </section> 
     </div> 

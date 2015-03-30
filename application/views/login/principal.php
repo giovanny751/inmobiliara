@@ -1,11 +1,12 @@
+<script src="<?php echo base_url('js/vendor/jquery.js') ?>"></script>
+<script src="<?php echo base_url('js/foundation/foundation.js') ?>"></script>
+<script src="<?php echo base_url('js/foundation/foundation.reveal.js') ?>"></script>
 <script src="<?php echo base_url('js/foundation.min.js" type="text/javascript') ?>"></script>
 <link href="<?php echo base_url('css/foundation.css" rel="stylesheet" type="text/css') ?>" />
 <link href="<?php echo base_url('css/foundation.min.css" rel="stylesheet" type="text/css') ?>" />
 <link href="<?php echo base_url('css/normalize.css" rel="stylesheet" type="text/css') ?>" />
 
-<script src="<?php echo base_url('js/vendor/jquery.js') ?>"></script>
-<script src="<?php echo base_url('js/foundation/foundation.js') ?>"></script>
-<script src="<?php echo base_url('js/foundation/foundation.reveal.js') ?>"></script>
+
 
 
 <nav class="top-bar" data-topbar>

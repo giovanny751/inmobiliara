@@ -60,7 +60,7 @@ function modulos($datosmodulos, $idusuario, $dato = null, $papito = null) {
             <section class="right tab-bar-section" style="cursor:pointer"><h5 class="title"><a href="<?php echo base_url('index.php/login/logout') ?>">Cerrar Sesion</a></h5></section>
         </nav> 
         <aside class="left-off-canvas-menu"> 
-            <?php  echo modulos('prueba', 1); ?>
+            <?php  echo modulos('prueba', $id); ?>
         </aside> 
         <section class="main-section" style="height: 100%">
             <?php echo $content_for_layout ?>

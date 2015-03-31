@@ -12,11 +12,11 @@ class Presentacion extends My_Controller {
         $this->load->model('Roles_model');
         $this->load->helper('miscellaneous');
         $this->load->helper('security');
-        validate_login($this->session->userdata('user_id'));
+        validate_login($this->session->userdata('logged_in'));
     }
 
     function principal() {
-        $id = $this->data['user']['emp_id'];
+        $id = $this->data['user']['user_id'];
         $this->data['inicio']= $this->Ingreso_model->admin_inicio();
         $this->data['inicio2']= $this->Ingreso_model->admin_inicio_emp($id);
         $this->data['content'] = $this->modulos('prueba', null, $this->data['user']['user_id']);

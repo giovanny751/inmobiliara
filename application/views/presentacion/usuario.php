@@ -46,19 +46,13 @@
 <div id="firstModal2" class="reveal-modal" data-reveal aria-labelledby="firstModalTitle" aria-hidden="true" role="dialog"> 
     <div id="firstModal2"  data-reveal aria-labelledby="firstModalTitle" aria-hidden="true" role="dialog"> 
         <center><h2 id="firstModalTitle">CREACIÒN DE USUARIOS</h2></center> 
-        <div class="row">
-            <form method="post" id="creacionusuario">
-                <div class="col-md-12 col-lg-12 col-sm-12 col-sx-12">
-                    <label>Correo</label><input type="text" placeholder="correo" id="email" name="ing_correo" class="obligatorio form-control">
+
+        <form method="post" id="creacionusuario">
+            <div class="row">    
+                <div class="large-6 columns">
+                    <label>Correo</label><input type="text" placeholder="Correo" id="email" name="ing_correo" class="obligatorio form-control">
                 </div>
-                <div class="col-md-12 col-lg-12 col-sm-12 col-sx-12">
-                    <label>Contraseña</label><input type="password" placeholder="Contraseña" id="contrasena" name="ing_contrasena" class="obligatorio form-control">
-                </div>
-                <div class="col-md-12 col-lg-12 col-sm-12 col-sx-12">
-                    <label>Repetir Contraseña</label>
-                    <input type="password" id="rcontrasena"  placeholder="Repetir contraseña" class="obligatorio form-control">
-                </div>
-                <div class="col-md-12 col-lg-12 col-sm-12 col-sx-12">
+                <div class="large-6 columns">
                     <label>Tipo Usuario</label>
                     <select name="tipUsu_id">
                         <option value="">-Seleccionar-</option>
@@ -67,8 +61,18 @@
                         <?php } ?>
                     </select>
                 </div>
-            </form>
-        </div>
+            </div>
+            <div class="row">    
+                <div class="large-6 columns">
+                    <label>Contraseña</label><input type="password" placeholder="Contraseña" id="contrasena" name="ing_contrasena" class="obligatorio form-control">
+                </div>
+                <div class="large-6 columns">
+                    <label>Repetir Contraseña</label>
+                    <input type="password" id="rcontrasena"  placeholder="Repetir contraseña" class="obligatorio form-control">
+                </div>
+            </div>
+        </form>
+
         <div class="row" style="margin-top: 10px">
             <button type="button" class="button radius guardar">Guardar</button>
         </div>
@@ -95,16 +99,16 @@
             <div class="row">
                 <form method="post" id="formulariopermisos">
                     <input type="hidden" name="usuarioid" id="usuarioid">
-                    <div class="col-md-6 col-lg-6 col-sm-6 col-sx-6 rolseleccionado">
+                    <div class="large-6 columns rolseleccionado">
 
                     </div>
-                    <div class="col-md-6 col-lg-6 col-sm-6 col-sx-6 permisomenu">
+                    <div class="large-6 columns permisomenu">
 
                     </div>
                 </form>    
             </div>
         </div>
-        <div class="row" style="margin-top: 10px">
+        <div class="row" style="margin-top: 10px" align="right">
             <button type="button" class="button radius guardarpermiso">Guardar</button>
         </div>
     </div> 
@@ -137,10 +141,6 @@
 
             });
         }
-
-
-
-
     });
 
 //------------------------------------------------------------------------------    

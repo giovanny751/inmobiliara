@@ -7,18 +7,28 @@ class User_model extends CI_Model {
     
     
     public function get_user($username,$pass){
-        $this->db->where('usu_correo',$username);
-        $this->db->where('usu_password',$pass);
-//        $this->db->where('usu_status','0');
-        $query = $this->db->get('user');
-//        echo $this->db->last_query();die;
+        $this->db->where('ing_correo',$username);
+        $this->db->where('ing_contrasena',$pass);
+        $query = $this->db->get('ingreso');
         return $query->result();
     }
     public function listo_politica($username,$pass){
-        $this->db->set('usu_politicas','1');
-        $this->db->where('usu_correo',$username);
-        $this->db->where('usu_password',$pass);
-        $this->db->update('user');
+        $this->db->set('ing_politica','1');
+        $this->db->where('ing_correo',$username);
+        $this->db->where('ing_contrasena',$pass);
+        $this->db->update('ingreso');
+    }
+    public function get_empresa($id){
+        $this->db->select('emp_nit documento,emp_razonSocial nombres,id_ingreso,emp_id');
+        $this->db->where('id_ingreso',$id);
+        $query = $this->db->get('empresa');
+        return $query->result();
+    }
+    public function get_administrador($id){
+        $this->db->select('adm_documnto documento,adm_nombre nombres,id_ingreso,emp_id');
+        $this->db->where('id_ingreso',$id);
+        $query = $this->db->get('administrador');
+        return $query->result();
     }
     public function validacionusuario($iduser){
         $this->db->where('usu_id',$iduser);

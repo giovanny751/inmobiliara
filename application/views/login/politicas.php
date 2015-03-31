@@ -90,9 +90,9 @@ License: You must have a valid license purchased only from themeforest(the above
                         echo $inicio[0]->ini_politicas
                         ?>
                         <p><center>
-                            <div style="display: none">
-                                <input type="hidden" value="" name="username" id="username">
-                                <input type="password" value="" name="password" id="password">
+                            <div style="display:none ">
+                                <input type="text" value="<?php echo $username ?>" name="username" id="username">
+                                <input type="password" value="<?php echo $password ?>" name="password" id="password">
                             </div>
                             <button class="btn green" id="aceptar">Aceptar</button>
                             <button class="btn btn-danger" id="cancelar">Cancelar</button>

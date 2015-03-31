@@ -1,6 +1,6 @@
 
 <div class="row">
-    <button type="button" data-reveal-id="firstModal2"  class="button round opciones">Nuevo Modulo</button>
+    <button type="button" data-reveal-id="firstModal2"  class="button radius opciones">Nuevo Modulo</button>
 </div>
 <link type="text/css" media="screen" rel="stylesheet" href="<?php echo base_url('css/responsive-tables.css') ?>" />
 <script type="text/javascript" src="<?php echo base_url('js/responsive-tables.js') ?>"></script>
@@ -24,7 +24,7 @@
                 <?php foreach ($menu as $modulo) { ?>
                     <tr id="<?= $modulo['menu_id'] ?>">
                         <td><?= $modulo['menu_nombrepadre'] ?></td>
-                        <td align="center"><button type="button" data-reveal-id="firstModal"  class="btn btn-info opciones"  idgeneral="<?= $modulo['menu_id'] ?>" nombre="<?= $modulo['menu_nombrepadre'] ?>" idpadre="<?= $modulo['menu_id'] ?>" >Opción</button>
+                        <td align="center"><button type="button" data-reveal-id="firstModal"  class="button radius opciones"  idgeneral="<?= $modulo['menu_id'] ?>" nombre="<?= $modulo['menu_nombrepadre'] ?>" idpadre="<?= $modulo['menu_id'] ?>" >Opción</button>
                             <!--<button  >Option</button>-->
                         </td>
                         <td align="center"><input type="radio" class="submodulo" idgeneral="<?= $modulo['menu_id'] ?>" idpadre="<?= $modulo['menu_idpadre'] ?>" nombrepadre="<?= $modulo['menu_nombrepadre'] ?>" name="submodulo" menu="<?= $modulo['menu_idhijo'] ?>"></td>
@@ -77,13 +77,13 @@
 </div>     
 <div id="firstModal2" class="reveal-modal" data-reveal aria-labelledby="firstModalTitle" aria-hidden="true" role="dialog"> 
     <div id="firstModal"  data-reveal aria-labelledby="firstModalTitle" aria-hidden="true" role="dialog"> 
-        <h2 id="firstModalTitle">CREACIÒN MENU</h2> 
+        <h2 id="firstModalTitle">CREACIÒN MENÙ</h2> 
         <div class="row">
-            <label>Nombre Menu</label><input type="text" placeholder="Modulo" id="modulo" class="form-control">
+            <label>Nombre Menù</label><input type="text" placeholder="Menu" id="modulo" class="form-control">
         </div>
         <div class="row" style="margin-top: 10px">
 
-            <button type="button" general="<?= $idgeneral ?>" padre="<?= $hijo ?>" class="btn btn-success" id="guardar">Guardar</button>
+            <button type="button" general="<?= $idgeneral ?>" padre="<?= $hijo ?>" class="button radius success"  id="guardar">Guardar</button>
 
         </div>
     </div> 
@@ -156,7 +156,7 @@
             $('#cuerpomodulo *').remove();
             var tabla = "";
             $.each(data, function (key, val) {
-                tabla += "<tr><td>" + val.menu_nombrepadre + "</td><td align='center'><button class='btn btn-info opciones' data-target='#myModal' data-toggle='modal' idpadre='" + val.menu_idpadre + "' nombre='" + val.menu_nombrepadre + "' idgeneral='" + val.menu_id + "' type='button'>Opcion</button></td><td align='center'><input menu='" + val.menu_idhijo + "' nombrepadre='" + val.menu_nombrepadre + "' idgeneral='" + val.menu_id + "' type='radio' name='submodulo' class='submodulo'></td></tr>";
+                tabla += "<tr><td>" + val.menu_nombrepadre + "</td><td align='center'><button class='button radius   opciones' data-target='#myModal' data-toggle='modal' idpadre='" + val.menu_idpadre + "' nombre='" + val.menu_nombrepadre + "' idgeneral='" + val.menu_id + "' type='button'>Opcion</button></td><td align='center'><input menu='" + val.menu_idhijo + "' nombrepadre='" + val.menu_nombrepadre + "' idgeneral='" + val.menu_id + "' type='radio' name='submodulo' class='submodulo'></td></tr>";
             });
             $('#cuerpomodulo').append(tabla);
             $('#modulo').val('');

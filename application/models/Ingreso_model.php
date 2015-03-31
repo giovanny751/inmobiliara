@@ -209,6 +209,18 @@ class Ingreso_model extends CI_Model {
         $usuarios = $this->db->get('user');
         return $usuarios->result_array();
     }
+    function creacionusuario($data){
+        
+        $this->db->insert('ingreso',$data);
+        
+    }
+    
+    function tipousuario(){
+        
+        $tipousuario = $this->db->get('tipo_usuario');
+        return $tipousuario->result_array();
+        
+    }
 
     function consultausuario($id) {
 

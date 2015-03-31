@@ -1,6 +1,6 @@
 <div class="alert alert-info"><center><b>REGISTRO USUARIO</b></center></div>
 <div class="row">
-    <button data-toggle="modal" data-reveal-id="firstModal2"  type="button" id="insertarusuario" class="btn btn-success">Ingresar Usuario</button>
+    <button data-reveal-id="firstModal2"  type="button" id="insertarusuario" class="button radius">Ingresar Usuario</button>
 </div>
 <div class="row">
     <div class="table-responsive ">
@@ -32,8 +32,8 @@
                                 echo "Inactivo";
                             }
                             ?></td>
-                        <td align="center"><button type="button" class="modificar btn btn-info" idpadre="<?php echo $todosusuarios['usu_id']; ?>">Modificar</button></td>
-                        <td align="center"><button type="button"  data-reveal-id="firstModal"   class="btn btn-info permiso" usuarioid="<?php echo $todosusuarios['usu_id']; ?>">Roles</button></td>
+                        <td align="center"><button type="button" class="modificar button radius" idpadre="<?php echo $todosusuarios['usu_id']; ?>">Modificar</button></td>
+                        <td align="center"><button type="button"  data-reveal-id="firstModal"   class="button radius permiso" usuarioid="<?php echo $todosusuarios['usu_id']; ?>">Roles</button></td>
                     </tr>
                 <?php } ?>
             </tbody>
@@ -44,29 +44,33 @@
 
 
 <div id="firstModal2" class="reveal-modal" data-reveal aria-labelledby="firstModalTitle" aria-hidden="true" role="dialog"> 
-    <div id="firstModal"  data-reveal aria-labelledby="firstModalTitle" aria-hidden="true" role="dialog"> 
-        <h2 id="firstModalTitle">ROLES</h2> 
+    <div id="firstModal2"  data-reveal aria-labelledby="firstModalTitle" aria-hidden="true" role="dialog"> 
+        <center><h2 id="firstModalTitle">CREACIÒN DE USUARIOS</h2></center> 
         <div class="row">
-            <div class="col-md-12 col-lg-12 col-sm-12 col-sx-12">
-                <label>Usuario</label><input type="text" id="usuario" name="usuario" class="obligatorio form-control">
-            </div>
-            <div class="col-md-12 col-lg-12 col-sm-12 col-sx-12">
-                <label>Email</label><input type="text" id="email" name="email" class="obligatorio form-control">
-            </div>
-            <div class="col-md-12 col-lg-12 col-sm-12 col-sx-12">
-                <label>Contraseña</label><input type="text" id="contrasena" name="contrasena" class="obligatorio form-control">
-            </div>
-            <div class="col-md-12 col-lg-12 col-sm-12 col-sx-12">
-                <label>Repetir Contraseña</label>
-                <input type="text" id="rcontrasena" name="rcontrasena" class="obligatorio form-control">
-            </div>
-            <div class="col-md-12 col-lg-12 col-sm-12 col-sx-12">
-                <label>Numero Celular</label>
-                <input type="text" id="celular" name="celular" class="obligatorio form-control">
-            </div>
+            <form method="post" id="creacionusuario">
+                <div class="col-md-12 col-lg-12 col-sm-12 col-sx-12">
+                    <label>Correo</label><input type="text" placeholder="correo" id="email" name="ing_correo" class="obligatorio form-control">
+                </div>
+                <div class="col-md-12 col-lg-12 col-sm-12 col-sx-12">
+                    <label>Contraseña</label><input type="password" placeholder="Contraseña" id="contrasena" name="ing_contrasena" class="obligatorio form-control">
+                </div>
+                <div class="col-md-12 col-lg-12 col-sm-12 col-sx-12">
+                    <label>Repetir Contraseña</label>
+                    <input type="password" id="rcontrasena"  placeholder="Repetir contraseña" class="obligatorio form-control">
+                </div>
+                <div class="col-md-12 col-lg-12 col-sm-12 col-sx-12">
+                    <label>Tipo Usuario</label>
+                    <select name="tipUsu_id">
+                        <option value="">-Seleccionar-</option>
+                        <?php foreach ($tipo_usuario as $tusuario) { ?>
+                            <option value="<?php echo $tusuario['tipUsu_id'] ?>"><?php echo $tusuario['tipUsu_nombre'] ?></option> 
+                        <?php } ?>
+                    </select>
+                </div>
+            </form>
         </div>
         <div class="row" style="margin-top: 10px">
-            <button type="button" class="btn btn-primary guardar">Guardar</button>
+            <button type="button" class="button radius guardar">Guardar</button>
         </div>
     </div> 
     <a class="close-reveal-modal" aria-label="Close">&#215;</a> 
@@ -85,7 +89,7 @@
                             <option value="<?php echo $rol['rol_id']; ?>"><?php echo $rol['rol_nombre']; ?></option>
                         <?php } ?>
                     </select>
-                    <button type="button" class="btn btn-success insertarrol">Asignar</button>
+                    <button type="button" class="button radius insertarrol">Asignar</button>
                 </div>
             </div>
             <div class="row">
@@ -101,7 +105,7 @@
             </div>
         </div>
         <div class="row" style="margin-top: 10px">
-            <button type="button" class="btn btn-primary guardarpermiso">Guardar</button>
+            <button type="button" class="button radius guardarpermiso">Guardar</button>
         </div>
     </div> 
     <a class="close-reveal-modal" aria-label="Close">&#215;</a> 
@@ -118,6 +122,26 @@
 </style>
 <script>
     $('#ingresousuario').hide();
+
+//------------------------------------------------------------------------------
+//                      CREACIÒN DE USUARIO    
+//------------------------------------------------------------------------------ 
+
+    $('.guardar').click(function () {
+
+        if ($('#contrasena').val() == $('#rcontrasena').val()) {
+            var url = "<?= base_url('index.php/presentacion/creacionusuario') ?>"
+            $.post(url, $('#creacionusuario').serialize()).done(function (msg) {
+
+            }).fail(function (msg) {
+
+            });
+        }
+
+
+
+
+    });
 
 //------------------------------------------------------------------------------    
     $('.insertarrol').click(function () {

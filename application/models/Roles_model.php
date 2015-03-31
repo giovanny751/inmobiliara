@@ -36,6 +36,8 @@ class Roles_model extends CI_Model {
     } 
     function insertapermisos($insert){
         
+//        var_dump($insert);die;
+        
         $this->db->insert_batch('permisos_rol',$insert);
         
     }

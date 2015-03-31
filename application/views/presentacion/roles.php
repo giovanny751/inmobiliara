@@ -1,6 +1,6 @@
 <div class="alert alert-info"><center><b>ADMINISTRACIÒN DE ROLES</b></center></div>
 <div class="row">
-    <button type="button"  data-reveal-id="firstModal2"  class="btn btn-info opciones">Nuevo Rol</button>
+    <button type="button"  data-reveal-id="firstModal2"  class="button radius opciones">Nuevo Rol</button>
 </div>
 <div class="row">
     <div class="table-responsive ">
@@ -43,7 +43,7 @@
                         </form>    
                     </div>
         <div class="row" style="margin-top: 10px">
-            <button type="button" class="button guardar">Guardar</button>
+            <button type="button" class="button radius guardar">Guardar</button>
         </div>
     </div> 
     <a class="close-reveal-modal" aria-label="Close">&#215;</a> 
@@ -83,8 +83,8 @@
                     filas += "<tr>";
                     filas += "<td>" + val.rol_nombre + "</td>";
                     filas += "<td>" + val.rol_estado + "</td>";
-                    filas += "<td align='center'><button type='button' rol='" + val.rol_id + "' class='btn btn-danger eliminar'>Eliminar</button></td>";
-                    filas += "<td align='center'><button type='button' rol='" + val.rol_id + "' class='btn btn-info opciones'>Opciones</button></td>";
+                    filas += "<td align='center'><button type='button' rol='" + val.rol_id + "' class='button radius opciones'>Opciones</button></td>";
+                    filas += "<td align='center'><button type='button' rol='" + val.rol_id + "' class='button alert radius eliminar'>Eliminar</button></td>";                
                     filas += "</tr>";
                 });
                 $('#cuerporol *').remove();

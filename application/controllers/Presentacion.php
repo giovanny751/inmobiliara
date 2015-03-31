@@ -130,9 +130,15 @@ class Presentacion extends My_Controller {
 
         $this->data['roles'] = $this->Roles_model->roles();
         $this->data['usaurios'] = $this->Ingreso_model->totalusuarios();
+        $this->data['tipo_usuario'] = $this->Ingreso_model->tipousuario();
 //        $this->data['content'] = 'presentacion/usuario';
         $this->layout->view('presentacion/usuario', $this->data);
 //        $this->load->view('presentacion/usuario', $this->data);
+    }
+    function creacionusuario(){
+        
+        $data = $this->input->post();
+        $this->Ingreso_model->creacionusuario($data);
     }
 
     function permisosporrol() {
@@ -308,6 +314,7 @@ class Presentacion extends My_Controller {
             $this->Roles_model->insertapermisos($insert);
             $roles = $this->Roles_model->roles();
             $this->output->set_content_type('application/json')->set_output(json_encode($roles));
+            return;
         }else{
             $id = $this->input->post('rol');
             $this->Roles_model->eliminpermisosrol($id);

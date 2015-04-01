@@ -44,18 +44,18 @@
 
 <div id="firstModal" class="reveal-modal" data-reveal aria-labelledby="firstModalTitle" aria-hidden="true" role="dialog"> 
     <div id="firstModal"  data-reveal aria-labelledby="firstModalTitle" aria-hidden="true" role="dialog"> 
-        <h2 id="firstModalTitle">MODIFICACIÒN MENU</h2> 
+        <center><h2 id="firstModalTitle">MODIFICACIÒN MENU</h2></center> 
         <div class="row">
-            <div class="col-md-12 col-lg-12 col-sm-12 col-sx-12">
+            <div class="large-12 columns">
                 <label>Nombre</label><input type="text" id="nombre" class="form-control">
             </div>
-            <div class="col-md-12 col-lg-12 col-sm-12 col-sx-12">
+            <div class="large-6 columns">
                 <label>Controlador</label><input type="text" name="controlador" id="controlador"  class="form-control">
             </div>
-            <div class="col-md-12 col-lg-12 col-sm-12 col-sx-12">
+            <div class="large-6 columns">
                 <label>Accion</label><input type="text" name="accion" id="accion"  class="form-control">
             </div>
-            <div class="col-md-12 col-lg-12 col-sm-12 col-sx-12">
+            <div class="large-12 columns">
                 <label>Estado</label>
                 <select id="estado"  class="form-control">
                     <option value="">-Seleccionar-</option>
@@ -64,11 +64,11 @@
                 </select>
             </div>
         </div>
-        <div class="row" style="margin-top: 10px">
+        <div class="row" style="margin-top: 10px" align="right">
 
             <ul class="button-group">
-                <li><a href="#" class="button">guardar</a></li>
-                <li><a href="#" class="button alert eliminar">Eliminar</a></li>
+                <li><button type="button" class="button radius guardar">guardar</button></li>
+                <li><button type="button" class="button alert eliminar">Eliminar</button></li>
             </ul>
 
         </div>
@@ -174,9 +174,13 @@
 
         var url = "<?= base_url('index.php/presentacion/guardaratributosmenu') ?>";
 
-        $.post(url, {id: id, nombre: nombre, controlador: controlador, accion: accion, estado: estado}, function (data) {
-            $('#myModal').modal('hide');
-        });
+        $.post(url, {id: id, nombre: nombre, controlador: controlador, accion: accion, estado: estado})
+                .done(function(msg){
+                    
+                })
+                .fail(function(msg){
+                    
+                });
 
 
     });

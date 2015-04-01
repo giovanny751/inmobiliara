@@ -6,9 +6,7 @@
     <div class="table-responsive ">
         <table class="table table-responsive table-striped table-bordered">
             <thead>
-            <th style="width: 220px">Usuario</th>
             <th style="width: 220px">Email</th>
-            <th style="width: 220px">Numero Celular</th>
             <th style="width: 220px">Estado</th>
             <th style="width: 220px">Modificar</th>
             <th style="width: 220px">Roles</th>
@@ -16,24 +14,26 @@
             <tbody>
                 <?php foreach ($usaurios as $todosusuarios) { ?>
                     <tr>
-                        <td><?php echo $todosusuarios['usu_nombres']; ?></td>
-                        <td><?php echo $todosusuarios['usu_correo']; ?></td>
+                        <td><?php echo $todosusuarios['ing_correo']; ?></td>
                         <td><?php
-                            if (!empty($todosusuarios['phone'])) {
-                                echo $todosusuarios['phone'];
-                            } else {
-                                echo 0;
-                            }
-                            ?></td>
-                        <td><?php
-                            if ($todosusuarios['est_id'] == 1)
-                                echo "Activo";
+                            if ($todosusuarios['est_id'] == 1){
+                                ?>
+                                <div class="switch">
+                                    <input id="<?php echo $todosusuarios['ing_correo']; ?>" type="checkbox" checked="">
+                                    <label for="<?php echo $todosusuarios['ing_correo']; ?>"></label>
+                                </div> 
+                            <?php }
                             else {
-                                echo "Inactivo";
+                                ?>
+                                <div class="switch">
+                                    <input id="<?php echo $todosusuarios['ing_correo']; ?>" type="checkbox">
+                                    <label for="<?php echo $todosusuarios['ing_correo']; ?>"></label>
+                                </div> 
+                                <?php
                             }
                             ?></td>
-                        <td align="center"><button type="button" class="modificar button radius" idpadre="<?php echo $todosusuarios['usu_id']; ?>">Modificar</button></td>
-                        <td align="center"><button type="button"  data-reveal-id="firstModal"   class="button radius permiso" usuarioid="<?php echo $todosusuarios['usu_id']; ?>">Roles</button></td>
+                        <td align="center"><button type="button"  class="modificar button radius" idpadre="<?php echo $todosusuarios['ing_id']; ?>">Modificar</button></td>
+                        <td align="center"><button type="button"  data-reveal-id="firstModal"   class="button radius permiso" usuarioid="<?php echo $todosusuarios['ing_id']; ?>">Roles</button></td>
                     </tr>
                 <?php } ?>
             </tbody>
@@ -82,7 +82,7 @@
 
 <div id="firstModal" class="reveal-modal" data-reveal aria-labelledby="firstModalTitle" aria-hidden="true" role="dialog"> 
     <div id="firstModal"  data-reveal aria-labelledby="firstModalTitle" aria-hidden="true" role="dialog"> 
-        <h2 id="firstModalTitle">ROLES</h2> 
+        <center><h2 id="firstModalTitle">ASIGNACIÒN DE ROL</h2></center> 
         <div class="row">
             <div class="row">
                 <div class="form-group has-success has-feedback">
@@ -114,9 +114,6 @@
     </div> 
     <a class="close-reveal-modal" aria-label="Close">&#215;</a> 
 </div>
-
-<!--Modal-->
-
 
 <style>
     .error{

@@ -62,7 +62,7 @@ function modulos($datosmodulos, $idusuario, $dato = null, $papito = null) {
         <aside class="left-off-canvas-menu"> 
             <?php  echo modulos('prueba', $id); ?>
         </aside> 
-        <section class="main-section" style="height: 100%">
+        <section class="main-section panel" style="height: 100%">
             <?php echo $content_for_layout ?>
         </section> 
     </div> 

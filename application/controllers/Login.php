@@ -32,7 +32,7 @@ class Login extends My_Controller {
         $this->data['username'] = $this->input->post('username');
         $this->data['password'] = $this->input->post('password');
         $this->user_model->listo_politica($this->data['username'], $this->data['password']);
-        $post=$this->input->post();
+        $post = $this->input->post();
 //         echo print_y($post);
         $this->verify();
     }
@@ -50,7 +50,8 @@ class Login extends My_Controller {
                 $this->data['inicio'] = $this->user_model->admin_inicio();
                 $this->load->view('login/politicas', $this->data);
             } else {
-                $acceso=$user[0]->ing_acceso;
+                $acceso = $user[0]->tipUsu_id;
+                $ing_id = $user[0]->ing_id;
                 switch ($acceso) {
                     case 1://empresa
                         $user = $this->user_model->get_empresa($user[0]->ing_id);
@@ -64,7 +65,13 @@ class Login extends My_Controller {
                 }
 //                echo print_y($user);
 //                die;
-                $this->acceso($user,$acceso);
+                if (count($user) == 0) {
+                    $user[0]->nombres = 0;
+                    $user[0]->documento = 0;
+                    $user[0]->ing_id = 0;
+                    $user[0]->emp_id = 0;
+                }
+                $this->acceso($user, $acceso,$ing_id);
                 redirect('index.php/presentacion/principal', 'location');
             }
             //PREPARAMOS LAS VARIABLES QUE VAMOS A GUARDAR EN SESSION
@@ -81,19 +88,17 @@ class Login extends My_Controller {
         redirect('index.php/login', 'location');
     }
 
-    function acceso($user = null, $acceso=null) {
+    function acceso($user = null, $acceso = null,$ing_id=NULL) {
         $i = 0;
         if (!empty($id)) {
             $user = $this->user_model->validacionusuario(deencrypt_id($id));
             $i = 1;
         }
 
-//        echo print_y($user);die;
-
         $newdata = array(
             'nombres' => $user[0]->nombres,
             'documento' => $user[0]->documento,
-            'id_usuario' => $user[0]->id_ingreso,
+            'id_usuario' => $ing_id,
             'user_id' => $user[0]->emp_id,
             'acceso' => $acceso,
             'logged_in' => TRUE

@@ -19,14 +19,14 @@ class User_model extends CI_Model {
         $this->db->update('ingreso');
     }
     public function get_empresa($id){
-        $this->db->select('emp_nit documento,emp_razonSocial nombres,id_ingreso,emp_id');
-        $this->db->where('id_ingreso',$id);
+        $this->db->select('emp_identificacion documento,emp_nombre nombres,ing_id,emp_id');
+        $this->db->where('ing_id',$id);
         $query = $this->db->get('empresa');
         return $query->result();
     }
     public function get_administrador($id){
-        $this->db->select('adm_documnto documento,adm_nombre nombres,id_ingreso,emp_id');
-        $this->db->where('id_ingreso',$id);
+        $this->db->select('adm_documnto documento,adm_nombre nombres,ing_id,emp_id');
+        $this->db->where('ing_id',$id);
         $query = $this->db->get('administrador');
         return $query->result();
     }

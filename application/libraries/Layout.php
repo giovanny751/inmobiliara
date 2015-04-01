@@ -29,7 +29,12 @@ class Layout {
 
     function view($view, $data = null, $return = false) {
         $loadedData = array();
-        $loadedData['id'] = $this->obj->session->userdata['user_id'];
+        
+//        echo $this->obj->session->userdata['id_usuario'];die;
+        
+//        echo print_y($this->obj->session->userdata);die;
+        
+        $loadedData['id'] = $this->obj->session->userdata['id_usuario'];
         $loadedData['nombre'] = $this->obj->session->userdata['nombres']." ";
 
         $loadedData['content_for_layout'] = $this->obj->load->view($view, $data, true);

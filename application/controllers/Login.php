@@ -24,26 +24,19 @@ class Login extends My_Controller {
 //        }
         
         $cantidad = 8;
-        
         $numeracion = $this->input->post('numeracion');
-        
         if(!empty($numeracion))
         {
             $desde = $numeracion*$cantidad-$cantidad;
-            $hasta = $numeracion*$cantidad;
         }else{
             $desde = 0;
-            $hasta = $cantidad;
             $numeracion = 1;
         }
        
         $this->data['cantidad'] = $this->Ingreso_model->cantidadimagenes();        
         $this->data['numeracion'] = ceil($this->data['cantidad']/$cantidad);
         $this->data['numero'] =  $numeracion;
-        
-        echo $desde."****".$cantidad."<br>";
         $this->data['imagenes'] = $this->Ingreso_model->imagenesprincipales($desde,$cantidad);
-               
         $this->load->view('login/principal',$this->data);
     }
 

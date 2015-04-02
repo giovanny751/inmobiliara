@@ -6,9 +6,6 @@
 <link href="<?php echo base_url('css/foundation.min.css" rel="stylesheet" type="text/css') ?>" />
 <link href="<?php echo base_url('css/normalize.css" rel="stylesheet" type="text/css') ?>" />
 
-
-
-
 <nav class="top-bar" data-topbar>
     <ul class="title-area">
 
@@ -66,18 +63,22 @@
 </nav>
 <div class="row">
     <div class="large-12 columns">
-        <div class="hide-for-small">
-            <div id="featured">
-                <img src="http://placehold.it/1000x400&text=Slide Image" alt="slide image"> 
-            </div>
-        </div>
-        <div class="row">
-            <div class="small-12 show-for-small"><br>
-                <img src="http://placehold.it/1000x600&text=For Small Screens"/>
-            </div>
-        </div>
+        <ul class="example-orbit" data-orbit> 
+            <li> <img src="http://placehold.it/250x250&text=Thumbnail" /> 
+                <div class="orbit-caption"> Caption One. </div> 
+            </li> 
+            <li class="active"> 
+                <img src="http://placehold.it/250x250&text=Thumbnail" alt="slide 2" /> 
+                <div class="orbit-caption"> Caption Two. </div> 
+            </li> 
+            <li> 
+                <img src="http://placehold.it/250x250&text=Thumbnail" alt="slide 3" /> 
+                <div class="orbit-caption"> Caption Three. </div> 
+            </li> 
+        </ul>
     </div>
-</div><br>
+</div>
+<br>
 
 <?php
 $i = 4;
@@ -128,7 +129,7 @@ foreach ($imagenes as $img) {
                 if($i+1 == $numero)  $class = "class='current'";
                 else $class = '';
                 ?>
-            <li <?php echo $class ?>><a href="javascript:"><?php echo $i+1; ?></a></li> 
+            <li <?php echo $class ?> class="numeracion"><a href="javascript:"><?php echo $i+1; ?></a></li> 
             <?php } ?>
             <li class="arrow"><a href="">&raquo;</a></li> 
         </ul>
@@ -171,10 +172,10 @@ foreach ($imagenes as $img) {
 <script>
     $(document).foundation();
     
-    $('li').click(function(){
+    $('.numeracion').click(function(){
         var numeracion = $(this).text();
         $('#f1').append('<input type="hidden" value="'+numeracion+'" name="numeracion">');
         $('#f1').submit();
     });
-    
+        
 </script>

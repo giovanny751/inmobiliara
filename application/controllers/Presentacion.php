@@ -20,6 +20,7 @@ class Presentacion extends My_Controller {
         $this->data['inicio']= $this->Ingreso_model->admin_inicio();
         $this->data['inicio2']= $this->Ingreso_model->admin_inicio_emp($id);
         $this->data['content'] = $this->modulos('prueba', null, $this->data['user']['user_id']);
+        
         $this->layout->view('presentacion/principal', $this->data);
     }
     function modulos($datosmodulos, $html = null, $usuarioid) {

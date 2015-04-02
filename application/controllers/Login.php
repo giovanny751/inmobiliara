@@ -10,17 +10,41 @@ class Login extends My_Controller {
         $this->load->model('user_model');
         $this->load->helper('security');
         $this->load->helper('miscellaneous');
+        $this->load->model('Ingreso_model');
         //$this->load->library('My_PHPMailer');
     }
 
     public function index() {
         //FUNCION PRINCIPAL PARA EL LOGIN - CARGA LA VISTA LOGIN/INDEX.PHP
-        $datos = $this->session->userdata('user_id');
-        if (!empty($datos)) {
-            redirect('index.php/presentacion/principal', 'location');
-        } else {
-            $this->load->view('login/principal');
+//        $datos = $this->session->userdata('user_id');
+//        if (!empty($datos)) {
+//            redirect('index.php/presentacion/principal', 'location');
+//        } else {
+//            $this->load->view('login/principal');
+//        }
+        
+        $cantidad = 8;
+        
+        $numeracion = $this->input->post('numeracion');
+        
+        if(!empty($numeracion))
+        {
+            $desde = $numeracion*$cantidad-$cantidad;
+            $hasta = $numeracion*$cantidad;
+        }else{
+            $desde = 0;
+            $hasta = $cantidad;
+            $numeracion = 1;
         }
+       
+        $this->data['cantidad'] = $this->Ingreso_model->cantidadimagenes();        
+        $this->data['numeracion'] = ceil($this->data['cantidad']/$cantidad);
+        $this->data['numero'] =  $numeracion;
+        
+        echo $desde."****".$cantidad."<br>";
+        $this->data['imagenes'] = $this->Ingreso_model->imagenesprincipales($desde,$cantidad);
+               
+        $this->load->view('login/principal',$this->data);
     }
 
     public function make_hash($var = 1) {

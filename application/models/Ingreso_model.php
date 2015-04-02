@@ -5,7 +5,18 @@ class Ingreso_model extends CI_Model {
     function __construct() {
         parent::__construct();
     }
-
+    
+    function imagenesprincipales($desde,$cantidad){
+        
+        if($desde == 0)$imagenes = $this->db->get('imagenes', 8);
+        else $imagenes = $this->db->get('imagenes',$cantidad,$desde);
+        echo $this->db->last_query();
+        return $imagenes->result();
+    }
+    function cantidadimagenes(){
+        return $this->db->count_all_results('imagenes');        
+    }
+    
     function menu($padre = null, $idusuario, $tipo) {
 
 //        echo $padre."****";die;

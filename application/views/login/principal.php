@@ -78,76 +78,76 @@
         </div>
     </div>
 </div><br>
-<div class="row">
-    <div class="large-12 columns">
-        <div class="row">
-            <div class="large-3 small-6 columns">
-                <img src="http://placehold.it/250x250&text=Thumbnail"/>
-                <h6 class="panel">Description</h6>
-            </div>
-            <div class="large-3 small-6 columns">
-                <img src="http://placehold.it/250x250&text=Thumbnail"/>
-                <h6 class="panel">Description</h6>
-            </div>
-            <div class="large-3 small-6 columns">
-                <img src="http://placehold.it/250x250&text=Thumbnail"/>
-                <h6 class="panel">Description</h6>
-            </div>
-            <div class="large-3 small-6 columns">
-                <img src="http://placehold.it/250x250&text=Thumbnail"/>
-                <h6 class="panel">Description</h6>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="row">
-    <div class="large-12 columns">
-        <div class="row">
-            <div class="large-8 columns">
-                <div class="panel radius">
-                    <div class="row">
-                        <div class="large-6 small-6 columns">
-                            <h4>Header</h4><hr/>
-                            <h5 class="subheader">Risus ligula, aliquam nec fermentum vitae, sollicitudin eget urna. Donec dignissim nibh fermentum odio ornare sagittis.
-                            </h5>
-                            <div class="show-for-small" align="center">
-                                <a href="#" class="small radius button">Call To Action!</a><br>
 
-                                <a href="#" class="small radius button">Call To Action!</a>
-                            </div>
-                        </div>
-                        <div class="large-6 small-6 columns">
-                            <p>Suspendisse ultrices ornare tempor. Aenean eget ultricies libero. Phasellus non ipsum eros. Vivamus at dignissim massa. Aenean dolor libero, blandit quis interdum et, malesuada nec ligula. Nullam erat erat, eleifend sed pulvinar ac. Suspendisse ultrices ornare tempor. Aenean eget ultricies libero.
-                            </p>
-                        </div>
-                    </div>
+<?php
+$i = 4;
+$h = 1;
+$g = 0;
+$contador = count($imagenes);
+//
+//echo "<pre>";
+//var_dump($imagenes);die;
+//
+//echo $contador;die;
+
+
+foreach ($imagenes as $img) {
+
+    if ($i == 4) {
+        ?>
+
+        <div class="row">
+            <div class="large-12 columns">
+                <div class="row">
+                <?php } ?>    
+                <div class="large-3 small-6 columns">
+                    <img src="http://placehold.it/250x250&text=Thumbnail"/>
+                    <h6 class="panel"><?php echo $g."***".$contador; ?></h6>
+                </div>
+                <?php if ($h == 4 || $contador == $g+1) { ?>        
                 </div>
             </div>
-            <div class="large-4 columns hide-for-small">
-                <h4>Get In Touch!</h4><hr/>
-                <a class="large button expand" href="#">
-                    Call To Action!
-                </a>
-                <a class="large button expand" href="#">
-                    Call To Action!
-                </a>
-            </div>
-        </div>
-    </div>
+        </div>  
+        <?php
+        $i = 4;
+        $h = 0;
+    } else {
+        $i = 0;
+    }
+    $h++;
+    $g++;
+}
+?>
+<div class="row">
+    <center>
+        <form method="post" id="f1">
+        <ul class="pagination"> 
+            <li class="arrow unavailable">
+            <a href="">&laquo;</a></li> 
+            <?php for($i = 0; $i < $numeracion;$i++){ 
+                if($i+1 == $numero)  $class = "class='current'";
+                else $class = '';
+                ?>
+            <li <?php echo $class ?>><a href="javascript:"><?php echo $i+1; ?></a></li> 
+            <?php } ?>
+            <li class="arrow"><a href="">&raquo;</a></li> 
+        </ul>
+        </form>    
+    </center>
 </div>
 <footer class="row">
     <div class="large-12 columns">
         <hr>
         <div class="row">
             <div class="large-6 columns">
-                <p>© Copyright no one at all. Go to town.</p>
+                <p>© Copyright NYGSOFT.COM 2015-2020</p>
             </div>
             <div class="large-6 columns">
                 <ul class="inline-list right">
-                    <li><a href="#">Link 1</a></li>
-                    <li><a href="#">Link 2</a></li>
-                    <li><a href="#">Link 3</a></li>
-                    <li><a href="#">Link 4</a></li>
+                    <li><a href="javascript:">Link 1</a></li>
+                    <li><a href="javascript:">Link 2222222</a></li>
+                    <li><a >Link 3</a></li>
+                    <li><a >Link 4</a></li>
                 </ul>
             </div>
         </div>
@@ -160,9 +160,9 @@
     <div id="firstModal"  data-reveal aria-labelledby="firstModalTitle" aria-hidden="true" role="dialog"> 
         <h2 id="firstModalTitle">INICIO SESION</h2> 
         <form method="post" action="<?php echo base_url('index.php/login/verify') ?>">
-        <label>CORREO</label><input type="text" name="username">
-        <label>CONTRASEÑA</label><input type="password" name="password">
-        <input type="submit" class="button radius success" value="INGRESAR">
+            <label>CORREO</label><input type="text" name="username">
+            <label>CONTRASEÑA</label><input type="password" name="password">
+            <input type="submit" class="button radius success" value="INGRESAR">
         </form>
     </div> 
     <a class="close-reveal-modal" aria-label="Close">&#215;</a> 
@@ -170,4 +170,11 @@
 
 <script>
     $(document).foundation();
+    
+    $('li').click(function(){
+        var numeracion = $(this).text();
+        $('#f1').append('<input type="hidden" value="'+numeracion+'" name="numeracion">');
+        $('#f1').submit();
+    });
+    
 </script>

@@ -8,7 +8,7 @@ class Ingreso_model extends CI_Model {
     
     function imagenesprincipales($desde,$cantidad){
         
-        $this->db->select('imagenes_encabezado.imgEnc_id,imagenes_encabezado.id_emp,imagenes_detalle.imgDet_nombre');
+        $this->db->select('imagenes_encabezado.imgEnc_nombre,imagenes_encabezado.imgEnc_id,imagenes_encabezado.id_emp,imagenes_detalle.imgDet_nombre');
         $this->db->where('imagenes_detalle.imgdet_padre',1);
         $this->db->join('imagenes_detalle','imagenes_detalle.imgEnc_id = imagenes_encabezado.imgEnc_id');
         

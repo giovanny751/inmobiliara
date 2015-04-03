@@ -97,7 +97,7 @@ foreach ($imagenes as $img) {
                 <?php } ?>    
                     <div class="large-3 small-6 columns" >
                         <img class="imagenes" img_id="<?php echo $img->imgEnc_id; ?>" style="cursor: pointer" src="<?php echo base_url('uploads'."/".$img->id_emp."/".$img->imgDet_nombre); ?>"/>
-                    <h6 class="panel"><?php echo $g."***".$contador; ?></h6>
+                    <center><h6 class="panel"><?php echo $img->imgEnc_nombre ?></h6></center>
                     </div>
                 <?php if ($h == 4 || $contador == $g+1) { ?>        
                 </div>

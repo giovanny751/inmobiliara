@@ -6,7 +6,12 @@ class Empresa_model extends CI_Model {
         parent::__construct();
     }
 
-    //datos de empresa
+    function empresas(){
+        
+        $empresa = $this->db->get('empresa');
+        return $empresa->result();
+    }
+    
     function guardaactualizacionempresa($data) {
         $this->db->update('empresa', $data);
     }

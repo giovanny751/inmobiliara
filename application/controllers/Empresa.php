@@ -34,7 +34,7 @@ class Empresa extends My_Controller {
     }
 
     function imagenesempresa() {
-        $id = $this->data['user']['id_usuario'];
+        $id = $this->data['user']['user_id'];
         $this->data['datos'] = $this->Empresa_model->datosempresa($id);
         $this->layout->view('empresa/imagenesempresa', $this->data);
     }
@@ -42,7 +42,7 @@ class Empresa extends My_Controller {
     function doUploadFile() {
         $this->data['post'] = $this->input->get();
         $post = $this->data['post'];
-        $id_user = $this->data['user']['id_usuario'];
+        $id_user = $this->data['user']['user_id'];
         $id=$post['imagen'];
         if ($post['imagen'] > 0) {
             $this->Empresa_model->update_imagen_general($post, $id_user);
@@ -51,7 +51,7 @@ class Empresa extends My_Controller {
         }
 
         define("RUTA_INI", "./uploads");
-        $user = $this->data['user']['id_usuario'];
+        $user = $this->data['user']['user_id'];
         if (!is_dir(RUTA_INI . '/' . $user)) {
             @mkdir(RUTA_INI . '/' . $user, 0777);
         }
@@ -78,11 +78,15 @@ class Empresa extends My_Controller {
             }
             @unlink($_FILES[$file_element_name]);
         }
-        $this->Empresa_model->insert_imagen_secundatia($data['file_name'],$id, $id_user,$id);
+        $this->Empresa_model->insert_imagen_secundatia($data['file_name'],$id);
 //        $file = fopen("1.txt", "r") or exit("Unable to open file!");
         $tabla = "";
         echo $json_encode = json_encode(array('message' => $data['file_name'], 'ruta' =>  $user. '/' . $data['file_name'],'id'=>$id));
 //        echo $json_encode = json_encode(array('message' => 'dd', 'ruta' => '999'));
+    }
+    function img_principal(){
+        $this->data['post'] = $this->input->post();
+        $this->Empresa_model->img_principal($this->data['post']);
     }
 
 }

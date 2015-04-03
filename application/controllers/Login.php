@@ -41,8 +41,7 @@ class Login extends My_Controller {
     }
     function producto(){
         
-//        $id = $this->input->post('imagen');
-        $id = 1;
+        $id = $this->input->post('img');
         $this->data['datos'] = $this->Ingreso_model->imagenseleccionada($id);  
         
         $this->load->view('login/producto',$this->data);

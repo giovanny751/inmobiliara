@@ -8,22 +8,23 @@ class Ingreso_model extends CI_Model {
     
     function imagenesprincipales($desde,$cantidad){
         
+        $this->db->select('imagenes_encabezado.imgEnc_id,imagenes_encabezado.id_emp,imagenes_detalle.imgDet_nombre');
         $this->db->where('imagenes_detalle.imgdet_padre',1);
-        $this->db->join('imagenes_detalle','imagenes_detalle.imgEnc_id = imagenes_enabezado.imgEnc_id');
+        $this->db->join('imagenes_detalle','imagenes_detalle.imgEnc_id = imagenes_encabezado.imgEnc_id');
         
-        if($desde == 0)$imagenes = $this->db->get('imagenes_enabezado', $cantidad);
-        else $imagenes = $this->db->get('imagenes_enabezado',$cantidad,$desde);
+        if($desde == 0)$imagenes = $this->db->get('imagenes_encabezado', $cantidad);
+        else $imagenes = $this->db->get('imagenes_encabezado',$cantidad,$desde);
         return $imagenes->result();
     }
     function cantidadimagenes(){
         $this->db->where('imagenes_detalle.imgdet_padre',1);
-        $this->db->join('imagenes_detalle','imagenes_detalle.imgEnc_id = imagenes_enabezado.imgEnc_id');
-        return $this->db->count_all_results('imagenes_enabezado');        
+        $this->db->join('imagenes_detalle','imagenes_detalle.imgEnc_id = imagenes_encabezado.imgEnc_id');
+        return $this->db->count_all_results('imagenes_encabezado');        
     }
     function imagenseleccionada($id){
-        $this->db->where('img_id',$id);
-        $this->db->join('imagenes_detalle','imagenes_detalle.imgEnc_id = imagenes_enabezado.imgEnc_id');
-        $img = $this->db->get('imagenes_enabezado');   
+        $this->db->where('imagenes_encabezado.imgEnc_id',$id);
+        $this->db->join('imagenes_detalle','imagenes_detalle.imgEnc_id = imagenes_encabezado.imgEnc_id');
+        $img = $this->db->get('imagenes_encabezado');   
         return $img->result();
     }
     

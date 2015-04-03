@@ -96,7 +96,7 @@ foreach ($imagenes as $img) {
                 <div class="row">
                 <?php } ?>    
                     <div class="large-3 small-6 columns" >
-                        <img class="imagenes" style="cursor: pointer" src="<?php echo base_url('uploads'."/".$img->id_emp."/".$img->imgDet_nombre); ?>"/>
+                        <img class="imagenes" img_id="<?php echo $img->imgEnc_id; ?>" style="cursor: pointer" src="<?php echo base_url('uploads'."/".$img->id_emp."/".$img->imgDet_nombre); ?>"/>
                     <h6 class="panel"><?php echo $g."***".$contador; ?></h6>
                     </div>
                 <?php if ($h == 4 || $contador == $g+1) { ?>        
@@ -165,8 +165,9 @@ foreach ($imagenes as $img) {
 <script>
     
     $('.imagenes').click(function(){
+        var id = $(this).attr('img_id');
         var form = "<form method='post' action='<?php echo base_url('index.php/login/producto'); ?>' id='producto'>";
-            form += "<input type='hidden' value='2' name='img'>";
+            form += "<input type='hidden' value='"+id+"' name='img'>";
             form += "</form>";
             
          $('body').append(form);

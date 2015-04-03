@@ -2,7 +2,7 @@
 <div class="row">
     <?php
 //    print_y($datos);
-    $cantidad = $datos[0]->emp_max_img = 3;
+    $cantidad = $datos[0]->emp_max_img;
     if ($cantidad >= 4) {
         $colum = 3;
     } else {
@@ -21,7 +21,9 @@
     }
     ?>
 </div>
-<input type="text" name="imagen" id="imagen" value="0">
+<input type="hidden" name="imagen" id="imagen" value="0">
+<input type="hidden" name="numero" id="numero" value="0">
+<div id="form">
 <div class="row" >
     <form action="" method="post" id="uploadFile">
 
@@ -37,6 +39,7 @@
         </div>
 
     </form> 
+</div>
 </div>
 <script>
     $('#uploadFile').submit(function(e) {
@@ -61,10 +64,21 @@
             data: {id: id},
             success: function(data) {
                 console.log(data);
+                console.log(data.id);
+                $('#imagen').val(data.id);
+                var numero=$('#numero').val();
+                var num=parseInt(numero)+1;
+                $('#numero').val(num);
+                var ruta="<?php echo base_url('uploads')?>/"+data.ruta
+                $('#num'+numero).attr('src',ruta)
 //                jQuery(".preload, .load").hide();
 //                $('#archivo').html(data.message + "     <button class='btn' onclick='eliminar()'><i class='fa fa-trash-o'></i></button>");
 //                $('#archivos_nuevos').val(data.ruta);
 //                $('#userFile').val('');
+                var cantidad_maxima=<?php echo $datos[0]->emp_max_img  ?>;
+                if(cantidad_maxima==num){
+                    $('#form').html('');
+                }
             },
             error: function(data) {
                 alert("El archivo no se ha podido cargar, el formato puede no ser valido");
@@ -76,3 +90,9 @@
         //                    return false;
     });
 </script>
+<style>
+    img{
+        width: 250px;
+        height: 250px
+    }
+</style>

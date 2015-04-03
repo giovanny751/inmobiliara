@@ -81,7 +81,7 @@ class Empresa extends My_Controller {
         $this->Empresa_model->insert_imagen_secundatia($data['file_name'],$id, $id_user,$id);
 //        $file = fopen("1.txt", "r") or exit("Unable to open file!");
         $tabla = "";
-        echo $json_encode = json_encode(array('message' => $data['file_name'], 'ruta' => RUTA_INI . '/' . $data['file_name']));
+        echo $json_encode = json_encode(array('message' => $data['file_name'], 'ruta' =>  $user. '/' . $data['file_name'],'id'=>$id));
 //        echo $json_encode = json_encode(array('message' => 'dd', 'ruta' => '999'));
     }
 

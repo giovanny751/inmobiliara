@@ -43,12 +43,7 @@ class Empresa extends My_Controller {
         $this->data['post'] = $this->input->get();
         $post = $this->data['post'];
         $id_user = $this->data['user']['user_id'];
-        $id=$post['imagen'];
-        if ($post['imagen'] > 0) {
-            $this->Empresa_model->update_imagen_general($post, $id_user);
-        } else {
-            $id = $this->Empresa_model->guarda_imagen_general($post, $id_user);
-        }
+        
 
         define("RUTA_INI", "./uploads");
         $user = $this->data['user']['user_id'];
@@ -77,6 +72,12 @@ class Empresa extends My_Controller {
                 $data = $this->upload->data();
             }
             @unlink($_FILES[$file_element_name]);
+        }
+        $id=$post['imagen'];
+        if ($post['imagen'] > 0) {
+            $this->Empresa_model->update_imagen_general($post, $id_user);
+        } else {
+            $id = $this->Empresa_model->guarda_imagen_general($post, $id_user);
         }
         $this->Empresa_model->insert_imagen_secundatia($data['file_name'],$id);
 //        $file = fopen("1.txt", "r") or exit("Unable to open file!");

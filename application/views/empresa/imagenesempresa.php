@@ -35,8 +35,8 @@
     ?>
         <div class="large-<?php echo $colum; ?> columns">
             <div class="large-12 columns" style="z-index: 500">
-                <div  class="large-6 columns" style="background: red;"  id="eliminar<?php echo $i ?>"><a style="display: "  onclick="eliminar('<?php echo $i; ?>')" >Eliminar</a></div>
-                <div  class="large-6 columns" style="background: blue;" id="principal<?php echo $i ?>"><a style="display: "  onclick="principal('<?php echo $i; ?>')">Principal</a></div>
+                <div  class="large-6 columns" style="background: red;"  id="eliminar<?php echo $i ?>" align="center" ><a style="display: "  onclick="eliminar('<?php echo $i; ?>')" >Eliminar</a></div>
+                <div  class="large-6 columns" style="background: blue;" ok='ok' id="principal<?php echo $i ?>" align="center" ><a style="display: "  onclick="principal('<?php echo $i; ?>')">Principal</a></div>
             </div>
             <div  class="large-12 columns" >
                 <img ok="ok" width="100%" height="100%" id="num<?php echo $i; ?>" src="http://placehold.it/250x250&amp;text=Imagen">
@@ -50,19 +50,20 @@
     }
     ?>
 </div>
+
 <input type="hidden" name="imagen" id="imagen" value="0">
 <script>
+    cantidad_maxima =<?php echo $datos[0]->emp_max_img ?>;
     $('#uploadFile').submit(function(e) {
         e.preventDefault();
         var id = "1";
         var name = $('#userFile').val();
-        var i=0;
-        var cantidad_maxima =<?php echo $datos[0]->emp_max_img ?>;
-        for(i=0;i<cantidad_maxima;i++){
-            var numero=$('#num'+i).attr('ok');
-            if(numero=="ok"){
-                numero=i;
-                i=cantidad_maxima;
+        var i = 0;
+        for (i = 0; i < cantidad_maxima; i++) {
+            var numero = $('#num' + i).attr('ok');
+            if (numero == "ok") {
+                numero = i;
+                i = cantidad_maxima;
             }
             console.log(imagen);
         }
@@ -84,12 +85,8 @@
             dataType: 'json',
             data: {id: id},
             success: function(data) {
-                console.log(data);
-                console.log(data.id);
+                jQuery(".preload, .load").hide();
                 $('#imagen').val(data.id);
-//                var numero = $('#numero').val();
-//                var num = parseInt(numero) + 1;
-//                $('#numero').val(num);
                 var ruta = "<?php echo base_url('uploads') ?>/" + data.ruta
                 $('#num' + numero).attr('src', ruta);
                 $('#num' + numero).attr('ok', 'ya');
@@ -101,17 +98,10 @@
                 if (numero == 0) {
                     principal(numero);
                 }
-//                jQuery(".preload, .load").hide();
-//                $('#archivo').html(data.message + "     <button class='btn' onclick='eliminar()'><i class='fa fa-trash-o'></i></button>");
-//                $('#archivos_nuevos').val(data.ruta);
-//                $('#userFile').val('');
-//                var cantidad_maxima =<?php echo $datos[0]->emp_max_img ?>;
-//                if (cantidad_maxima == num) {
-//                    $('#form').hide();
-//                }
+                
             },
             error: function(data) {
-                alert("El archivo no se ha podido cargar, el formato puede no ser valido");
+                alertas(0, 'El archivo no se ha podido cargar, el formato puede no ser valido');
                 jQuery(".preload, .load").hide();
             }
         });
@@ -123,32 +113,54 @@
         var nombre = $('#num' + numero).attr('nombre')
         var id = $('#imagen').val()
         var url = "<?php echo base_url('index.php/Empresa/img_principal'); ?>"
-        $.post(url, {id: id, nombre: nombre,accion:'update'})
+        jQuery(".preload, .load").show();
+        $.post(url, {id: id, nombre: nombre, accion: 'update'})
                 .done(function() {
-                    $('#principal' + numero).attr('style', 'background:green')
+                    var i = 0;
+                    for (i = 0; i <= cantidad_maxima; i++) {
+                        var si = $('#principal' + i).attr('ok');
+                        if (si == 'ya') {
+                            $('#principal' + i).attr('style', 'background:blue');
+                        }
+                    }
+                    $('#principal' + numero).attr('style', 'background:green');
+                    $('#principal' + numero).attr('ok', 'ya');
+                    jQuery(".preload, .load").hide();
                 }).fail(function() {
-            alert('Error de base de datos');
+                    jQuery(".preload, .load").hide();
+            alertas(0, 'Error de base de datos');
         })
     }
     function eliminar(numero) {
         var nombre = $('#num' + numero).attr('nombre')
         var id = $('#imagen').val()
-        
-        $('#num'+numero).attr('ok','ok');
-        $('#num'+numero).attr('src','http://placehold.it/250x250&text=Imagen');
-        $('#eliminar'+numero).hide()
-        $('#principal'+numero).hide()
 
+        $('#num' + numero).attr('ok', 'ok');
+        var prin = $('#principal' + numero).attr('ok');
+        if (prin == 'ya') {
+            var color = "verde";
+            alertas(0, 'Imagen principal no puede ser eliminada');
+            return false;
+        }
+
+        $('#num' + numero).attr('src', 'http://placehold.it/250x250&text=Imagen');
+        $('#eliminar' + numero).hide()
+        $('#principal' + numero).hide()
+        jQuery(".preload, .load").show();
         var url = "<?php echo base_url('index.php/Empresa/img_principal'); ?>"
-        $.post(url, {id: id, nombre: nombre,accion:'delete'})
+        $.post(url, {id: id, nombre: nombre, accion: 'delete'})
                 .done(function() {
+                    jQuery(".preload, .load").hide();
 //                    $('#principal' + numero).attr('style', 'background:green')
                 }).fail(function() {
-            alert('Error de base de datos');
+                    jQuery(".preload, .load").hide();
+            alertas('rojo', 'Error de base de datos');
+            
         })
     }
-
+    
 </script>
+
 <style>
     /*    img{
             width: 250px;

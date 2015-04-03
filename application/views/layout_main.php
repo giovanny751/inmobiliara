@@ -19,23 +19,22 @@ function modulos($datosmodulos, $idusuario, $dato = null, $papito = null) {
     foreach ($menu as $modulo)
         $i[$modulo['menu_id']][$modulo['menu_nombrepadre']][$modulo['menu_idpadre']] [] = array($modulo['menu_idhijo'], $modulo['menu_controlador'], $modulo['menu_accion']);
 
-    if ($datosmodulos == 'prueba'){
-    echo "<ul class='off-canvas-list'>";}
-    else
-    {
+    if ($datosmodulos == 'prueba') {
+        echo "<ul class='off-canvas-list'>";
+    } else {
         echo "<ul class='left-submenu'>";
         echo "<li class='back'><a href='#'>Atras</a></li>";
-        echo "<li><label>".$papito."</label></li>";
+        echo "<li><label>" . $papito . "</label></li>";
     }
     foreach ($i as $padre => $nombrepapa):
 //            
         foreach ($nombrepapa as $nombrepapa => $menuidpadre):
             foreach ($menuidpadre as $modulos => $menu):
-                    
+
                 foreach ($menu as $submenus):
                     if ($submenus[1] == "" && $submenus[2] == "") {
-                        
-                        echo "<li class='has-submenu'><a href='#'>" . strtoupper($nombrepapa). "</a>";
+
+                        echo "<li class='has-submenu'><a href='#'>" . strtoupper($nombrepapa) . "</a>";
 //                        
                     } else {
                         echo "<li><a href='" . base_url("index.php/" . $submenus[1] . "/" . $submenus[2]) . "'>" . strtoupper($nombrepapa) . "</a>";
@@ -50,7 +49,6 @@ function modulos($datosmodulos, $idusuario, $dato = null, $papito = null) {
     endforeach;
     echo "</ul>";
 }
-
 ?>
 
 <div class="off-canvas-wrap" data-offcanvas> 
@@ -60,18 +58,29 @@ function modulos($datosmodulos, $idusuario, $dato = null, $papito = null) {
             <section class="right tab-bar-section" style="cursor:pointer"><h5 class="title"><a href="<?php echo base_url('index.php/login/logout') ?>">Cerrar Sesion</a></h5></section>
         </nav> 
         <aside class="left-off-canvas-menu"> 
-            <?php  echo modulos('prueba', $id); ?>
+<?php echo modulos('prueba', $id); ?>
         </aside> 
         <section class="main-section panel" style="height: 100%">
-            <?php echo $content_for_layout ?>
+<?php echo $content_for_layout ?>
+            <div id="alerta" >
+                <div  class="large-12 columns"   align='right' style="position: fixed">
+                    <div  class="large-3 columns"></div>
+                    <div  class="large-3 columns">
+                        <div id="color_alert" data-alert class="alert-box success radius">
+                            <div id="texto_alert"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section> 
     </div> 
 </div>
 <div class="preload">
     <img class="load" src="<?php echo base_url('img/blanco.jpg') ?>" width="128" height="128" />
 </div>
+
 <style>
-       div.preload{
+    div.preload{
         position: fixed;
         width: 100%;
         height: 100%;
@@ -92,7 +101,35 @@ function modulos($datosmodulos, $idusuario, $dato = null, $papito = null) {
     }
 </style>
 <script>
+    $('#alerta').hide();
+    function alertas(color, texto) {
+        
+        switch (color) {
+            case 'rojo':
+                $('#color_alert').attr('class', 'alert-box alert radius')
+                break;
+            case 'naranja':
+                $('#color_alert').attr('class', 'alert-box warning radius')
+                break;
+            case 'verde':
+                $('#color_alert').attr('class', 'alert-box success radius')
+                break;
+            case 'azul':
+                $('#color_alert').attr('class', 'alert-box info radius')
+                break;
+            default :
+                $('#color_alert').attr('class', 'alert-box success radius')
+        }
+        $('#texto_alert').html(texto);
+        $('#alerta').show();
+        setTimeout(
+                function()
+                {
+                    $('#alerta').hide();
+                }, 5000);       
+    }
     $(document).foundation();
     
-     $(".preload, .load").hide();
+    $(".preload, .load").hide();
+
 </script>

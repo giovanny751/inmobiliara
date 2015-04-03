@@ -16,7 +16,7 @@
                     <tr>
                         <td><?php echo $datos['rol_nombre']; ?></td>
                         <td><?php echo $datos['rol_estado']; ?></td>
-                        <td align="center"><button type="button" rol="<?php echo $datos['rol_id']; ?>"  data-toggle="modal" data-target="#myModal"  class="button radius modificar">Opciones</button></td>
+                        <td align="center"><button  data-reveal-id="firstModal2" type="button" rol="<?php echo $datos['rol_id']; ?>"  data-toggle="modal" data-target="#myModal"  class="button radius modificar">Opciones</button></td>
                         <td align="center"><button type="button" rol="<?php echo $datos['rol_id']; ?>" class="button alert radius eliminar">Eliminar</button></td>
                     </tr>
                 <?php } ?>

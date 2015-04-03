@@ -11,6 +11,7 @@ class Login extends My_Controller {
         $this->load->helper('security');
         $this->load->helper('miscellaneous');
         $this->load->model('Ingreso_model');
+        $this->load->model('administracion_model');
         //$this->load->library('My_PHPMailer');
     }
 
@@ -22,8 +23,7 @@ class Login extends My_Controller {
 //        } else {
 //            $this->load->view('login/principal');
 //        }
-        
-        $cantidad = 16;
+        $cantidad = $this->administracion_model->consultacantidad();
         $numeracion = $this->input->post('numeracion');
         if(!empty($numeracion))
         {
@@ -33,6 +33,7 @@ class Login extends My_Controller {
             $numeracion = 1;
         }
        
+              
         $this->data['cantidad'] = $this->Ingreso_model->cantidadimagenes();        
         $this->data['numeracion'] = ceil($this->data['cantidad']/$cantidad);
         $this->data['numero'] =  $numeracion;

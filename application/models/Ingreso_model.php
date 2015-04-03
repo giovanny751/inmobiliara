@@ -21,6 +21,7 @@ class Ingreso_model extends CI_Model {
         $this->db->join('imagenes_detalle','imagenes_detalle.imgEnc_id = imagenes_encabezado.imgEnc_id');
         return $this->db->count_all_results('imagenes_encabezado');        
     }
+    
     function imagenseleccionada($id){
         $this->db->where('imagenes_encabezado.imgEnc_id',$id);
         $this->db->join('imagenes_detalle','imagenes_detalle.imgEnc_id = imagenes_encabezado.imgEnc_id');

@@ -12,16 +12,12 @@
 
         <li class="name">
             <h1>
-                <a href="#">
-                    Top Bar Title
-                </a>
+                <a href="#" data-reveal-id="firstModal">Iniciar sesion</a> 
             </h1>
         </li>
         <li class="toggle-topbar menu-icon"><a href="#"><span>menu</span></a></li>
     </ul>
-
     <section class="top-bar-section">
-
         <ul class="right">
             <li class="divider"></li>
             <li class="has-dropdown">
@@ -67,7 +63,17 @@
     </section>
 </nav>
 
-
+<div id="firstModal" class="reveal-modal" data-reveal aria-labelledby="firstModalTitle" aria-hidden="true" role="dialog"> 
+    <div id="firstModal"  data-reveal aria-labelledby="firstModalTitle" aria-hidden="true" role="dialog"> 
+        <h2 id="firstModalTitle">INICIO SESION</h2> 
+        <form method="post" action="<?php echo base_url('index.php/login/verify') ?>">
+            <label>CORREO</label><input type="text" name="username">
+            <label>CONTRASEÑA</label><input type="password" name="password">
+            <input type="submit" class="button radius success" value="INGRESAR">
+        </form>
+    </div> 
+    <a class="close-reveal-modal" aria-label="Close">&#215;</a> 
+</div> 
 
 
 
@@ -102,7 +108,7 @@
     <div class="large-1 small-12 columns" >
         <?php foreach ($datos as $imagenes) { ?>
             <div class="large-12 small-3 columns subimagenes" >
-                <img class="imagenes" style="max-width: 100%;max-height: 100%" src="<?php echo base_url('uploads' . "/" . $imagenes->id_emp . "/" . $imagenes->imgDet_nombre); ?>">
+                <img class="imagenes" dato  src="<?php echo base_url('uploads' . "/" . $imagenes->id_emp . "/" . $imagenes->imgDet_nombre); ?>">
             </div>
         <?php } ?>
     </div>
@@ -171,10 +177,16 @@
     </div>
 </footer>
 <script>
+    $(document).foundation();
     $('.subimagenes').mouseover(function () {
 
         var dato = $(this).html();
-        $('.imgprincipal').html(dato);
+        
+        var objeto = dato.replace('dato','style="width: 100%;height: 100%"')
+        
+//        console.log(objeto);
+        
+        $('.imgprincipal').html(objeto);
 
     });
 </script>

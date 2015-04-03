@@ -23,7 +23,7 @@ class Login extends My_Controller {
 //            $this->load->view('login/principal');
 //        }
         
-        $cantidad = 8;
+        $cantidad = 16;
         $numeracion = $this->input->post('numeracion');
         if(!empty($numeracion))
         {
@@ -38,6 +38,15 @@ class Login extends My_Controller {
         $this->data['numero'] =  $numeracion;
         $this->data['imagenes'] = $this->Ingreso_model->imagenesprincipales($desde,$cantidad);
         $this->load->view('login/principal',$this->data);
+    }
+    function producto(){
+        
+//        $id = $this->input->post('imagen');
+        $id = 1;
+        $this->data['datos'] = $this->Ingreso_model->imagenseleccionada($id);  
+        
+        $this->load->view('login/producto',$this->data);
+        
     }
 
     public function make_hash($var = 1) {

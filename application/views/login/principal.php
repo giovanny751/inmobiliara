@@ -85,12 +85,6 @@ $i = 4;
 $h = 1;
 $g = 0;
 $contador = count($imagenes);
-//
-//echo "<pre>";
-//var_dump($imagenes);die;
-//
-//echo $contador;die;
-
 
 foreach ($imagenes as $img) {
 
@@ -101,10 +95,10 @@ foreach ($imagenes as $img) {
             <div class="large-12 columns">
                 <div class="row">
                 <?php } ?>    
-                <div class="large-3 small-6 columns">
-                    <img src="http://placehold.it/250x250&text=Thumbnail"/>
+                    <div class="large-3 small-6 columns" >
+                        <img class="imagenes" style="cursor: pointer" src="<?php echo base_url('uploads'."/".$img->id_emp."/".$img->imgDet_nombre); ?>"/>
                     <h6 class="panel"><?php echo $g."***".$contador; ?></h6>
-                </div>
+                    </div>
                 <?php if ($h == 4 || $contador == $g+1) { ?>        
                 </div>
             </div>
@@ -168,8 +162,18 @@ foreach ($imagenes as $img) {
     </div> 
     <a class="close-reveal-modal" aria-label="Close">&#215;</a> 
 </div> 
-
 <script>
+    
+    $('.imagenes').click(function(){
+        var form = "<form method='post' action='<?php echo base_url('index.php/login/producto'); ?>' id='producto'>";
+            form += "<input type='hidden' value='2' name='img'>";
+            form += "</form>";
+            
+         $('body').append(form);
+         
+         $('#producto').submit();
+    });
+    
     $(document).foundation();
     
     $('.numeracion').click(function(){

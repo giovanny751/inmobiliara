@@ -8,13 +8,23 @@ class Ingreso_model extends CI_Model {
     
     function imagenesprincipales($desde,$cantidad){
         
-        if($desde == 0)$imagenes = $this->db->get('imagenes', 8);
-        else $imagenes = $this->db->get('imagenes',$cantidad,$desde);
-        echo $this->db->last_query();
+        $this->db->where('imagenes_detalle.imgdet_padre',1);
+        $this->db->join('imagenes_detalle','imagenes_detalle.imgEnc_id = imagenes_enabezado.imgEnc_id');
+        
+        if($desde == 0)$imagenes = $this->db->get('imagenes_enabezado', $cantidad);
+        else $imagenes = $this->db->get('imagenes_enabezado',$cantidad,$desde);
         return $imagenes->result();
     }
     function cantidadimagenes(){
-        return $this->db->count_all_results('imagenes');        
+        $this->db->where('imagenes_detalle.imgdet_padre',1);
+        $this->db->join('imagenes_detalle','imagenes_detalle.imgEnc_id = imagenes_enabezado.imgEnc_id');
+        return $this->db->count_all_results('imagenes_enabezado');        
+    }
+    function imagenseleccionada($id){
+        $this->db->where('img_id',$id);
+        $this->db->join('imagenes_detalle','imagenes_detalle.imgEnc_id = imagenes_enabezado.imgEnc_id');
+        $img = $this->db->get('imagenes_enabezado');   
+        return $img->result();
     }
     
     function menu($padre = null, $idusuario, $tipo) {
@@ -23,7 +33,7 @@ class Ingreso_model extends CI_Model {
 //        echo $padre."*****"."<br>";
 //        $idusuario = $idusuario->id;
         
-//        $idusuario = 1;
+//        $idusuario = 1;   
 
         if ($padre != "prueba") {
             $this->db->where('menu_idpadre', $padre);

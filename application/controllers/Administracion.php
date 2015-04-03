@@ -50,13 +50,13 @@ class Administracion extends My_Controller {
         else echo 0;
     }
     function categorias(){
-        
-        $this->layout->view('administracion/categorias');
+        $this->data['categorias'] = $this->administracion_model->categorias();
+        $this->layout->view('administracion/categorias',$this->data);
         
     }
     function guardarcategoria(){
         $categoria = $this->input->post('categoria');
-        $cantidad = $this->administracion_model->categoria($empresa);
+        $cantidad = $this->administracion_model->categoria($categoria);
         
         $categorias = $this->administracion_model->categorias();
         
@@ -68,7 +68,7 @@ class Administracion extends My_Controller {
         $categoria = $this->input->post('categoria');
         $subcategoria = $this->input->post('subcategoria');
         
-        $cantidad = $this->administracion_model->subcategoria($empresa);
+        $cantidad = $this->administracion_model->subcategoria($categoria,$subcategoria);
         
     }
 

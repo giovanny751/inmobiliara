@@ -28,6 +28,12 @@ class Ingreso_model extends CI_Model {
         $img = $this->db->get('imagenes_encabezado');   
         return $img->result();
     }
+    function productos(){
+        
+        $productos = $this->db->get('imagenes_encabezado');   
+        return $productos->result();
+        
+    }
     
     function menu($padre = null, $idusuario, $tipo) {
 

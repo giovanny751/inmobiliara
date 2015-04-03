@@ -61,7 +61,7 @@ class Presentacion extends My_Controller {
         if (!empty($idgeneral)) {
             $datos = $this->Ingreso_model->consultamenu($idgeneral);
 
-            $this->output->set_content_type('application/json')->set_output(json_encode($datos[0]));
+            $this->output->set_content_type('application/json')->set_output(json_encode($datos));
         } else {
             redirect('auth/login', 'refresh');
         }

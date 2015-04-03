@@ -43,6 +43,24 @@ class Login extends My_Controller {
         $this->data['imagenes'] = $this->Ingreso_model->imagenesprincipales($desde,$cantidad);
         $this->load->view('login/principal',$this->data);
     }
+    function autocomplete(){
+        
+        $data = array();
+        $rows = $this->Ingreso_model->productos(); 
+            foreach( $rows as $row )
+            {
+                $data[] = array(
+                    'label' => $row->imgEnc_id.', '. $row->imgEnc_nombre,
+                    'value' => $row->imgEnc_id.', '. $row->imgEnc_nombre);   // here i am taking name as value so it will display name in text field, you can change it as per your choice.
+            }
+        echo json_encode($data);
+        
+        
+        $productos = $this->Ingreso_model->productos(); 
+        
+        $this->output->set_content_type('application/json')->set_output(json_encode($productos));
+        
+    }
     function producto(){
         
         $id = $this->input->post('img');

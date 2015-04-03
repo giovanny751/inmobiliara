@@ -9,6 +9,9 @@
     <div class="large-3 columns">
         <select name="categorias" id="categorias">
             <option value="">-Seleccionar-</option>
+            <?php foreach($categorias as $cat){?>
+            <option value="<?php echo $cat->cat_id ?>"><?php echo $cat->cat_categoria?></option>
+            <?php }?>
         </select>
     </div>
     <div class="large-2 columns"><label  for="subcategoria">Sub-Categoria</label></div>
@@ -20,19 +23,24 @@
     </div>
 </div>
 <script>
-    $('#categoria').click(function () {
+    $('.categoria').click(function () {
+        $('#categorias *').remove();
         var url = "<?php echo base_url('index.php/administracion/guardarcategoria'); ?>";
         $.post(url, {categoria: $('#categoria').val()})
                 .done(function (msg) {
-
+                    var option = "<option value='-Seleccionar'>-Seleccionar-</option>";
+                    $.each(msg,function(key,val){
+                        option += "<option value='"+val.cat_id+"'>"+val.cat_categoria+"</option>";
+                    });
+                    $('#categorias').append(option);
                 })
                 .fail(function (msg) {
 
                 });
     });
-    $('#subcategoria').click(function () {
+    $('.subcategoria').click(function () {
         var url = "<?php echo base_url('index.php/administracion/guardarsubcategoria'); ?>";
-        $.post(url, {categoria: $('#categoria').val(),subcategoria:$('#subcategoria').val()})
+        $.post(url, {categoria: $('#categorias').val(),subcategoria:$('#subcategoria').val()})
                 .done(function () {
 
                 })

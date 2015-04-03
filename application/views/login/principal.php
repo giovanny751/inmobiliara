@@ -1,3 +1,4 @@
+
 <script src="<?php echo base_url('js/vendor/jquery.js') ?>"></script>
 <script src="<?php echo base_url('js/foundation/foundation.js') ?>"></script>
 <script src="<?php echo base_url('js/foundation/foundation.reveal.js') ?>"></script>
@@ -79,6 +80,21 @@
     </div>
 </div>
 <br>
+<div class="row">
+    <div class="large-9 columns right">
+        <form>
+            <div class="row collapse">
+                <div class="large-10 small-8 columns">
+                    <input type="text" id="buscarproducto" name="producto" placeholder="Buscar Producto"/>
+                </div>
+                <div class="large-2 small-4 columns">
+                    <a href="#" class="postfix button expand">Buscar</a>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>
 
 <?php
 $i = 4;
@@ -95,11 +111,11 @@ foreach ($imagenes as $img) {
             <div class="large-12 columns">
                 <div class="row">
                 <?php } ?>    
-                    <div class="large-3 small-6 columns" >
-                        <img class="imagenes" img_id="<?php echo $img->imgEnc_id; ?>" style="cursor: pointer" src="<?php echo base_url('uploads'."/".$img->id_emp."/".$img->imgDet_nombre); ?>"/>
+                <div class="large-3 small-6 columns" >
+                    <img class="imagenes" img_id="<?php echo $img->imgEnc_id; ?>" style="cursor: pointer" src="<?php echo base_url('uploads' . "/" . $img->id_emp . "/" . $img->imgDet_nombre); ?>"/>
                     <center><h6 class="panel"><?php echo $img->imgEnc_nombre ?></h6></center>
-                    </div>
-                <?php if ($h == 4 || $contador == $g+1) { ?>        
+                </div>
+                <?php if ($h == 4 || $contador == $g + 1) { ?>        
                 </div>
             </div>
         </div>  
@@ -116,17 +132,20 @@ foreach ($imagenes as $img) {
 <div class="row">
     <center>
         <form method="post" id="f1">
-        <ul class="pagination"> 
-            <li class="arrow unavailable">
-            <a href="">&laquo;</a></li> 
-            <?php for($i = 0; $i < $numeracion;$i++){ 
-                if($i+1 == $numero)  $class = "class='current'";
-                else $class = '';
-                ?>
-            <li <?php echo $class ?> class="numeracion"><a href="javascript:"><?php echo $i+1; ?></a></li> 
-            <?php } ?>
-            <li class="arrow"><a href="">&raquo;</a></li> 
-        </ul>
+            <ul class="pagination"> 
+                <li class="arrow unavailable">
+                    <a href="">&laquo;</a></li> 
+                <?php
+                for ($i = 0; $i < $numeracion; $i++) {
+                    if ($i + 1 == $numero)
+                        $class = "class='current'";
+                    else
+                        $class = '';
+                    ?>
+                    <li <?php echo $class ?> class="numeracion"><a href="javascript:"><?php echo $i + 1; ?></a></li> 
+<?php } ?>
+                <li class="arrow"><a href="">&raquo;</a></li> 
+            </ul>
         </form>    
     </center>
 </div>
@@ -162,25 +181,65 @@ foreach ($imagenes as $img) {
     </div> 
     <a class="close-reveal-modal" aria-label="Close">&#215;</a> 
 </div> 
+
 <script>
-    
-    $('.imagenes').click(function(){
+//  -----------------------------------------------------------------------------
+//                      AUTOCOMPLETAR  
+//  -----------------------------------------------------------------------------  
+//    $(function () {
+//        function log(message) {
+//            $("<div>").text(message).prependTo("#log");
+//            $("#log").scrollTop(0);
+//        }
+//        $("#buscarproducto").autocomplete({
+//            source: function (request, response) {
+//                $.ajax({
+//                    url: "<?php echo base_url('index.php/login/autocomplete') ?>",
+//                    dataType: "jsonp",
+//                    data: {
+//                        q: request.term
+//                    },
+//                    success: function (data) {
+//                        
+//                        response(data);
+//                        
+//                    }
+//                });
+//            },
+//            minLength: 3,
+//            select: function (event, ui) {
+//            
+//                log(ui.item ?
+//                        "Selected: " + ui.item.label :
+//                        "Nothing selected, input was " + this.value);
+//            },
+//            open: function () {
+//                $(this).removeClass("ui-corner-all").addClass("ui-corner-top");
+//            },
+//            close: function () {
+//                $(this).removeClass("ui-cor ner-top").addClass("ui-corner-all");
+//            }
+//        });
+//    });
+//------------------------------------------------------------------------------
+
+    $('.imagenes').click(function () {
         var id = $(this).attr('img_id');
         var form = "<form method='post' action='<?php echo base_url('index.php/login/producto'); ?>' id='producto'>";
-            form += "<input type='hidden' value='"+id+"' name='img'>";
-            form += "</form>";
-            
-         $('body').append(form);
-         
-         $('#producto').submit();
+        form += "<input type='hidden' value='" + id + "' name='img'>";
+        form += "</form>";
+
+        $('body').append(form);
+
+        $('#producto').submit();
     });
-    
+
     $(document).foundation();
-    
-    $('.numeracion').click(function(){
+
+    $('.numeracion').click(function () {
         var numeracion = $(this).text();
-        $('#f1').append('<input type="hidden" value="'+numeracion+'" name="numeracion">');
+        $('#f1').append('<input type="hidden" value="' + numeracion + '" name="numeracion">');
         $('#f1').submit();
     });
-        
+
 </script>

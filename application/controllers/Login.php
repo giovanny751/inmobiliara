@@ -24,6 +24,9 @@ class Login extends My_Controller {
 //            $this->load->view('login/principal');
 //        }
         $cantidad = $this->administracion_model->consultacantidad();
+        
+        $cantidad = $cantidad[0]->can_cantidadimgprincipal;
+        
         $numeracion = $this->input->post('numeracion');
         if(!empty($numeracion))
         {

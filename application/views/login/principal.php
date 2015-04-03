@@ -112,7 +112,7 @@ foreach ($imagenes as $img) {
                 <div class="row">
                 <?php } ?>    
                 <div class="large-3 small-6 columns" >
-                    <img class="imagenes" img_id="<?php echo $img->imgEnc_id; ?>" style="cursor: pointer" src="<?php echo base_url('uploads' . "/" . $img->id_emp . "/" . $img->imgDet_nombre); ?>"/>
+                    <img  class="imagenes" img_id="<?php echo $img->imgEnc_id; ?>" style="cursor: pointer;width: 100%;height: 27%" src="<?php echo base_url('uploads' . "/" . $img->id_emp . "/" . $img->imgDet_nombre); ?>"/>
                     <center><h6 class="panel"><?php echo $img->imgEnc_nombre ?></h6></center>
                 </div>
                 <?php if ($h == 4 || $contador == $g + 1) { ?>        

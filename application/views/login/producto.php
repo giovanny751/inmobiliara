@@ -105,7 +105,7 @@
     <hr>
     <center><h4><?php echo $datos[0]->imgEnc_nombre ?></h4></center>
     <hr>
-    <div class="large-1 small-12 columns" >
+    <div class="large-2 small-12 columns" >
         <?php foreach ($datos as $imagenes) { ?>
             <div class="large-12 small-3 columns subimagenes" >
                 <img class="imagenes" dato  src="<?php echo base_url('uploads' . "/" . $imagenes->id_emp . "/" . $imagenes->imgDet_nombre); ?>">

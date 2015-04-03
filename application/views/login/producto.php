@@ -77,11 +77,11 @@
 
 
 
-<div class="row">
-    <div class="large-3 columns">
-        <h1><img src="http://placehold.it/400x100&text=Logo"></h1>
+<div class="row" style="margin-top: 3%;">
+    <div class="large-3 small-4 columns">
+        <h1><img src="<?php echo base_url('img/blanco.jpg') ?>"></h1>
     </div>
-    <div class="large-9 columns right">
+    <div class="large-9 small-8 columns right" style="padding-top: 6%">
         <form>
             <div class="row collapse">
                 <div class="large-10 small-8 columns">
@@ -93,7 +93,6 @@
                 </div>
             </div>
         </form>
-
     </div>
 </div>
 
@@ -150,7 +149,7 @@
 <div class="row">
     <hr>
     <div class="large-12 columns">
-        <h4>You might also like:</h4>
+        <h4>PRODUCTOS</h4>
         <img src="http://placehold.it/200x150&text=[img]">
         <img src="http://placehold.it/200x150&text=[img]">
         <img src="http://placehold.it/200x150&text=[img]">

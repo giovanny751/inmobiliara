@@ -65,36 +65,38 @@
 <div class="row">
     <div class="large-12 columns">
         <ul class="example-orbit" data-orbit> 
-            <li> <img src="http://placehold.it/250x250&text=Thumbnail" /> 
-                <div class="orbit-caption"> Caption One. </div> 
+            <li> <img src="http://placehold.it/1000x250&text=NYGSOFT" /> 
+                <div class="orbit-caption"> NYGSOFT TECHNOLOGY </div> 
             </li> 
             <li class="active"> 
-                <img src="http://placehold.it/250x250&text=Thumbnail" alt="slide 2" /> 
-                <div class="orbit-caption"> Caption Two. </div> 
+                <img src="http://placehold.it/1000x250&text=NYGSOFT" alt="slide 2" /> 
+                <div class="orbit-caption">NYGSOFT TECHNOLOGY </div> 
             </li> 
             <li> 
-                <img src="http://placehold.it/250x250&text=Thumbnail" alt="slide 3" /> 
-                <div class="orbit-caption"> Caption Three. </div> 
+                <img src="http://placehold.it/1000x250&text=NYGSOFT" alt="slide 3" /> 
+                <div class="orbit-caption"> NYGSOFT TECHNOLOGY </div> 
             </li> 
         </ul>
     </div>
 </div>
-<br>
-<div class="row">
-    <div class="large-9 columns right">
+<div class="row" >
+    <div class="large-3 small-4 columns">
+        <h1><img src="<?php echo base_url('img/blanco.jpg') ?>"></h1>
+    </div>
+    <div class="large-9 small-8 columns right" style="padding-top: 6%">
         <form>
             <div class="row collapse">
                 <div class="large-10 small-8 columns">
-                    <input type="text" id="buscarproducto" name="producto" placeholder="Buscar Producto"/>
+                    <input type="text" placeholder="Buscar Producto"/>
                 </div>
                 <div class="large-2 small-4 columns">
                     <a href="#" class="postfix button expand">Buscar</a>
                 </div>
             </div>
         </form>
-
     </div>
 </div>
+
 
 <?php
 $i = 4;
@@ -112,7 +114,7 @@ foreach ($imagenes as $img) {
                 <div class="row">
                 <?php } ?>    
                 <div class="large-3 small-6 columns" >
-                    <img  class="imagenes" img_id="<?php echo $img->imgEnc_id; ?>" style="cursor: pointer;width: 100%;height: 27%" src="<?php echo base_url('uploads' . "/" . $img->id_emp . "/" . $img->imgDet_nombre); ?>"/>
+                    <img  onerror="this.onerror=null;this.src='http://placehold.it/250x250&text=NYGSOFT';" class="imagenes" img_id="<?php echo $img->imgEnc_id; ?>" style="cursor: pointer;width: 100%;height: 22%" src="<?php echo base_url('uploads' . "/" . $img->id_emp . "/" . $img->imgDet_nombre); ?>"/>
                     <center><h6 class="panel"><?php echo $img->imgEnc_nombre ?></h6></center>
                 </div>
                 <?php if ($h == 4 || $contador == $g + 1) { ?>        

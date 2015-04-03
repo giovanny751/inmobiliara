@@ -67,7 +67,32 @@ function modulos($datosmodulos, $idusuario, $dato = null, $papito = null) {
         </section> 
     </div> 
 </div>
+<div class="preload">
+    <img class="load" src="<?php echo base_url('img/blanco.jpg') ?>" width="128" height="128" />
+</div>
+<style>
+       div.preload{
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        background-color: white;
+        opacity: 0.8;
+        z-index: 10000;
+    }
 
+    div img.load{
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        margin-left: -64px;
+        margin-top: -64px;
+        z-index: 15000;
+    }
+</style>
 <script>
     $(document).foundation();
+    
+     $(".preload, .load").hide();
 </script>

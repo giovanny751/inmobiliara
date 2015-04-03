@@ -70,14 +70,15 @@
     $('#empresa').change(function(){
         
         var url = "<?php echo base_url('index.php/administracion/candidaempresa'); ?>";
-        
+        $(".preload, .load").show();
         var idempresa = $(this).val();
         $.post(url,{idempresa:idempresa})
                 .done(function(msg){
                     $('#cantidaddesubir').val(msg);
+                    $(".preload, .load").hide();
                 })
                 .fail(function(msg){
-                    
+                    $(".preload, .load").hide();
                 });
     });
 </script>

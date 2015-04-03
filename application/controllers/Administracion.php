@@ -49,6 +49,28 @@ class Administracion extends My_Controller {
         if(!empty($cantidad[0]->emp_max_img)) echo $cantidad[0]->emp_max_img;
         else echo 0;
     }
+    function categorias(){
+        
+        $this->layout->view('administracion/categorias');
+        
+    }
+    function guardarcategoria(){
+        $categoria = $this->input->post('categoria');
+        $cantidad = $this->administracion_model->categoria($empresa);
+        
+        $categorias = $this->administracion_model->categorias();
+        
+        $this->output->set_content_type('application/json')->set_output(json_encode($categorias));
+        
+    }
+    function guardarsubcategoria(){
+        
+        $categoria = $this->input->post('categoria');
+        $subcategoria = $this->input->post('subcategoria');
+        
+        $cantidad = $this->administracion_model->subcategoria($empresa);
+        
+    }
 
 }
 

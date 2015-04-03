@@ -36,5 +36,22 @@ class administracion_model extends CI_Model {
         return $cantidad->result();
         
     }
-    
+    function categoria($categoria){
+        
+        $this->db->set('cat_categoria',$categoria);
+        $this->db->insert('categoria');
+        
+    }
+    function subcategoria($categoria,$subcategoria){
+        
+        $this->db->set('cat_id',$categoria);
+        $this->db->set('sub_subcategoria',$subcategoria);
+        $this->db->insert('subcategoria');
+        
+    }
+    function categorias(){
+        
+        $categoria = $this->db->get('categoria');
+        return $categoria->result();
+    }
 }

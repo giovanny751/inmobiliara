@@ -40,21 +40,26 @@ class Empresa_model extends CI_Model {
         $last_id = $this->db->insert_id();
         return $last_id;
     }
-    function insert_imagen_secundatia($nombre,$id){
-        $this->db->set('imgEnc_id',$id);
-        $this->db->set('imgDet_nombre',$nombre);
+
+    function insert_imagen_secundatia($nombre, $id) {
+        $this->db->set('imgEnc_id', $id);
+        $this->db->set('imgDet_nombre', $nombre);
         $this->db->insert('imagenes_detalle');
     }
-    function img_principal($post){
+
+    function img_principal($post) {
         //pasar todos en 0 
-        $this->db->where('imgEnc_id',$post['id']);
-        $this->db->set('imgDet_padre','0');
-        $this->db->update('imagenes_detalle');
+        if ($post['accion'] == 'update') {
+            $this->db->where('imgEnc_id', $post['id']);
+            $this->db->set('imgDet_padre', '0');
+            $this->db->update('imagenes_detalle');
+        }
+
         // colocar uno como principal
-        $this->db->where('imgDet_nombre',$post['nombre']);
-        $this->db->where('imgEnc_id',$post['id']);
-        $this->db->set('imgDet_padre','1');
-        $this->db->update('imagenes_detalle');
+        $this->db->where('imgDet_nombre', $post['nombre']);
+        $this->db->where('imgEnc_id', $post['id']);
+        $this->db->set('imgDet_padre', '1');
+        $this->db->$post['accion']('imagenes_detalle');
     }
 
 }

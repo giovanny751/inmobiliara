@@ -1,3 +1,26 @@
+<?php
+if (isset($listado[0][0]->imgDet_nombre)) {
+    $imgEnc_id = $listado[0][0]->imgEnc_id;
+    $nombre_form= $listado[0][0]->imgEnc_nombre;
+    $categoria = $listado[0][0]->cat_categoria;
+    $subcategoria_id = $listado[0][0]->sub_id;
+    $subcategoria = $listado[0][0]->sub_subcategoria;
+    $desc_corta = $listado[0][0]->imgEnc_descripcion_corta;
+    $desc_larga = $listado[0][0]->imgEnc_descripcion_larga;
+    $sub = "<option value='" . $subcategoria_id . "'>" . $subcategoria . "</option>";
+} else {
+    $imgEnc_id = 0;
+    $nombre_form = "";
+    $categoria = "";
+    $subcategoria_id = "";
+    $subcategoria = "";
+    $desc_corta = "";
+    $desc_larga = "";
+    $sub = "<option value=''></option>";
+}
+?>
+
+
 <div class="row" >
     <div id="form">
         <form action="" method="post" id="uploadFile">
@@ -21,7 +44,7 @@
 <p>
 <div class="row">
     <?php
-//    print_y($datos);
+//    print_y($listado);
     $cantidad = $datos[0]->emp_max_img;
     if ($cantidad >= 4) {
         $colum = 3;
@@ -29,24 +52,50 @@
         $colum = 12 / $cantidad;
     }
     for ($i = 0; $i < $cantidad; $i++) {
+//        echo $listado[0][$i]->imgDet_nombre;
         if (($i % 4) == 0) {
             ?></div></p><?php
             ?><p><div class="row"><?php
+    }
+    if (isset($listado[0][$i]->imgDet_padre)) {
+        if ($listado[0][$i]->imgDet_padre == '1') {
+            $color = "green";
+            $acti="ya";
+        } else {
+            $color = "blue";
+            $acti="ok";
+        }
+    } else {
+        $color = "blue";
+        $acti="ok";
     }
     ?>
         <div class="large-<?php echo $colum; ?> columns">
             <div class="large-12 columns" style="z-index: 500">
                 <div  class="large-6 columns" style="background: red;"  id="eliminar<?php echo $i ?>" align="center" ><a style="display: "  onclick="eliminar('<?php echo $i; ?>')" >Eliminar</a></div>
-                <div  class="large-6 columns" style="background: blue;" ok='ok' id="principal<?php echo $i ?>" align="center" ><a style="display: "  onclick="principal('<?php echo $i; ?>')">Principal</a></div>
+                <div  class="large-6 columns" style="background:<?php echo $color; ?>;" ok='<?php echo $acti; ?>' id="principal<?php echo $i ?>" align="center" ><a style="display: "  onclick="principal('<?php echo $i; ?>')">Principal</a></div>
             </div>
+            <?php
+            if (isset($listado[0][$i]->imgDet_nombre)) {
+                $ruta = base_url() . "uploads/" . $listado[0][$i]->id_emp . "/" . $listado[0][$i]->imgDet_nombre;
+                $ima = "ya";
+                $nombre="nombre='".$listado[0][$i]->imgDet_nombre."'";
+            } else {
+                $ruta = 'http://placehold.it/250x250&amp;text=NYGSOFT.COM';
+                $ima = "ok";
+                $nombre="";
+                ?>
+                <script>
+                    $('#eliminar<?php echo $i ?>').hide();
+                    $('#principal<?php echo $i ?>').hide();
+                </script>          
+                <?php
+            }
+            ?>
             <div  class="large-12 columns" >
-                <img ok="ok" width="100%" height="100%" id="num<?php echo $i; ?>" src="http://placehold.it/250x250&amp;text=Imagen">
+                <img ok="<?php echo $ima; ?>" <?php echo $nombre ?> width="100%" height="100%" id="num<?php echo $i; ?>" src="<?php echo $ruta; ?>">
             </div>
         </div>
-        <script>
-            $('#eliminar<?php echo $i ?>').hide();
-            $('#principal<?php echo $i ?>').hide();
-        </script>
         <?php
     }
     ?>
@@ -59,15 +108,22 @@
         <center><h1>Información General</h1></center>
         <div  class="large-12 columns" >
             <div  class="large-3 columns" ><label for='imgEnc_nombre'>Nombre</label> </div>
-            <div  class="large-9 columns" ><input type="text" id="imgEnc_nombre" name="imgEnc_nombre"/> </div>
+            <div  class="large-9 columns" ><input type="text" id="imgEnc_nombre" name="imgEnc_nombre" value="<?php echo $nombre_form; ?>"/> </div>
         </div>
         <div  class="large-12 columns" >
             <div  class="large-3 columns" ><label for='cat_id'>Categoria</label> </div>
             <div  class="large-9 columns" >
                 <select name="cat_id" id="cat_id">
                     <option value="">-Seleccionar-</option>
-                    <?php foreach ($categorias as $cat) { ?>
-                        <option value="<?php echo $cat->cat_id ?>"><?php echo $cat->cat_categoria ?></option>
+                    <?php
+                    foreach ($categorias as $cat) {
+                        if ($cat->cat_categoria == $categoria) {
+                            $select = "selected";
+                        } else {
+                            $select = "";
+                        }
+                        ?>
+                        <option <?php echo $select; ?> value="<?php echo $cat->cat_id ?>"><?php echo $cat->cat_categoria ?></option>
                     <?php } ?>
                 </select>
                 <p>
@@ -77,21 +133,21 @@
             <div  class="large-3 columns" ><label for='subCat_id'>Sub Categoria</label> </div>
             <div  class="large-9 columns" >
                 <select id="subCat_id" name="subCat_id">
-                    <option value=""></option>
+                    <?php echo $sub; ?>
                 </select><p>
             </div>
         </div>
         <div  class="large-12 columns" >
             <div  class="large-3 columns" ><label for='imgEnc_descripcion_corta'>Descripción Corta</label></div>
-            <div  class="large-9 columns" ><input type="text" id="imgEnc_descripcion_corta" name="imgEnc_descripcion_corta"/> </div>
+            <div  class="large-9 columns" ><input type="text" id="imgEnc_descripcion_corta" name="imgEnc_descripcion_corta" value="<?php echo $desc_corta; ?>"/> </div>
         </div>
         <div  class="large-12 columns" >
             <div  class="large-2 columns" ><label for='imgEnc_descripcion_larga'>Descripción Larga</label> </div>
         </div>
         <div  class="large-12 columns" >
-            <div  class="large-12 columns" ><textarea id="imgEnc_descripcion_larga" name="imgEnc_descripcion_larga" style="height: 100px"></textarea> </div>
+            <div  class="large-12 columns" ><textarea id="imgEnc_descripcion_larga" name="imgEnc_descripcion_larga" style="height: 100px"><?php echo $desc_larga; ?></textarea> </div>
         </div>
-        <input type="hidden" name="imgEnc_id" id="imgEnc_id" value="0">
+        <input type="hidden" name="imgEnc_id" id="imgEnc_id" value="<?php echo $imgEnc_id; ?>">
         <div  class="large-12 columns" ><br>
             <center><button  class="button"> Guardar </button></center><p><br><p>
         </div>
@@ -161,11 +217,11 @@
         if (name == "") {
             return false;
         }
-        var nombre = "";
-        var desc_corta = "";
-        var desc_larga = "";
+//        var nombre = "";
+//        var desc_corta = "";
+//        var desc_larga = "";
         jQuery(".preload, .load").show();
-        var doUploadFileMethodURL = "<?php echo base_url('index.php/Empresa/doUploadFile'); ?>?imgEnc_id=" + imagen + "&imgEnc_nombre=" + nombre + "&imgEnc_descripcion_corta=" + desc_corta + "&imgEnc_descripcion_larga=" + desc_larga;
+        var doUploadFileMethodURL = "<?php echo base_url('index.php/Empresa/doUploadFile'); ?>?imgEnc_id=" + imagen ;
         $.ajaxFileUpload({
             url: doUploadFileMethodURL,
             secureuri: false,
@@ -223,16 +279,14 @@
     function eliminar(numero) {
         var nombre = $('#num' + numero).attr('nombre')
         var id = $('#imgEnc_id').val()
-
-        $('#num' + numero).attr('ok', 'ok');
         var prin = $('#principal' + numero).attr('ok');
         if (prin == 'ya') {
-            var color = "verde";
-            alertas(0, 'Imagen principal no puede ser eliminada');
+//            var color = "verde";
+            alertas('rojo', 'Imagen principal no puede ser eliminada');
             return false;
         }
-
-        $('#num' + numero).attr('src', 'http://placehold.it/250x250&text=Imagen');
+        $('#num' + numero).attr('ok', 'ok');
+        $('#num' + numero).attr('src', 'http://placehold.it/250x250&text=NYGSOFT.COM');
         $('#eliminar' + numero).hide()
         $('#principal' + numero).hide()
         jQuery(".preload, .load").show();

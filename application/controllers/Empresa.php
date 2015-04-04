@@ -33,10 +33,11 @@ class Empresa extends My_Controller {
         $this->Empresa_model->guardaactualizacionempresa($data);
     }
 
-    function imagenesempresa() {
+    function imagenesempresa($imgEnc_id=null) {
         $id = $this->data['user']['user_id'];
         $this->data['datos'] = $this->Empresa_model->datosempresa($id);
         $this->data['categorias'] = $this->Empresa_model->categorias();
+        $this->data['listado'] = $this->Empresa_model->listado(NULL,NULL,$imgEnc_id);
         $this->layout->view('empresa/imagenesempresa', $this->data);
     }
 
@@ -112,22 +113,40 @@ class Empresa extends My_Controller {
     }
 
     function listado($num = 1) {
+        $this->data['post']=$post = $this->input->post();
         $id = $this->data['user']['user_id'];
+
+        if (isset($post['imgEnc_nombre']))
+            if ($post['imgEnc_nombre'] != "")
+                $this->db->like('imgEnc_nombre', $post['imgEnc_nombre']);
+        if (isset($post['imgEnc_descripcion_corta']))
+            if ($post['imgEnc_descripcion_corta'] != "")
+                $this->db->like('imgEnc_descripcion_corta', $post['imgEnc_descripcion_corta']);
+        if (isset($post['cat_id']))
+            if ($post['cat_id'] != "")
+                $this->db->like('cat_id', $post['cat_id']);
+        if (isset($post['subCat_id']))
+            if ($post['subCat_id'] != "")
+                $this->db->like('subCat_id', $post['subCat_id']);
+        if (isset($post['imgEnc_descripcion_larga']))
+            if ($post['imgEnc_descripcion_larga'] != "")
+                $this->db->like('imgEnc_descripcion_larga', $post['imgEnc_descripcion_larga']);
         $this->data['listado'] = $this->Empresa_model->listado($num, $id);
-        $this->data['cantidad'] = $this->Empresa_model->cantidad_listado($id);
+
         if ($num == 1)
             $this->data['num'] = $num;
         else
             $this->data['num'] = deencrypt_id($num);
+        $this->data['categorias'] = $this->Empresa_model->categorias();
         $this->layout->view('empresa/listado', $this->data);
     }
 
     //funcion que inactiva los productos de los clientes
     function inactivar($url, $id, $num) {
-        $url = deencrypt_id($url);
         $id = deencrypt_id($id);
         $num = deencrypt_id($num);
         $this->data['listado'] = $this->Empresa_model->inactivar($id, $num);
+        redirect('index.php/Empresa/listado/' . $url, 'location');
     }
 
 }

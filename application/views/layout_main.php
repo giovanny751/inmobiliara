@@ -61,20 +61,22 @@ function modulos($datosmodulos, $idusuario, $dato = null, $papito = null) {
         <aside class="left-off-canvas-menu"> 
             <?php echo modulos('prueba', $id); ?>
         </aside> 
-        <section class="main-section panel" style="height: 100%">
+        <!--<section class="main-section " style="height: 100%">-->
+        <div class="row main-section panel" >
             <?php echo $content_for_layout ?>
-            <div class="row" >
-                <div id="alerta" >
-                    <div  class="large-12 columns"   align='right' style="position: fixed;top:20%;left: 70%;z-index: 100000">
-                        <div  class="large-3 columns">
-                            <div id="color_alert" data-alert class="alert-box success radius">
-                                <div id="texto_alert"></div>
-                            </div>
+        </div>
+        <div class="row" >
+            <div id="alerta" >
+                <div  class="large-12 columns"   align='right' style="position: fixed;top:20%;left: 70%;z-index: 100000">
+                    <div  class="large-3 columns">
+                        <div id="color_alert" data-alert class="alert-box success radius">
+                            <div id="texto_alert"></div>
                         </div>
                     </div>
                 </div>
             </div>
-        </section> 
+        </div>
+        <!--</section>--> 
     </div> 
 </div>
 <div class="preload">

@@ -18,6 +18,7 @@
     </div>
 </div>
 <script src="<?php echo base_url() ?>/js/ajaxfileupload.js"></script>
+<p>
 <div class="row">
     <?php
 //    print_y($datos);
@@ -29,8 +30,8 @@
     }
     for ($i = 0; $i < $cantidad; $i++) {
         if (($i % 4) == 0) {
-            ?></div><?php
-            ?><div class="row"><?php
+            ?></div></p><?php
+            ?><p><div class="row"><?php
     }
     ?>
         <div class="large-<?php echo $colum; ?> columns">
@@ -50,9 +51,97 @@
     }
     ?>
 </div>
+<p></p>
+<p></p>
 
-<input type="hidden" name="imagen" id="imagen" value="0">
+<div class="row" >
+    <form action=""  id="form1" method="post" onsubmit="return activar();">
+        <center><h1>Información General</h1></center>
+        <div  class="large-12 columns" >
+            <div  class="large-3 columns" ><label for='imgEnc_nombre'>Nombre</label> </div>
+            <div  class="large-9 columns" ><input type="text" id="imgEnc_nombre" name="imgEnc_nombre"/> </div>
+        </div>
+        <div  class="large-12 columns" >
+            <div  class="large-3 columns" ><label for='cat_id'>Categoria</label> </div>
+            <div  class="large-9 columns" >
+                <select name="cat_id" id="cat_id">
+                    <option value="">-Seleccionar-</option>
+                    <?php foreach ($categorias as $cat) { ?>
+                        <option value="<?php echo $cat->cat_id ?>"><?php echo $cat->cat_categoria ?></option>
+                    <?php } ?>
+                </select>
+                <p>
+            </div>
+        </div>
+        <div  class="large-12 columns" >
+            <div  class="large-3 columns" ><label for='subCat_id'>Sub Categoria</label> </div>
+            <div  class="large-9 columns" >
+                <select id="subCat_id" name="subCat_id">
+                    <option value=""></option>
+                </select><p>
+            </div>
+        </div>
+        <div  class="large-12 columns" >
+            <div  class="large-3 columns" ><label for='imgEnc_descripcion_corta'>Descripción Corta</label></div>
+            <div  class="large-9 columns" ><input type="text" id="imgEnc_descripcion_corta" name="imgEnc_descripcion_corta"/> </div>
+        </div>
+        <div  class="large-12 columns" >
+            <div  class="large-2 columns" ><label for='imgEnc_descripcion_larga'>Descripción Larga</label> </div>
+        </div>
+        <div  class="large-12 columns" >
+            <div  class="large-12 columns" ><textarea id="imgEnc_descripcion_larga" name="imgEnc_descripcion_larga" style="height: 100px"></textarea> </div>
+        </div>
+        <input type="hidden" name="imgEnc_id" id="imgEnc_id" value="0">
+        <div  class="large-12 columns" ><br>
+            <center><button  class="button"> Guardar </button></center><p><br><p>
+        </div>
+    </form>
+</div>
 <script>
+    $('#cat_id').change(function() {
+        var cat_id = $('#cat_id').val();
+        var url = "<?php echo base_url('index.php/Empresa/buscar_sub_categorias'); ?>";
+        jQuery(".preload, .load").show();
+        $.post(url, {cat_id: cat_id})
+                .done(function(msg) {
+                    jQuery(".preload, .load").hide();
+                    $('#subCat_id').html(msg)
+                })
+                .fail(function(msg) {
+                    jQuery(".preload, .load").hide();
+                    alertas('rojo', 'Error de base de datos');
+                })
+    })
+    function activar() {
+        var nombre = $('#imgEnc_nombre').val();
+        if (nombre == "") {
+            alertas('rojo', 'Campo Nombre Obligatorio');
+            return false;
+        }
+        var cat_id = $('#cat_id').val();
+        if (cat_id == "") {
+            alertas('rojo', 'Campo Categoria Obligatorio');
+            return false;
+        }
+        var sub_categoria = $('#sub_categoria').val();
+        if (sub_categoria == "") {
+            alertas('rojo', 'Campo Sub Categoria Obligatorio');
+            return false;
+        }
+        var imgEnc_descripcion_corta = $('#imgEnc_descripcion_corta').val();
+        if (imgEnc_descripcion_corta == "") {
+            alertas('rojo', 'Campo Descripción Corta Obligatorio');
+            return false;
+        }
+        var imgEnc_descripcion_larga = $('#imgEnc_descripcion_larga').val();
+        if (imgEnc_descripcion_larga == "") {
+            alertas('rojo', 'Campo Descripcion Larga Obligatorio');
+            return false;
+        }
+        var url = "<?php echo base_url('index.php/Empresa/guardar_imagen_general'); ?>";
+        $('#form1').attr('action', url);
+        return true;
+    }
     cantidad_maxima =<?php echo $datos[0]->emp_max_img ?>;
     $('#uploadFile').submit(function(e) {
         e.preventDefault();
@@ -65,18 +154,18 @@
                 numero = i;
                 i = cantidad_maxima;
             }
-            console.log(imagen);
+//            console.log(imagen);
         }
-//        false;
-        var imagen = $('#imagen').val();
+        //        false;
+        var imagen = $('#imgEnc_id').val();
         if (name == "") {
             return false;
         }
-        var nombre = "prueba";
-        var desc_corta = "prueba";
-        var desc_larga = "prueba";
+        var nombre = "";
+        var desc_corta = "";
+        var desc_larga = "";
         jQuery(".preload, .load").show();
-        var doUploadFileMethodURL = "<?php echo base_url('index.php/Empresa/doUploadFile'); ?>?imagen=" + imagen + "&nombre=" + nombre + "&desc_corta=" + desc_corta + "&desc_larga=" + desc_larga;
+        var doUploadFileMethodURL = "<?php echo base_url('index.php/Empresa/doUploadFile'); ?>?imgEnc_id=" + imagen + "&imgEnc_nombre=" + nombre + "&imgEnc_descripcion_corta=" + desc_corta + "&imgEnc_descripcion_larga=" + desc_larga;
         $.ajaxFileUpload({
             url: doUploadFileMethodURL,
             secureuri: false,
@@ -86,11 +175,11 @@
             data: {id: id},
             success: function(data) {
                 jQuery(".preload, .load").hide();
-                $('#imagen').val(data.id);
+                $('#imgEnc_id').val(data.id);
                 var ruta = "<?php echo base_url('uploads') ?>/" + data.ruta
                 $('#num' + numero).attr('src', ruta);
                 $('#num' + numero).attr('ok', 'ya');
-//                $('#num' + numero).attr('style', 'margin-top: -57');
+                //                $('#num' + numero).attr('style', 'margin-top: -57');
                 $('#num' + numero).attr('nombre', data.message);
                 $('#principal' + numero).show();
                 $('#eliminar' + numero).show();
@@ -98,10 +187,10 @@
                 if (numero == 0) {
                     principal(numero);
                 }
-                
+
             },
             error: function(data) {
-                alertas(0, 'El archivo no se ha podido cargar, el formato puede no ser valido');
+                alertas('rojo', 'El archivo no se ha podido cargar, el formato puede no ser valido');
                 jQuery(".preload, .load").hide();
             }
         });
@@ -111,7 +200,7 @@
     });
     function principal(numero) {
         var nombre = $('#num' + numero).attr('nombre')
-        var id = $('#imagen').val()
+        var id = $('#imgEnc_id').val()
         var url = "<?php echo base_url('index.php/Empresa/img_principal'); ?>"
         jQuery(".preload, .load").show();
         $.post(url, {id: id, nombre: nombre, accion: 'update'})
@@ -127,13 +216,13 @@
                     $('#principal' + numero).attr('ok', 'ya');
                     jQuery(".preload, .load").hide();
                 }).fail(function() {
-                    jQuery(".preload, .load").hide();
-            alertas(0, 'Error de base de datos');
+            jQuery(".preload, .load").hide();
+            alertas('rojo', 'Error de base de datos');
         })
     }
     function eliminar(numero) {
         var nombre = $('#num' + numero).attr('nombre')
-        var id = $('#imagen').val()
+        var id = $('#imgEnc_id').val()
 
         $('#num' + numero).attr('ok', 'ok');
         var prin = $('#principal' + numero).attr('ok');
@@ -151,14 +240,14 @@
         $.post(url, {id: id, nombre: nombre, accion: 'delete'})
                 .done(function() {
                     jQuery(".preload, .load").hide();
-//                    $('#principal' + numero).attr('style', 'background:green')
+                    //                    $('#principal' + numero).attr('style', 'background:green')
                 }).fail(function() {
-                    jQuery(".preload, .load").hide();
+            jQuery(".preload, .load").hide();
             alertas('rojo', 'Error de base de datos');
-            
+
         })
     }
-    
+
 </script>
 
 <style>

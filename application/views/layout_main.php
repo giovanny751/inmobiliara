@@ -5,6 +5,7 @@
 <link href="<?php echo base_url('css/foundation.css" rel="stylesheet" type="text/css') ?>" />
 <link href="<?php echo base_url('css/foundation.min.css" rel="stylesheet" type="text/css') ?>" />
 <link href="<?php echo base_url('css/normalize.css" rel="stylesheet" type="text/css') ?>" />
+<link href="<?php echo base_url('css/font-awesome.css" rel="stylesheet" type="text/css') ?>" />
 
 <?php
 
@@ -58,16 +59,17 @@ function modulos($datosmodulos, $idusuario, $dato = null, $papito = null) {
             <section class="right tab-bar-section" style="cursor:pointer"><h5 class="title"><a href="<?php echo base_url('index.php/login/logout') ?>">Cerrar Sesion</a></h5></section>
         </nav> 
         <aside class="left-off-canvas-menu"> 
-<?php echo modulos('prueba', $id); ?>
+            <?php echo modulos('prueba', $id); ?>
         </aside> 
         <section class="main-section panel" style="height: 100%">
-<?php echo $content_for_layout ?>
-            <div id="alerta" >
-                <div  class="large-12 columns"   align='right' style="position: fixed">
-                    <div  class="large-3 columns"></div>
-                    <div  class="large-3 columns">
-                        <div id="color_alert" data-alert class="alert-box success radius">
-                            <div id="texto_alert"></div>
+            <?php echo $content_for_layout ?>
+            <div class="row" >
+                <div id="alerta" >
+                    <div  class="large-12 columns"   align='right' style="position: fixed;top:20%;left: 70%;z-index: 100000">
+                        <div  class="large-3 columns">
+                            <div id="color_alert" data-alert class="alert-box success radius">
+                                <div id="texto_alert"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -103,7 +105,7 @@ function modulos($datosmodulos, $idusuario, $dato = null, $papito = null) {
 <script>
     $('#alerta').hide();
     function alertas(color, texto) {
-        
+
         switch (color) {
             case 'rojo':
                 $('#color_alert').attr('class', 'alert-box alert radius')
@@ -126,10 +128,10 @@ function modulos($datosmodulos, $idusuario, $dato = null, $papito = null) {
                 function()
                 {
                     $('#alerta').hide();
-                }, 5000);       
+                }, 5000);
     }
     $(document).foundation();
-    
+
     $(".preload, .load").hide();
 
 </script>

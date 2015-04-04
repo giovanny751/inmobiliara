@@ -105,19 +105,24 @@
     <center><h4><?php echo $datos[0]->imgEnc_nombre ?></h4></center>
     <hr>
     <div class="large-2 small-12 columns" >
+        
         <?php foreach ($datos as $imagenes) { ?>
             <div class="large-12 small-3 columns subimagenes" >
-                <img class="imagenes" dato  src="<?php echo base_url('uploads' . "/" . $imagenes->id_emp . "/" . $imagenes->imgDet_nombre); ?>">
+                <img class="imagenes"   data-reveal-id="firstModal2" dato  src="<?php echo base_url('uploads' . "/" . $imagenes->id_emp . "/" . $imagenes->imgDet_nombre); ?>">
             </div>
         <?php } ?>
     </div>
     <div  class="large-5 small-12 columns ">
         <div class="large-12 small-12 imgprincipal" style="width: 100%;height: 75%">
-             <img  src="<?php echo base_url('uploads' . "/" . $datos[0]->id_emp . "/" . $datos[0]->imgDet_nombre); ?>">
+            <img  src="<?php echo base_url('uploads' . "/" . $datos[0]->id_emp . "/" . $datos[0]->imgDet_nombre); ?>">
         </div>
     </div>
     <div class="large-5 columns">
-        <h4>DESCRIPCIÓN</h4>
+        <h4>Categoria</h4>
+        <p><?php echo $datos[0]->cat_categoria ?></p>
+        <h4>Sub-Categoria</h4>
+        <p><?php echo $datos[0]->sub_subcategoria ?></p>
+        <h4>Descripción</h4>
         <p>
             <?php
             $datos = str_replace("a", " ", $datos[0]->imgEnc_descripcion_larga);
@@ -126,9 +131,9 @@
         </p>
 
         <div class="panel">
-            <h5>Header</h5>
-            <h6 class="subheader">Praesent placerat dui tincidunt elit suscipit sed.</h6>
-            <a href="#" class="small button">Adjuntar a la cotización</a>
+            <center><h5>Cotización</h5></center>
+            <h6 class="subheader">Para adjuntar a la contizacion por favor dar click</h6>
+            <center><a href="#" class="small button">Adjuntar a la cotización</a></center>
         </div>
 
     </div>
@@ -145,6 +150,22 @@
         <p>Pork drumstick turkey fugiat. Tri-tip elit turducken pork chop in. Swine short ribs meatball irure bacon nulla pork belly cupidatat meatloaf cow. Nulla corned beef sunt ball tip, qui bresaola enim jowl. Capicola short ribs minim salami nulla nostrud pastrami.</p>
     </div>
 </div>
+
+<div id="firstModal2" class="reveal-modal-full" data-reveal aria-labelledby="firstModalTitle" aria-hidden="true" role="dialog"> 
+    <div id="firstModal"  data-reveal aria-labelledby="firstModalTitle" aria-hidden="true" role="dialog"> 
+        <div class="row">  
+            <div class="large-12 columns"  >
+                <ul class="example-orbit" data-orbit>
+                    <?php foreach ($datosslide as $imagenes2) { ?>
+                    <li><img src="<?php echo base_url('uploads' . "/" . $imagenes->id_emp . "/" . $imagenes->imgDet_nombre); ?>"></li>
+                    <?php } ?>
+                </ul>
+            </div>
+        </div>
+    </div> 
+    <a class="close-reveal-modal" aria-label="Close">&#215;</a> 
+</div> 
+
 
 <div class="row">
     <hr>
@@ -180,11 +201,11 @@
     $('.subimagenes').mouseover(function () {
 
         var dato = $(this).html();
-        
-        var objeto = dato.replace('dato','style="width: 100%;height: 100%"')
-        
+
+        var objeto = dato.replace('dato', 'style="width: 100%;height: 100%;cursor:pointer"')
+
 //        console.log(objeto);
-        
+
         $('.imgprincipal').html(objeto);
 
     });

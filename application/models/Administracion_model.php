@@ -10,6 +10,8 @@ class administracion_model extends CI_Model {
     
     function consultacantidad(){
         
+        
+        
         $cantidad = $this->db->get('cantidad');
         return $cantidad->result();
     }

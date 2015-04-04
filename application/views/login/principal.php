@@ -7,6 +7,13 @@
 <link href="<?php echo base_url('css/foundation.min.css" rel="stylesheet" type="text/css') ?>" />
 <link href="<?php echo base_url('css/normalize.css" rel="stylesheet" type="text/css') ?>" />
 
+
+<style>
+    body{
+        background-image: url('<?php echo base_url('img/pattern.png') ?>');
+    }
+</style>
+
 <nav class="top-bar" data-topbar>
     <ul class="title-area">
 
@@ -17,87 +24,39 @@
         </li>
         <li class="toggle-topbar menu-icon"><a href="#"><span>menu</span></a></li>
     </ul>
-    <section class="top-bar-section">
-        <ul class="right">
-            <li class="divider"></li>
-            <li class="has-dropdown">
-                <a href="#">Main Item 1</a>
-                <ul class="dropdown">
-                    <li><label>Section Name</label></li>
-                    <li class="has-dropdown">
-                        <a href="#" class="">Has Dropdown, Level 1</a>
-                        <ul class="dropdown">
-                            <li><a href="#">Dropdown Options</a></li>
-                            <li><a href="#">Dropdown Options</a></li>
-                            <li><a href="#">Level 2</a></li>
-                            <li><a href="#">Subdropdown Option</a></li>
-                            <li><a href="#">Subdropdown Option</a></li>
-                            <li><a href="#">Subdropdown Option</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="#">Dropdown Option</a></li>
-                    <li><a href="#">Dropdown Option</a></li>
-                    <li class="divider"></li>
-                    <li><label>Section Name</label></li>
-                    <li><a href="#">Dropdown Option</a></li>
-                    <li><a href="#">Dropdown Option</a></li>
-                    <li><a href="#">Dropdown Option</a></li>
-                    <li class="divider"></li>
-                    <li><a href="#">See all →</a></li>
-                </ul>
-            </li>
-            <li class="divider"></li>
-            <li><a href="#">Main Item 2</a></li>
-            <li class="divider"></li>
-            <li class="has-dropdown">
-                <a href="#">Main Item 3</a>
-                <ul class="dropdown">
-                    <li><a href="#">Dropdown Option</a></li>
-                    <li><a href="#">Dropdown Option</a></li>
-                    <li><a href="#">Dropdown Option</a></li>
-                    <li class="divider"></li>
-                    <li><a href="#">See all →</a></li>
-                </ul>
-            </li>
-        </ul>
-    </section>
 </nav>
-<div class="row">
-    <div class="large-12 columns">
-        <ul class="example-orbit" data-orbit> 
-            <li> <img src="http://placehold.it/1000x250&text=NYGSOFT" /> 
-                <div class="orbit-caption"> NYGSOFT TECHNOLOGY </div> 
-            </li> 
-            <li class="active"> 
-                <img src="http://placehold.it/1000x250&text=NYGSOFT" alt="slide 2" /> 
-                <div class="orbit-caption">NYGSOFT TECHNOLOGY </div> 
-            </li> 
-            <li> 
-                <img src="http://placehold.it/1000x250&text=NYGSOFT" alt="slide 3" /> 
-                <div class="orbit-caption"> NYGSOFT TECHNOLOGY </div> 
-            </li> 
-        </ul>
-    </div>
+<div class="large-12 columns"  >
+    <ul class="example-orbit" data-orbit>
+        <li><img src="http://placehold.it/1350x400&amp;text=[%20img%201%20]"></li>
+        <li><img src="http://placehold.it/1350x400&amp;text=[%20img%202%20]"></li>
+        <li><img src="http://placehold.it/1350x400&amp;text=[%20img%203%20]"></li>
+    </ul>
 </div>
 <div class="row" >
-    <div class="large-3 small-4 columns">
-        <h1><img src="<?php echo base_url('img/blanco.jpg') ?>"></h1>
-    </div>
-    <div class="large-9 small-8 columns right" style="padding-top: 6%">
+    <div class="large-12 small-12 columns right" style="padding-top: 3%">
         <form>
             <div class="row collapse">
-                <div class="large-10 small-8 columns">
+                <div class="large-3 small-12 columns">
+                    <a href="#" class="postfix button expand split">Categorias 
+                        <span data-dropdown="drop"></span>
+                    </a><br> 
+                    <ul id="drop" class="f-dropdown" data-dropdown-content> 
+                        <?php foreach ($categorias as $cat) { ?>
+                            <li cat_id="<?php echo $cat->cat_id ?>" class="categorias"><a href="javascript:"><?php echo $cat->cat_categoria ?></a></li> 
+                        <?php } ?>
+                      
+                    </ul>
+                </div>
+                <div class="large-7 small-12 columns">
                     <input type="text" placeholder="Buscar Producto"/>
                 </div>
-                <div class="large-2 small-4 columns">
+                <div class="large-2 small-12 columns">
                     <a href="#" class="postfix button expand">Buscar</a>
                 </div>
             </div>
         </form>
     </div>
-</div>
-
-
+</div>s
 <?php
 $i = 4;
 $h = 1;
@@ -114,8 +73,15 @@ foreach ($imagenes as $img) {
                 <div class="row">
                 <?php } ?>    
                 <div class="large-3 small-6 columns" >
-                    <img  onerror="this.onerror=null;this.src='http://placehold.it/250x250&text=NYGSOFT';" class="imagenes" img_id="<?php echo $img->imgEnc_id; ?>" style="cursor: pointer;width: 100%;height: 22%" src="<?php echo base_url('uploads' . "/" . $img->id_emp . "/" . $img->imgDet_nombre); ?>"/>
-                    <center><h6 class="panel"><?php echo $img->imgEnc_nombre ?></h6></center>
+                    <img  onerror="this.onerror=null;this.src='http://placehold.it/250x250&text=NYGSOFT';" class="imagenes" img_id="<?php echo $img->imgEnc_id; ?>" style="cursor: pointer;width: 100%;height: 26%" src="<?php echo base_url('uploads' . "/" . $img->id_emp . "/" . $img->imgDet_nombre); ?>"/>
+                    <div class="large-12 small-12 columns panel" >
+                        <div class="large-8 small-8 columns">
+                            <h6 ><?php echo $img->imgEnc_nombre ?></h6>
+                        </div>
+                        <div class="large-4 small-4 columns">
+                            <img  onerror="this.onerror=null;this.src='http://placehold.it/250x250&text=NYGSOFT';" class="imagenes" img_id="<?php echo $img->imgEnc_id; ?>" style="cursor: pointer;width: 100%;height: 5%" src="<?php echo base_url('img/carrito.jpg'); ?>"/>
+                        </div>
+                    </div>
                 </div>
                 <?php if ($h == 4 || $contador == $g + 1) { ?>        
                 </div>
@@ -145,7 +111,7 @@ foreach ($imagenes as $img) {
                         $class = '';
                     ?>
                     <li <?php echo $class ?> class="numeracion"><a href="javascript:"><?php echo $i + 1; ?></a></li> 
-<?php } ?>
+                <?php } ?>
                 <li class="arrow"><a href="">&raquo;</a></li> 
             </ul>
         </form>    
@@ -155,16 +121,8 @@ foreach ($imagenes as $img) {
     <div class="large-12 columns">
         <hr>
         <div class="row">
-            <div class="large-6 columns">
+            <div class="large-12 columns">
                 <p>© Copyright NYGSOFT.COM 2015-2020</p>
-            </div>
-            <div class="large-6 columns">
-                <ul class="inline-list right">
-                    <li><a href="javascript:">Link 1</a></li>
-                    <li><a href="javascript:">Link 2222222</a></li>
-                    <li><a >Link 3</a></li>
-                    <li><a >Link 4</a></li>
-                </ul>
             </div>
         </div>
     </div>
@@ -185,6 +143,7 @@ foreach ($imagenes as $img) {
 </div> 
 
 <script>
+    
 //  -----------------------------------------------------------------------------
 //                      AUTOCOMPLETAR  
 //  -----------------------------------------------------------------------------  
@@ -229,6 +188,16 @@ foreach ($imagenes as $img) {
         var id = $(this).attr('img_id');
         var form = "<form method='post' action='<?php echo base_url('index.php/login/producto'); ?>' id='producto'>";
         form += "<input type='hidden' value='" + id + "' name='img'>";
+        form += "</form>";
+
+        $('body').append(form);
+
+        $('#producto').submit();
+    });
+    $('.categorias').click(function () {
+        var id = $(this).attr('cat_id');
+        var form = "<form method='post' action='<?php echo base_url('index.php/login/index'); ?>' id='producto'>";
+        form += "<input type='hidden' value='" + id + "' name='categoria'>";
         form += "</form>";
 
         $('body').append(form);

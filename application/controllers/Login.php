@@ -23,6 +23,18 @@ class Login extends My_Controller {
 //        } else {
 //            $this->load->view('login/principal');
 //        }
+        
+        $categoria = $this->input->post('categoria');
+        
+        if(empty($categoria)){
+            $categoria = "";
+            $this->data['existenciacategoria'] = $categoria;
+        }else{
+            $this->data['existenciacategoria'] = $categoria;
+        } 
+        
+//        echo $categoria."***";
+        
         $cantidad = $this->administracion_model->consultacantidad();
         
         $cantidad = $cantidad[0]->can_cantidadimgprincipal;
@@ -36,11 +48,13 @@ class Login extends My_Controller {
             $numeracion = 1;
         }
        
-              
-        $this->data['cantidad'] = $this->Ingreso_model->cantidadimagenes();        
+           
+        $this->data['categorias'] = $this->administracion_model->categorias();      
+        $this->data['cantidad'] = $this->Ingreso_model->cantidadimagenes($categoria);        
         $this->data['numeracion'] = ceil($this->data['cantidad']/$cantidad);
         $this->data['numero'] =  $numeracion;
-        $this->data['imagenes'] = $this->Ingreso_model->imagenesprincipales($desde,$cantidad);
+          
+        $this->data['imagenes'] = $this->Ingreso_model->imagenesprincipales($desde,$cantidad,$categoria);
         $this->load->view('login/principal',$this->data);
     }
     function autocomplete(){
@@ -65,6 +79,7 @@ class Login extends My_Controller {
         
         $id = $this->input->post('img');
         $this->data['datos'] = $this->Ingreso_model->imagenseleccionada($id);  
+        $this->data['datosslide'] = $this->Ingreso_model->imagenseleccionada($id);  
         
         $this->load->view('login/producto',$this->data);
         

@@ -6,24 +6,36 @@ class Ingreso_model extends CI_Model {
         parent::__construct();
     }
     
-    function imagenesprincipales($desde,$cantidad){
+    function imagenesprincipales($desde,$cantidad,$categoria = null){
+        
         
         $this->db->select('imagenes_encabezado.imgEnc_nombre,imagenes_encabezado.imgEnc_id,imagenes_encabezado.id_emp,imagenes_detalle.imgDet_nombre');
+        if(!empty($categoria))$this->db->where('imagenes_encabezado.cat_id',$categoria);
         $this->db->where('imagenes_detalle.imgdet_padre',1);
         $this->db->join('imagenes_detalle','imagenes_detalle.imgEnc_id = imagenes_encabezado.imgEnc_id');
         
         if($desde == 0)$imagenes = $this->db->get('imagenes_encabezado', $cantidad);
         else $imagenes = $this->db->get('imagenes_encabezado',$cantidad,$desde);
+        
+//        echo $this->db->last_query();
+        
         return $imagenes->result();
     }
-    function cantidadimagenes(){
+    function cantidadimagenes($categoria){
+        
+        if(!empty($categoria))$this->db->where('imagenes_encabezado.cat_id',$categoria);
         $this->db->where('imagenes_detalle.imgdet_padre',1);
         $this->db->join('imagenes_detalle','imagenes_detalle.imgEnc_id = imagenes_encabezado.imgEnc_id');
-        return $this->db->count_all_results('imagenes_encabezado');        
+        
+        return 
+        $this->db->count_all_results('imagenes_encabezado');   
+//        echo $this->db->last_query();die;
     }
     
     function imagenseleccionada($id){
         $this->db->where('imagenes_encabezado.imgEnc_id',$id);
+        $this->db->join('categoria','categoria.cat_id = imagenes_encabezado.cat_id');
+        $this->db->join('subcategoria','subcategoria.cat_id = categoria.cat_id');
         $this->db->join('imagenes_detalle','imagenes_detalle.imgEnc_id = imagenes_encabezado.imgEnc_id');
         $img = $this->db->get('imagenes_encabezado');   
         return $img->result();

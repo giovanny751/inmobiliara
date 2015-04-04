@@ -148,5 +148,12 @@ class Empresa extends My_Controller {
         $this->data['listado'] = $this->Empresa_model->inactivar($id, $num);
         redirect('index.php/Empresa/listado/' . $url, 'location');
     }
+    //funcion que destaca los productos de los clientes
+    function destacar($url, $id, $num) {
+        $id = deencrypt_id($id);
+        $num = deencrypt_id($num);
+        $this->data['listado'] = $this->Empresa_model->destacar($id, $num);
+        redirect('index.php/Empresa/listado/' . $url, 'location');
+    }
 
 }

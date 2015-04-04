@@ -60,20 +60,25 @@
                     <td><?php echo $poductos->cat_categoria ?></td>
                     <td><img src='<?php echo base_url() . "uploads/" . $poductos->id_emp . "/" . $poductos->imgDet_nombre ?>'></td>
                     <td>
-                <a href="<?php echo base_url('index.php/Empresa/inactivar') . "/" . encrypt_id($num) . "/" . encrypt_id($poductos->imgEnc_id) . "/" . encrypt_id(3) ?>"><i class="fa fa-trash-o fa-fw fa-2x" title="Eliminar"></i></a>
-                <?php if ($poductos->est_id == 1) { ?>
-                    <a href="<?php echo base_url('index.php/Empresa/inactivar') . "/" . encrypt_id($num) . "/" . encrypt_id($poductos->imgEnc_id) . "/" . encrypt_id(2) ?>"><i class="fa fa-eye fa-2x" title="Activo"></i></a>
-                <?php } else { ?>
-                    <a href="<?php echo base_url('index.php/Empresa/inactivar') . "/" . encrypt_id($num) . "/" . encrypt_id($poductos->imgEnc_id) . "/" . encrypt_id(1) ?>"><i class="fa fa-eye-slash fa-2x" title="Inactivo"></i></a>
-                <?php } ?>
-                    <a href="<?php echo base_url('index.php/Empresa/imagenesempresa') . "/" . encrypt_id($poductos->imgEnc_id); ?>"><i class="fa fa-pencil fa-2x" title="Editar"></i></a>
-            
-            </td>
-            </tr>
-            <?php
-            $i++;
-        }
-        ?>
+                        <a href="<?php echo base_url('index.php/Empresa/inactivar') . "/" . encrypt_id($num) . "/" . encrypt_id($poductos->imgEnc_id) . "/" . encrypt_id(3) ?>"><i class="fa fa-trash-o fa-fw fa-2x" title="Eliminar"></i></a>
+                        <?php if ($poductos->est_id == 1) { ?>
+                            <a href="<?php echo base_url('index.php/Empresa/inactivar') . "/" . encrypt_id($num) . "/" . encrypt_id($poductos->imgEnc_id) . "/" . encrypt_id(2) ?>"><i class="fa fa-eye fa-2x" title="Activo"></i></a>
+                        <?php } else { ?>
+                            <a href="<?php echo base_url('index.php/Empresa/inactivar') . "/" . encrypt_id($num) . "/" . encrypt_id($poductos->imgEnc_id) . "/" . encrypt_id(1) ?>"><i class="fa fa-eye-slash fa-2x" title="Inactivo"></i></a>
+                        <?php } ?>
+                        <a href="<?php echo base_url('index.php/Empresa/imagenesempresa') . "/" . encrypt_id($poductos->imgEnc_id); ?>"><i class="fa fa-pencil fa-2x" title="Editar"></i></a>
+                        <?php if ($poductos->imgEnc_destacado == 1) { ?>
+                            <a href="<?php echo base_url('index.php/Empresa/destacar') . "/" . encrypt_id($num) . "/" . encrypt_id($poductos->imgEnc_id) . "/" . encrypt_id(0) ?>"><i class="fa fa-star fa-2x" title="Destacado"></i></a>
+                        <?php } else { ?>
+                            <a href="<?php echo base_url('index.php/Empresa/destacar') . "/" . encrypt_id($num) . "/" . encrypt_id($poductos->imgEnc_id) . "/" . encrypt_id(1) ?>"><i class="fa fa-star-o fa-2x" title="No Descatado"></i></a>
+                        <?php } ?>
+
+                    </td>
+                </tr>
+                <?php
+                $i++;
+            }
+            ?>
         </tbody>
     </table>
 
@@ -96,11 +101,28 @@
                 ?>
                 <li class="<?php echo $cl ?>"><a href="<?php echo base_url('index.php/Empresa/listado') . "/" . encrypt_id($i) ?>"><?php echo $i ?></a></li>
             <?php } ?>
+                <li><a href="<?php echo base_url('index.php/Empresa/imagenesempresa'); ?>" class="button success">Nuevo Producto</a></li>
         </ul>
     </div>
     <br><p>
 </div>
 
+<script>
+    $('#cat_id').change(function() {
+        var cat_id = $('#cat_id').val();
+        var url = "<?php echo base_url('index.php/Empresa/buscar_sub_categorias'); ?>";
+        jQuery(".preload, .load").show();
+        $.post(url, {cat_id: cat_id})
+                .done(function(msg) {
+                    jQuery(".preload, .load").hide();
+                    $('#subCat_id').html(msg)
+                })
+                .fail(function(msg) {
+                    jQuery(".preload, .load").hide();
+                    alertas('rojo', 'Error de base de datos');
+                })
+    })
+</script>
 <style>
     img{
         width: 60px;

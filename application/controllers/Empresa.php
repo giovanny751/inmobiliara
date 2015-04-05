@@ -34,7 +34,7 @@ class Empresa extends My_Controller {
     }
 
     function imagenesempresa($imgEnc_id=null) {
-        $id = $this->data['user']['user_id'];
+        $id = $this->data['user']['emp_id'];
         $this->data['datos'] = $this->Empresa_model->datosempresa($id);
         $this->data['categorias'] = $this->Empresa_model->categorias();
         $this->data['listado'] = $this->Empresa_model->listado(NULL,NULL,$imgEnc_id);
@@ -44,11 +44,11 @@ class Empresa extends My_Controller {
     function doUploadFile() {
         $this->data['post'] = $this->input->get();
         $post = $this->data['post'];
-        $id_user = $this->data['user']['user_id'];
+        $id_user = $this->data['user']['emp_id'];
 
 
         define("RUTA_INI", "./uploads");
-        $user = $this->data['user']['user_id'];
+        $user = $this->data['user']['emp_id'];
         if (!is_dir(RUTA_INI . '/' . $user)) {
             @mkdir(RUTA_INI . '/' . $user, 0777);
         }
@@ -87,10 +87,51 @@ class Empresa extends My_Controller {
         echo $json_encode = json_encode(array('message' => $data['file_name'], 'ruta' => $user . '/' . $data['file_name'], 'id' => $id));
 //        echo $json_encode = json_encode(array('message' => 'dd', 'ruta' => '999'));
     }
+    function doUploadFile_slider() {
+        $this->data['post'] = $this->input->get();
+        $post = $this->data['post'];
+        $id_user = $this->data['user']['emp_id'];
+
+
+        define("RUTA_INI", "./uploads");
+        $user = $this->data['user']['emp_id'];
+        if (!is_dir(RUTA_INI . '/' . $user)) {
+            @mkdir(RUTA_INI . '/' . $user, 0777);
+        }
+        if (!is_dir(RUTA_INI . '/' . $user."/slider")) {
+            @mkdir(RUTA_INI . '/' . $user."/slider", 0777);
+        }
+
+
+        $status = '';
+        $message = '';
+        $background = '';
+        $file_element_name = 'userFile';
+
+        if ($status != 'error') {
+            $config['upload_path'] = RUTA_INI . '/' . $user . "/";
+//            $config['allowed_types'] = 'txt';
+            $config['allowed_types'] = 'png|jpg|gif|pdf';
+            $config['max_size'] = '100000';
+            $config['encrypt_name'] = TRUE;
+//            $config['overwrite'] = TRUE;
+            $this->load->library('upload', $config);
+            $this->upload->initialize($config);
+            if (!$this->upload->do_upload($file_element_name)) {
+                return false;
+            } else {
+                $data = $this->upload->data();
+            }
+            @unlink($_FILES[$file_element_name]);
+        }
+        $id = $post['imgEnc_id'];
+        $tabla = "";
+        echo $json_encode = json_encode(array('message' => $data['file_name'], 'ruta' => $user . '/' . $data['file_name'], 'id' => $id));
+    }
 
     function guardar_imagen_general() {
         $post = $this->input->post();
-        $id_user = $this->data['user']['user_id'];
+        $id_user = $this->data['user']['emp_id'];
         if ($post['imgEnc_id'] > 0) {
             $this->Empresa_model->update_imagen_general($post, $id_user);
         } else {
@@ -102,7 +143,7 @@ class Empresa extends My_Controller {
     function img_principal() {
         $this->data['post'] = $this->input->post();
         $post = $this->data['post'];
-        $id_user = $this->data['user']['user_id'];
+        $id_user = $this->data['user']['emp_id'];
         $this->data['post'] = $this->input->post();
         $this->Empresa_model->img_principal($this->data['post']);
     }
@@ -114,7 +155,7 @@ class Empresa extends My_Controller {
 
     function listado($num = 1) {
         $this->data['post']=$post = $this->input->post();
-        $id = $this->data['user']['user_id'];
+        $id = $this->data['user']['emp_id'];
 
         if (isset($post['imgEnc_nombre']))
             if ($post['imgEnc_nombre'] != "")
@@ -154,6 +195,11 @@ class Empresa extends My_Controller {
         $num = deencrypt_id($num);
         $this->data['listado'] = $this->Empresa_model->destacar($id, $num);
         redirect('index.php/Empresa/listado/' . $url, 'location');
+    }
+    //activa o desactiva las imagenes del slaider principal
+    function slider(){
+        $this->data['listado'] = $this->Empresa_model->listado($num, $id);
+        $this->layout->view('empresa/slider', $this->data);
     }
 
 }

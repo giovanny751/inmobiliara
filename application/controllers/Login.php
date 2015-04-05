@@ -115,10 +115,10 @@ class Login extends My_Controller {
                 $acceso = $user[0]->tipUsu_id;
                 $ing_id = $user[0]->ing_id;
                 switch ($acceso) {
-                    case 1://empresa
+                    case 2://empresa
                         $user = $this->user_model->get_empresa($user[0]->ing_id);
                         break;
-                    case 2://administrador
+                    case 1://administrador
                         $user = $this->user_model->get_administrador($user[0]->ing_id);
                         break;
                     default :
@@ -161,7 +161,7 @@ class Login extends My_Controller {
             'nombres' => $user[0]->nombres,
             'documento' => $user[0]->documento,
             'id_usuario' => $ing_id,
-            'user_id' => $user[0]->emp_id,
+            'emp_id' => $user[0]->emp_id,
             'acceso' => $acceso,
             'logged_in' => TRUE
         );

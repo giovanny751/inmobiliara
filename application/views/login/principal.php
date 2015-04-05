@@ -27,9 +27,13 @@
 </nav>
 <div class="large-12 columns"  >
     <ul class="example-orbit" data-orbit>
-        <li><img src="http://placehold.it/1350x400&amp;text=[%20img%201%20]"></li>
-        <li><img src="http://placehold.it/1350x400&amp;text=[%20img%202%20]"></li>
-        <li><img src="http://placehold.it/1350x400&amp;text=[%20img%203%20]"></li>
+        <?php 
+        if(!empty($imagenesslide)){
+        foreach($imagenesslide as $img){ ?>
+        <li><img  onerror="this.onerror=null;this.src='http://placehold.it/1350x400&amp;text=[%20img%1350%20]';" src="<?php echo base_url('uploads')."/".$img->emp_id."/".$img->sli_nombre_archivo; ?>"></li>
+        <?php }}else{ ?>
+           <li><img  onerror="this.onerror=null;this.src='http://placehold.it/1350x400&amp;text=[%20img%1350%20]';" src="http://placehold.it/1350x400&amp;text=[%20img%1350%20]"></li> 
+        <?php } ?>
     </ul>
 </div>
 <div class="row" >
@@ -102,7 +106,7 @@ foreach ($imagenes as $img) {
         <form method="post" id="f1">
             <ul class="pagination"> 
                 <li class="arrow unavailable">
-                    <a href="">&laquo;</a></li> 
+                    <!--<a href="">&laquo;</a></li>--> 
                 <?php
                 for ($i = 0; $i < $numeracion; $i++) {
                     if ($i + 1 == $numero)
@@ -112,7 +116,7 @@ foreach ($imagenes as $img) {
                     ?>
                     <li <?php echo $class ?> class="numeracion"><a href="javascript:"><?php echo $i + 1; ?></a></li> 
                 <?php } ?>
-                <li class="arrow"><a href="">&raquo;</a></li> 
+                <!--<li class="arrow"><a href="">&raquo;</a></li>--> 
             </ul>
         </form>    
     </center>

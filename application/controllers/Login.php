@@ -50,6 +50,7 @@ class Login extends My_Controller {
        
            
         $this->data['categorias'] = $this->administracion_model->categorias();      
+        $this->data['imagenesslide'] = $this->Ingreso_model->slide();      
         $this->data['cantidad'] = $this->Ingreso_model->cantidadimagenes($categoria);        
         $this->data['numeracion'] = ceil($this->data['cantidad']/$cantidad);
         $this->data['numero'] =  $numeracion;

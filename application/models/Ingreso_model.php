@@ -31,6 +31,11 @@ class Ingreso_model extends CI_Model {
         $this->db->count_all_results('imagenes_encabezado');   
 //        echo $this->db->last_query();die;
     }
+    function slide(){
+        
+        $img = $this->db->get('sliderEmpresa');
+        return $img->result();
+    }
     
     function imagenseleccionada($id){
         $this->db->where('imagenes_encabezado.imgEnc_id',$id);

@@ -90,11 +90,11 @@ class Empresa extends My_Controller {
     function doUploadFile_slider() {
         $this->data['post'] = $this->input->get();
         $post = $this->data['post'];
-        $post['emp_id']=$id_user = $this->data['user']['emp_id'];
+        $user_id = $this->data['user']['id_usuario'];
 
 
         define("RUTA_INI", "./uploads");
-        $user = $this->data['user']['emp_id'];
+        $post['emp_id']=$user = $this->data['user']['emp_id'];
         if (!is_dir(RUTA_INI . '/' . $user)) {
             @mkdir(RUTA_INI . '/' . $user, 0777);
         }
@@ -124,7 +124,7 @@ class Empresa extends My_Controller {
         }
         
         $post['sli_nombre_archivo']=$data['file_name'];
-        $id=$this->Empresa_model->Guardar_slider($post);
+        $id=$this->Empresa_model->Guardar_slider($post,$user_id);
         
         echo $json_encode = json_encode(array('message' => $data['file_name'], 'ruta' => $user . '/' . $data['file_name'],$id=>$id));
     }

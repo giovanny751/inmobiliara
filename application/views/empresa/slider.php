@@ -48,14 +48,18 @@
             e.preventDefault();
             var id = "1";
             var name = $('#userFile').val();
+            if (name == "") {
+                return false;
+            }
             var i = 0;
 
             var sli_fecha_inicio = $('#sli_fecha_inicio').val();
             var sli_fecha_final = $('#sli_fecha_final').val();
             var sli_id = $('#sli_id').val();
+            var sli_descripcion = $('#sli_descripcion').val();
 
             jQuery(".preload, .load").show();
-            var doUploadFileMethodURL = "<?php echo base_url('index.php/Empresa/doUploadFile_slider'); ?>?sli_fecha_inicio=" + sli_fecha_inicio + "&sli_fecha_final=" + sli_fecha_final + "&sli_id=" + sli_id;
+            var doUploadFileMethodURL = "<?php echo base_url('index.php/Empresa/doUploadFile_slider'); ?>?sli_fecha_inicio=" + sli_fecha_inicio + "&sli_fecha_final=" + sli_fecha_final + "&sli_id=" + sli_id + "&sli_descripcion=" + sli_descripcion;
             $.ajaxFileUpload({
                 url: doUploadFileMethodURL,
                 secureuri: false,

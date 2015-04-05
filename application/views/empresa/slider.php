@@ -40,6 +40,9 @@
         </form> 
     </div>
 </div>
+<div class="row" >
+    <div id="tabla"><?php echo $tabla; ?></div>
+</div>
 <script src="<?php echo base_url() ?>/js/ajaxfileupload.js"></script>
 <p>
 
@@ -69,6 +72,13 @@
                 data: {sli_id: sli_id},
                 success: function(data) {
                     jQuery(".preload, .load").hide();
+                    $('#sli_fecha_inicio').val('');
+                    $('#sli_fecha_final').val('');
+                    $('#sli_id').val('');
+                    $('#sli_descripcion').val('');
+                    $('#userFile').val('');
+                    alertas('verde', 'La Informacion fue Guardada con Exito');
+//                    $('#data').html(data.tabla);
                 },
                 error: function(data) {
                     alertas('rojo', 'El archivo no se ha podido cargar, el formato puede no ser valido');

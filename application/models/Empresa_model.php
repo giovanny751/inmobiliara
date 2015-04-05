@@ -124,6 +124,13 @@ class Empresa_model extends CI_Model {
 //                echo $this->db->last_query();
     }
 
+    function inactivar_slider($id, $num) {
+        $this->db->set('est_id', $num);
+        $this->db->where('sli_id', $id);
+        $this->db->update('sliderEmpresa');
+//                echo $this->db->last_query();
+    }
+
     function destacar($id, $num) {
         $this->db->set('imgEnc_destacado', $num);
         $this->db->where('imgEnc_id', $id);
@@ -131,17 +138,50 @@ class Empresa_model extends CI_Model {
 //                echo $this->db->last_query();
     }
 
-    function Guardar_slider($post,$id_user) {
+    function Guardar_slider($post, $id_user) {
         if ($post['sli_id'] == '') {
             $this->db->set('sli_user_creacion', $id_user);
             $this->db->set('sli_fecha_creacion', date('Y-m-d H:i:s'));
-            $this->db->insert('sliderEmpresa',$post);
-        }else{
+            $this->db->insert('sliderEmpresa', $post);
+        } else {
             $this->db->where('sli_id', $post['sli_id']);
             $this->db->set('sli_fecha_modificacion', $id_user);
             $this->db->set('sli_user_modificacion', date('Y-m-d H:i:s'));
-            $this->db->update('sliderEmpresa',$post);
+            $this->db->update('sliderEmpresa', $post);
         }
+    }
+
+    function obtener_slider($emp_id) {
+        $this->db->where('emp_id', $emp_id);
+        $this->db->where('est_id <>', '3');
+        $datos = $this->db->get('sliderEmpresa');
+        $datos = $datos->result();
+        $table = "<table style='width:100%'>";
+        $table.="<thead>"
+                . "<th>Imagen</th>"
+                . "<th>Información</th>"
+                . "<th>Fecha Inicial</th>"
+                . "<th>Fecha Fin</th>"
+                . "<th>Acción</th>"
+                . "</thead>";
+        foreach ($datos as $value) {
+            $table.="<tr>"
+                    . "<td> <img style='width:100px' src='" . base_url('uploads') . '/' . $value->emp_id . "/slider/" . $value->sli_nombre_archivo . "'></td>"
+                    . "<td>" . $value->sli_descripcion . "</td>"
+                    . "<td>" . $value->sli_fecha_inicio . "</td>"
+                    . "<td>" . $value->sli_fecha_final . "</td>"
+                    . '<td>'
+                    . '<a href="' . base_url('index.php/Empresa/inactivar_slider') . "/" . encrypt_id($value->sli_id) . "/" . encrypt_id(3) . '"><i class="fa fa-trash-o fa-fw fa-2x" title="Eliminar"></i> </a>';
+            if ($value->est_id == 2) {
+                $table.= '<a href="' . base_url('index.php/Empresa/inactivar_slider') . "/" . encrypt_id($value->sli_id) . "/" . encrypt_id(1) . '"><i class="fa fa-eye-slash fa-2x" title="Inactivo"></i> </a>';
+            } else {
+                $table.= '<a href="' . base_url('index.php/Empresa/inactivar_slider') . "/" . encrypt_id($value->sli_id) . "/" . encrypt_id(2) . '"><i class="fa fa-eye fa-2x" title="Activo"></i> </a>';
+            }
+            $table.= '<i class="fa fa-pencil fa-2x" title="Editar"></i></td>'
+                    . "</tr>";
+        }
+        $table.="</table>";
+        return $table;
     }
 
 }

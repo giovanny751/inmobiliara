@@ -217,9 +217,6 @@ if (isset($listado[0][0]->imgDet_nombre)) {
         if (name == "") {
             return false;
         }
-//        var nombre = "";
-//        var desc_corta = "";
-//        var desc_larga = "";
         jQuery(".preload, .load").show();
         var doUploadFileMethodURL = "<?php echo base_url('index.php/Empresa/doUploadFile'); ?>?imgEnc_id=" + imagen ;
         $.ajaxFileUpload({

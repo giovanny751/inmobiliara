@@ -94,12 +94,12 @@ class Empresa extends My_Controller {
 
 
         define("RUTA_INI", "./uploads");
-        $post['emp_id']=$user = $this->data['user']['emp_id'];
-        if (!is_dir(RUTA_INI . '/' . $user)) {
-            @mkdir(RUTA_INI . '/' . $user, 0777);
+        $post['emp_id']=$emp_id = $this->data['user']['emp_id'];
+        if (!is_dir(RUTA_INI . '/' . $emp_id)) {
+            @mkdir(RUTA_INI . '/' . $emp_id, 0777);
         }
-        if (!is_dir(RUTA_INI . '/' . $user."/slider")) {
-            @mkdir(RUTA_INI . '/' . $user."/slider", 0777);
+        if (!is_dir(RUTA_INI . '/' . $emp_id."/slider")) {
+            @mkdir(RUTA_INI . '/' . $emp_id."/slider", 0777);
         }
         $status = '';
         $message = '';
@@ -107,7 +107,7 @@ class Empresa extends My_Controller {
         $file_element_name = 'userFile';
 
         if ($status != 'error') {
-            $config['upload_path'] = RUTA_INI . '/' . $user . "/slider/";
+            $config['upload_path'] = RUTA_INI . '/' . $emp_id . "/slider/";
 //            $config['allowed_types'] = 'txt';
             $config['allowed_types'] = 'png|jpg|gif';
             $config['max_size'] = '100000';
@@ -125,17 +125,18 @@ class Empresa extends My_Controller {
         
         $post['sli_nombre_archivo']=$data['file_name'];
         $id=$this->Empresa_model->Guardar_slider($post,$user_id);
+        $tabla=$this->Empresa_model->obtener_slider($emp_id);
         
-        echo $json_encode = json_encode(array('message' => $data['file_name'], 'ruta' => $user . '/' . $data['file_name'],$id=>$id));
+        echo $json_encode = json_encode(array('message' => $data['file_name'], 'ruta' => $emp_id . '/' . $data['file_name'],'tabla'=>$tabla));
     }
 
     function guardar_imagen_general() {
         $post = $this->input->post();
-        $id_user = $this->data['user']['emp_id'];
+        $emp_id = $this->data['user']['emp_id'];
         if ($post['imgEnc_id'] > 0) {
-            $this->Empresa_model->update_imagen_general($post, $id_user);
+            $this->Empresa_model->update_imagen_general($post, $emp_id);
         } else {
-            $id = $this->Empresa_model->guarda_imagen_general($post, $id_user);
+            $id = $this->Empresa_model->guarda_imagen_general($post, $emp_id);
         }
         redirect('index.php/Empresa/listado', 'location');
     }
@@ -199,8 +200,14 @@ class Empresa extends My_Controller {
     //activa o desactiva las imagenes del slaider principal
     function slider($num=1){
         $id = $this->data['user']['emp_id'];
-        $this->data['listado'] = $this->Empresa_model->listado($num, $id);
+        $this->data['tabla']=$this->Empresa_model->obtener_slider($id);
         $this->layout->view('empresa/slider', $this->data);
+    }
+    function inactivar_slider($id,$num){
+        $id=  deencrypt_id($id);
+        $num=  deencrypt_id($num);
+        $this->Empresa_model->inactivar_slider($id, $num);
+        redirect('index.php/Empresa/slider', 'location');
     }
 
 }

@@ -126,7 +126,7 @@ class Empresa extends My_Controller {
         $post['sli_nombre_archivo']=$data['file_name'];
         $id=$this->Empresa_model->Guardar_slider($post,$user_id);
         $tabla=$this->Empresa_model->obtener_slider($emp_id);
-        
+        $tabla=  base64_encode($tabla);
         echo $json_encode = json_encode(array('message' => $data['file_name'], 'ruta' => $emp_id . '/' . $data['file_name'],'tabla'=>$tabla));
     }
 

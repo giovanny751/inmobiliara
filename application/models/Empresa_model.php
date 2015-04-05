@@ -177,7 +177,8 @@ class Empresa_model extends CI_Model {
             } else {
                 $table.= '<a href="' . base_url('index.php/Empresa/inactivar_slider') . "/" . encrypt_id($value->sli_id) . "/" . encrypt_id(2) . '"><i class="fa fa-eye fa-2x" title="Activo"></i> </a>';
             }
-            $table.= '<i class="fa fa-pencil fa-2x" title="Editar"></i></td>'
+            $editar="'".$value->sli_descripcion."','".$value->sli_id."'";
+            $table.= '<a href="javascript:" onclick="editar('.$editar.')"; ><i class="fa fa-pencil fa-2x" title="Editar"></i></td>'
                     . "</tr>";
         }
         $table.="</table>";

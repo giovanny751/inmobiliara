@@ -91,7 +91,7 @@ class Empresa_model extends CI_Model {
         } else {
             $num = deencrypt_id($num) * 10;
         }
-        $this->db->select('del.imgDet_padre,sub.sub_id,sub.sub_subcategoria,enc.imgEnc_destacado,enc.est_id,enc.imgEnc_descripcion_larga,enc.imgEnc_nombre,enc.imgEnc_descripcion_corta,enc.imgEnc_id,enc.id_emp,del.imgDet_nombre,cat_categoria');
+        $this->db->select('del.imgDet_padre,sub.sub_id,sub.sub_subcategoria,enc.ingEnc_promocion,enc.imgEnc_destacado,enc.est_id,enc.imgEnc_descripcion_larga,enc.imgEnc_nombre,enc.imgEnc_descripcion_corta,enc.imgEnc_id,enc.id_emp,del.imgDet_nombre,cat_categoria');
         $this->db->join('imagenes_detalle del ', 'del.imgEnc_id=enc.imgEnc_id', 'left', false);
         $this->db->join('categoria cat ', 'cat.cat_id=enc.cat_id', 'left', false);
         $this->db->join('subcategoria sub ', 'cat.cat_id=sub.cat_id', 'left', false);
@@ -133,6 +133,12 @@ class Empresa_model extends CI_Model {
 
     function destacar($id, $num) {
         $this->db->set('imgEnc_destacado', $num);
+        $this->db->where('imgEnc_id', $id);
+        $this->db->update('imagenes_encabezado');
+//                echo $this->db->last_query();
+    }
+    function promocion($id, $num) {
+        $this->db->set('ingEnc_promocion', $num);
         $this->db->where('imgEnc_id', $id);
         $this->db->update('imagenes_encabezado');
 //                echo $this->db->last_query();

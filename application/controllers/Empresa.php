@@ -187,14 +187,21 @@ class Empresa extends My_Controller {
     function inactivar($url, $id, $num) {
         $id = deencrypt_id($id);
         $num = deencrypt_id($num);
-        $this->data['listado'] = $this->Empresa_model->inactivar($id, $num);
+        $this->Empresa_model->inactivar($id, $num);
         redirect('index.php/Empresa/listado/' . $url, 'location');
     }
     //funcion que destaca los productos de los clientes
     function destacar($url, $id, $num) {
         $id = deencrypt_id($id);
         $num = deencrypt_id($num);
-        $this->data['listado'] = $this->EmpdoUploadFile_sliderresa_model->destacar($id, $num);
+        $this->Empresa_model->destacar($id, $num);
+        redirect('index.php/Empresa/listado/' . $url, 'location');
+    }
+    //activa o inactiva las promociones de cada producto
+    function promocion($url, $id, $num) {
+        $id = deencrypt_id($id);
+        $num = deencrypt_id($num);
+        $this->Empresa_model->promocion($id, $num);
         redirect('index.php/Empresa/listado/' . $url, 'location');
     }
     //activa o desactiva las imagenes del slaider principal

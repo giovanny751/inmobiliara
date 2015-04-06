@@ -47,6 +47,10 @@
 <p>
 
     <script>
+        function editar(desc,id){
+            $('#sli_descripcion').val(desc);
+            $('#sli_id').val(id);
+        }
         $('#uploadFile').submit(function(e) {
             e.preventDefault();
             var id = "1";

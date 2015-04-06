@@ -72,7 +72,11 @@
                         <?php } else { ?>
                             <a href="<?php echo base_url('index.php/Empresa/destacar') . "/" . encrypt_id($num) . "/" . encrypt_id($poductos->imgEnc_id) . "/" . encrypt_id(1) ?>"><i class="fa fa-star-o fa-2x" title="No Descatado"></i></a>
                         <?php } ?>
-
+                        <?php if ($poductos->ingEnc_promocion == 2) { ?>
+                            <a href="<?php echo base_url('index.php/Empresa/promocion') . "/" . encrypt_id($num) . "/" . encrypt_id($poductos->imgEnc_id) . "/" . encrypt_id(1) ?>"><i class="fa fa-bell-o fa-2x" title="En Promoción"></i></a>
+                        <?php } else { ?>
+                            <a href="<?php echo base_url('index.php/Empresa/promocion') . "/" . encrypt_id($num) . "/" . encrypt_id($poductos->imgEnc_id) . "/" . encrypt_id(2) ?>"><i class="fa fa-bell-slash-o fa-2x" title="Sin Promoción"></i></a>
+                        <?php } ?>
                     </td>
                 </tr>
                 <?php
@@ -101,12 +105,38 @@
                 ?>
                 <li class="<?php echo $cl ?>"><a href="<?php echo base_url('index.php/Empresa/listado') . "/" . encrypt_id($i) ?>"><?php echo $i ?></a></li>
             <?php } ?>
-                <li><a href="<?php echo base_url('index.php/Empresa/imagenesempresa'); ?>" class="button success">Nuevo Producto</a></li>
+            <li><a href="<?php echo base_url('index.php/Empresa/imagenesempresa'); ?>" class="button success">Nuevo Producto</a></li>
         </ul>
     </div>
     <br><p>
 </div>
 
+<!--<link rel="stylesheet" type="text/css" href="<?php echo base_url('css') ?>/screen.css" media="screen" xmlns="">-->
+	<!--<script src="<?php echo base_url('js') ?>/jquery_003.js" type="text/javascript" xmlns=""></script>-->
+	<!--<script src="<?php echo base_url('js') ?>/jquery_002.js" type="text/javascript" xmlns=""></script>-->
+	<!--<script src="Voz,%20Internet,%20Equipos%20_%20Hogares%20_%20Telecom_files/jquery.js" type="text/javascript" xmlns=""></script>-->
+
+<!--<h3>EQUIPOS DESTACADOS</h3>
+<div class="equipos">
+    <div class="browse eprev"></div>
+    <div class="browse enext"></div>
+    <div class="slider" id="sliderEquipos">
+        <ul>
+            <li><img src="http://localhost/inmobiliara/uploads/3/05517e5f9fbcdf1068f548d13e9a570a.jpg" alt="" style="width: 120px">sdsdsd</li>
+            <li><img src="http://localhost/inmobiliara/uploads/3/05517e5f9fbcdf1068f548d13e9a570a.jpg" alt="" style="width: 120px">sdsdsd</li>
+            <li><img src="http://localhost/inmobiliara/uploads/3/05517e5f9fbcdf1068f548d13e9a570a.jpg" alt="" style="width: 120px">sdsdsd</li>
+            <li><img src="http://localhost/inmobiliara/uploads/3/05517e5f9fbcdf1068f548d13e9a570a.jpg" alt="" style="width: 120px">sdsdsd</li>
+            <li><img src="http://localhost/inmobiliara/uploads/3/05517e5f9fbcdf1068f548d13e9a570a.jpg" alt="" style="width: 120px">sdsdsd</li>
+            <li><img src="http://localhost/inmobiliara/uploads/3/05517e5f9fbcdf1068f548d13e9a570a.jpg" alt="" style="width: 120px">sdsdsd</li>
+            <li><img src="http://localhost/inmobiliara/uploads/3/05517e5f9fbcdf1068f548d13e9a570a.jpg" alt="" style="width: 120px">sdsdsd</li>
+            <li><img src="http://localhost/inmobiliara/uploads/3/05517e5f9fbcdf1068f548d13e9a570a.jpg" alt="" style="width: 120px">sdsdsd</li>
+        </ul>
+    </div>
+</div>-->
+<script type="text/javascript">
+    $('#sliderEquipos').scrollable({prev: '.eprev', next: '.enext'});
+jQuery(".preload, .load").hide();
+</script>
 <script>
     $('#cat_id').change(function() {
         var cat_id = $('#cat_id').val();
@@ -122,6 +152,7 @@
                     alertas('rojo', 'Error de base de datos');
                 })
     })
+    jQuery(".preload, .load").hide();
 </script>
 <style>
     img{

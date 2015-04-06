@@ -1,0 +1,13 @@
+
+
+.equipos { float: left; width: 469px; height: 174px; background: #e6e6e6; position: relative; }
+.equipos .browse { position: absolute; top: 55px; cursor: pointer; width: 24px; height: 63px;}
+.equipos .eprev { left: 10px; background: url(img/browse-prev.png);}
+.equipos .enext { right: 10px; background: url(img/browse-next.png);}
+.equipos .slider { margin:24px 0 0 42px; overflow: hidden; width: 399px; height: 133px; position: relative; }
+.equipos .slider ul { margin: 0; list-style: none; position: absolute; top: 0; left: 0; width: 2000em;height: 133px; }
+.equipos .slider ul li { float: left; width: 133px; text-align: center;}
+.equipos .slider ul li img { display: block; border:1px solid #dbdbdb; margin-bottom: 8px; }
+.equipos .slider li a { color: #4b4b4b; font-size: 11px; }
+.equipos .slider li a:hover {color:#0B87BF;}
+

@@ -258,7 +258,12 @@ class Ingreso_model extends CI_Model {
     function creacionusuario($data){
         
         $this->db->insert('ingreso',$data);
+        $message="Bienvenido a NYGSOFT "
+                . " Usuario : ".$data['ing_correo']." "
+                . " Contraseña : ".$data['ing_contrasena'] .""
+                . " Pagina: http://nygsoft.com/inmobiliara/index.php/login";
         
+        mail($data['ing_correo'], 'Nuevo Usuario en NYGSOFT.COM', $message);
     }
     
     function tipousuario(){

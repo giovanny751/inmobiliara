@@ -66,7 +66,7 @@ function modulos($datosmodulos, $idusuario, $dato = null, $papito = null) {
             <?php echo $content_for_layout ?>
         </div>
         <div class="row" >
-            <div id="alerta" >
+            <div id="alerta" style="display: none">
                 <div  class="large-12 columns"   align='right' style="position: fixed;top:20%;left: 70%;z-index: 100000">
                     <div  class="large-3 columns">
                         <div id="color_alert" data-alert class="alert-box success radius">

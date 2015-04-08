@@ -6,6 +6,7 @@
 <link href="<?php echo base_url('css/foundation.min.css" rel="stylesheet" type="text/css') ?>" />
 <link href="<?php echo base_url('css/normalize.css" rel="stylesheet" type="text/css') ?>" />
 
+<script src="http://www.elevateweb.co.uk/wp-content/themes/radial/jquery.elevatezoom.min.js" type="text/javascript"></script>
 
 <nav class="top-bar" data-topbar>
     <ul class="title-area">
@@ -108,13 +109,13 @@
         
         <?php foreach ($datos as $imagenes) { ?>
             <div class="large-12 small-3 columns subimagenes" >
-                <img class="imagenes"   data-reveal-id="firstModal2" dato  src="<?php echo base_url('uploads' . "/" . $imagenes->id_emp . "/" . $imagenes->imgDet_nombre); ?>">
+                <img class="imagenes imagenprincipal"   data-reveal-id="firstModal2" dato  src="<?php echo base_url('uploads' . "/" . $imagenes->id_emp . "/" . $imagenes->imgDet_nombre); ?>">
             </div>
         <?php } ?>
     </div>
     <div  class="large-5 small-12 columns ">
         <div class="large-12 small-12 imgprincipal" style="width: 100%;height: 75%">
-            <img  src="<?php echo base_url('uploads' . "/" . $datos[0]->id_emp . "/" . $datos[0]->imgDet_nombre); ?>">
+            <img class="imagenprincipal" src="<?php echo base_url('uploads' . "/" . $datos[0]->id_emp . "/" . $datos[0]->imgDet_nombre); ?>">
         </div>
     </div>
     <div class="large-5 columns">
@@ -151,7 +152,7 @@
     </div>
 </div>
 
-<div id="firstModal2" class="reveal-modal-full" data-reveal aria-labelledby="firstModalTitle" aria-hidden="true" role="dialog"> 
+<!--<div id="firstModal2" class="reveal-modal-full" data-reveal aria-labelledby="firstModalTitle" aria-hidden="true" role="dialog"> 
     <div id="firstModal"  data-reveal aria-labelledby="firstModalTitle" aria-hidden="true" role="dialog"> 
         <div class="row">  
             <div class="large-12 columns"  >
@@ -164,7 +165,7 @@
         </div>
     </div> 
     <a class="close-reveal-modal" aria-label="Close">&#215;</a> 
-</div> 
+</div> -->
 
 
 <div class="row">
@@ -197,6 +198,26 @@
     </div>
 </footer>
 <script>
+    
+    $(".imagenprincipal").elevateZoom({
+  zoomType				: "lens",
+  lensShape : "round",
+  lensSize    : 200
+});
+    
+//    $(".imagenprincipal").elevateZoom({
+//			zoomWindowFadeIn: 500,
+//			zoomWindowFadeOut: 500,
+//			lensFadeIn: 500,
+//			lensFadeOut: 500
+//});
+    
+//    $("#imagenprincipal").elevateZoom({
+//  zoomType				: "inner",
+//  cursor: "crosshair"
+//});
+    
+    
     $(document).foundation();
     $('.subimagenes').mouseover(function () {
 

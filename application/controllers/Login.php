@@ -25,6 +25,7 @@ class Login extends My_Controller {
 //        }
         
         $categoria = $this->input->post('categoria');
+        $buscador = $this->input->post('buscador');
         
         if(empty($categoria)){
             $categoria = "";
@@ -32,8 +33,12 @@ class Login extends My_Controller {
         }else{
             $this->data['existenciacategoria'] = $categoria;
         } 
-        
-//        echo $categoria."***";
+        if(empty($buscador)){
+            $this->data['buscador'] = "";
+        }else{
+            $this->data['buscador'] = $buscador;
+        } 
+//        echo $categoria."***".$buscador;
         
         $cantidad = $this->administracion_model->consultacantidad();
         
@@ -48,14 +53,15 @@ class Login extends My_Controller {
             $numeracion = 1;
         }
        
+        
            
         $this->data['categorias'] = $this->administracion_model->categorias();      
         $this->data['imagenesslide'] = $this->Ingreso_model->slide();      
-        $this->data['cantidad'] = $this->Ingreso_model->cantidadimagenes($categoria);        
+        $this->data['cantidad'] = $this->Ingreso_model->cantidadimagenes($categoria,$this->data['buscador']);        
         $this->data['numeracion'] = ceil($this->data['cantidad']/$cantidad);
         $this->data['numero'] =  $numeracion;
           
-        $this->data['imagenes'] = $this->Ingreso_model->imagenesprincipales($desde,$cantidad,$categoria);
+        $this->data['imagenes'] = $this->Ingreso_model->imagenesprincipales($desde,$cantidad,$categoria,$this->data['buscador']);
         $this->load->view('login/principal',$this->data);
     }
     function autocomplete(){
@@ -76,13 +82,32 @@ class Login extends My_Controller {
         $this->output->set_content_type('application/json')->set_output(json_encode($productos));
         
     }
+    function envioolvidocontrasena(){
+        
+        $correo = $this->input->post('correo');
+        
+    }
     function producto(){
         
         $id = $this->input->post('img');
+        
+        if(!empty($id)){
+        
         $this->data['datos'] = $this->Ingreso_model->imagenseleccionada($id);  
         $this->data['datosslide'] = $this->Ingreso_model->imagenseleccionada($id);  
-        
         $this->load->view('login/producto',$this->data);
+        }else{
+            redirect('index.php/login/index', 'location');
+        }
+    }
+    function olvidocontrasena(){
+        
+        $this->load->view('login/olvidocontrasena');
+        
+    }
+    function cambiocontrasenausuarios(){
+        
+        $this->load->view('login/cambiocontrasenausuarios');
         
     }
 

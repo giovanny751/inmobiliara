@@ -6,11 +6,12 @@ class Ingreso_model extends CI_Model {
         parent::__construct();
     }
     
-    function imagenesprincipales($desde,$cantidad,$categoria = null){
+    function imagenesprincipales($desde,$cantidad,$categoria = null,$buscador = null){
         
         
         $this->db->select('imagenes_encabezado.imgEnc_nombre,imagenes_encabezado.imgEnc_id,imagenes_encabezado.id_emp,imagenes_detalle.imgDet_nombre');
         if(!empty($categoria))$this->db->where('imagenes_encabezado.cat_id',$categoria);
+        if(!empty($buscador))$this->db->like('imagenes_encabezado.imgEnc_nombre',$buscador);
         $this->db->where('imagenes_detalle.imgdet_padre',1);
         $this->db->join('imagenes_detalle','imagenes_detalle.imgEnc_id = imagenes_encabezado.imgEnc_id');
         
@@ -21,9 +22,10 @@ class Ingreso_model extends CI_Model {
         
         return $imagenes->result();
     }
-    function cantidadimagenes($categoria){
+    function cantidadimagenes($categoria,$buscador){
         
         if(!empty($categoria))$this->db->where('imagenes_encabezado.cat_id',$categoria);
+        if(!empty($buscador))$this->db->like('imagenes_encabezado.imgEnc_nombre',$buscador);
         $this->db->where('imagenes_detalle.imgdet_padre',1);
         $this->db->join('imagenes_detalle','imagenes_detalle.imgEnc_id = imagenes_encabezado.imgEnc_id');
         
@@ -317,6 +319,15 @@ class Ingreso_model extends CI_Model {
 
     function permisosusuariomenu($permiso) {
         $this->db->insert_batch('permisos', $permiso);
+    }
+    function eliminapermiso($usuario,$rol){
+        
+        $this->db->where('usu_id',$usuario);
+        $this->db->where('rol_id',$rol);
+        $this->db->delete('permisos');
+        
+//        echo $this->db->last_query();
+        
     }
     function rolesasignados($id){
         $this->db->select('permisos_rol.menu_id');

@@ -179,11 +179,19 @@
     });
 
     $('body').delegate('.permiso', 'click', function () {
+        
+                    $('.permisomenu *').remove();
+            $('.rolseleccionado *').remove();
+            $('#roles').val('');
+        
         var id = $(this).attr('usuarioid');
         $('#usuarioid').val(id);
         $('.insertarrol').attr('usuarioid', id);
         var url = "<?php echo base_url('index.php/presentacion/permisos') ?>";
         $.post(url, {id: id}, function (data) {
+            
+
+            
             $('.totalpermisos').html(data);
         });
     });

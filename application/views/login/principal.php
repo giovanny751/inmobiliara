@@ -25,42 +25,51 @@
         <li class="toggle-topbar menu-icon"><a href="#"><span>menu</span></a></li>
     </ul>
 </nav>
+
 <div class="large-12 columns"  >
     <ul class="example-orbit" data-orbit>
-        <?php 
-        if(!empty($imagenesslide)){
-        foreach($imagenesslide as $img){ ?>
-        <li><img  onerror="this.onerror=null;this.src='http://placehold.it/1350x400&amp;text=[%20img%1350%20]';" src="<?php echo base_url('uploads')."/".$img->emp_id."/".$img->sli_nombre_archivo; ?>"></li>
-        <?php }}else{ ?>
-           <li><img  onerror="this.onerror=null;this.src='http://placehold.it/1350x400&amp;text=[%20img%1350%20]';" src="http://placehold.it/1350x400&amp;text=[%20img%1350%20]"></li> 
-        <?php } ?>
+        <?php
+        if (!empty($imagenesslide)) {
+            foreach ($imagenesslide as $img) {
+                ?>
+                <li >
+                    <img  onerror="this.onerror=null;this.src='http://placehold.it/1350x400&amp;text=[%20img%1350%20]';" src="<?php echo base_url('uploads') . "/" . $img->emp_id . "/" . $img->sli_nombre_archivo; ?>">
+                </li>
+            <?php }
+        } else {
+            ?>
+            <li><img  onerror="this.onerror=null;this.src='http://placehold.it/1350x400&amp;text=[%20img%1350%20]';" src="http://placehold.it/1350x400&amp;text=[%20img%1350%20]"></li> 
+<?php } ?>
     </ul>
 </div>
 <div class="row" >
     <div class="large-12 small-12 columns right" style="padding-top: 3%">
-        <form>
-            <div class="row collapse">
-                <div class="large-3 small-12 columns">
+        <div class="row collapse">
+            <div class="large-3 small-12 columns">
+                <form >
+
                     <a href="#" class="postfix button expand split">Categorias 
                         <span data-dropdown="drop"></span>
                     </a><br> 
                     <ul id="drop" class="f-dropdown" data-dropdown-content> 
                         <?php foreach ($categorias as $cat) { ?>
                             <li cat_id="<?php echo $cat->cat_id ?>" class="categorias"><a href="javascript:"><?php echo $cat->cat_categoria ?></a></li> 
-                        <?php } ?>
-                      
+<?php } ?>
                     </ul>
-                </div>
+                </form>
+
+            </div>
+            <form method="post" action='<?php echo base_url('index.php/login/index') ?>'>
                 <div class="large-7 small-12 columns">
-                    <input type="text" placeholder="Buscar Producto"/>
+                    <input type="text" value="<?php echo $buscador; ?>" placeholder="Buscar Producto" id='buscador' name="buscador" />
                 </div>
                 <div class="large-2 small-12 columns">
-                    <a href="#" class="postfix button expand">Buscar</a>
+                    <input type="submit" class="postfix button expand filtro" value="Buscar">
                 </div>
-            </div>
-        </form>
+            </form>    
+        </div>
     </div>
-</div>s
+</div>   
 <?php
 $i = 4;
 $h = 1;
@@ -71,12 +80,20 @@ foreach ($imagenes as $img) {
 
     if ($i == 4) {
         ?>
-
+        <style>
+/*            .principio{
+                background-image: url("<?php echo base_url('img/blanco.jpg') ?>");
+                background-repeat: no-repeat;
+                background-position: 10px 30px;
+                background-size: 80px 60px;
+                z-index: 100;
+            }*/
+        </style>
         <div class="row">
             <div class="large-12 columns">
                 <div class="row">
-                <?php } ?>    
-                <div class="large-3 small-6 columns" >
+    <?php } ?>    
+                <div class="large-3 small-6 columns principio">
                     <img  onerror="this.onerror=null;this.src='http://placehold.it/250x250&text=NYGSOFT';" class="imagenes" img_id="<?php echo $img->imgEnc_id; ?>" style="cursor: pointer;width: 100%;height: 26%" src="<?php echo base_url('uploads' . "/" . $img->id_emp . "/" . $img->imgDet_nombre); ?>"/>
                     <div class="large-12 small-12 columns panel" >
                         <div class="large-8 small-8 columns">
@@ -87,7 +104,7 @@ foreach ($imagenes as $img) {
                         </div>
                     </div>
                 </div>
-                <?php if ($h == 4 || $contador == $g + 1) { ?>        
+    <?php if ($h == 4 || $contador == $g + 1) { ?>        
                 </div>
             </div>
         </div>  
@@ -107,15 +124,15 @@ foreach ($imagenes as $img) {
             <ul class="pagination"> 
                 <li class="arrow unavailable">
                     <!--<a href="">&laquo;</a></li>--> 
-                <?php
-                for ($i = 0; $i < $numeracion; $i++) {
-                    if ($i + 1 == $numero)
-                        $class = "class='current'";
-                    else
-                        $class = '';
-                    ?>
+                    <?php
+                    for ($i = 0; $i < $numeracion; $i++) {
+                        if ($i + 1 == $numero)
+                            $class = "class='current'";
+                        else
+                            $class = '';
+                        ?>
                     <li <?php echo $class ?> class="numeracion"><a href="javascript:"><?php echo $i + 1; ?></a></li> 
-                <?php } ?>
+<?php } ?>
                 <!--<li class="arrow"><a href="">&raquo;</a></li>--> 
             </ul>
         </form>    
@@ -138,16 +155,22 @@ foreach ($imagenes as $img) {
     <div id="firstModal"  data-reveal aria-labelledby="firstModalTitle" aria-hidden="true" role="dialog"> 
         <h2 id="firstModalTitle">INICIO SESION</h2> 
         <form method="post" action="<?php echo base_url('index.php/login/verify') ?>">
-            <label>CORREO</label><input type="text" name="username">
-            <label>CONTRASEÑA</label><input type="password" name="password">
+            <label>CORREO</label><input type="text" name="username" placeholder="CORREO">
+            <label>CONTRASEÑA</label><input type="password" name="password" placeholder="CONTRASEÑA">
             <input type="submit" class="button radius success" value="INGRESAR">
         </form>
+        <div class="row">
+            <div class="large-12 columns" >
+                <a href="<?php echo base_url('index.php/login/olvidocontrasena') ?>">¿Olvido contraseña?</a>
+            </div>
+        </div>
     </div> 
     <a class="close-reveal-modal" aria-label="Close">&#215;</a> 
 </div> 
 
+
 <script>
-    
+
 //  -----------------------------------------------------------------------------
 //                      AUTOCOMPLETAR  
 //  -----------------------------------------------------------------------------  

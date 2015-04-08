@@ -419,6 +419,9 @@ class Presentacion extends My_Controller {
         for ($i = 0; $i < count($permisorol); $i++) {
             $permiso[] = array('usu_id' => $usuario, 'menu_id' => $permisorol[$i], 'rol_id' => $rol);
         }
+        
+        $this->Ingreso_model->eliminapermiso($usuario,$rol);
+        
         $this->Ingreso_model->permisosusuariomenu($permiso);
     }
 

@@ -1,4 +1,6 @@
-
+    <div class="row">
+        <center><h1>CREACION DE MENU</h1></center> 
+    </div>
 <div class="row">
     <button type="button" data-reveal-id="firstModal2"  class="button radius opciones">Nuevo Modulo</button>
 </div>

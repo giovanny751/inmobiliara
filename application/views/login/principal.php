@@ -6,7 +6,7 @@
 <link href="<?php echo base_url('css/foundation.css" rel="stylesheet" type="text/css') ?>" />
 <link href="<?php echo base_url('css/foundation.min.css" rel="stylesheet" type="text/css') ?>" />
 <link href="<?php echo base_url('css/normalize.css" rel="stylesheet" type="text/css') ?>" />
-
+<link href="<?php echo base_url('css/font-awesome.css" rel="stylesheet" type="text/css') ?>" />
 
 <style>
     body{
@@ -35,11 +35,12 @@
                 <li >
                     <img  onerror="this.onerror=null;this.src='http://placehold.it/1350x400&amp;text=[%20img%1350%20]';" src="<?php echo base_url('uploads') . "/" . $img->emp_id . "/" . $img->sli_nombre_archivo; ?>">
                 </li>
-            <?php }
+                <?php
+            }
         } else {
             ?>
             <li><img  onerror="this.onerror=null;this.src='http://placehold.it/1350x400&amp;text=[%20img%1350%20]';" src="http://placehold.it/1350x400&amp;text=[%20img%1350%20]"></li> 
-<?php } ?>
+        <?php } ?>
     </ul>
 </div>
 <div class="row" >
@@ -54,7 +55,7 @@
                     <ul id="drop" class="f-dropdown" data-dropdown-content> 
                         <?php foreach ($categorias as $cat) { ?>
                             <li cat_id="<?php echo $cat->cat_id ?>" class="categorias"><a href="javascript:"><?php echo $cat->cat_categoria ?></a></li> 
-<?php } ?>
+                        <?php } ?>
                     </ul>
                 </form>
 
@@ -81,30 +82,32 @@ foreach ($imagenes as $img) {
     if ($i == 4) {
         ?>
         <style>
-/*            .principio{
-                background-image: url("<?php echo base_url('img/blanco.jpg') ?>");
-                background-repeat: no-repeat;
-                background-position: 10px 30px;
-                background-size: 80px 60px;
-                z-index: 100;
-            }*/
+            /*            .principio{
+                            background-image: url("<?php echo base_url('img/blanco.jpg') ?>");
+                            background-repeat: no-repeat;
+                            background-position: 10px 30px;
+                            background-size: 80px 60px;
+                            z-index: 100;
+                        }*/
         </style>
         <div class="row">
             <div class="large-12 columns">
                 <div class="row">
-    <?php } ?>    
+                <?php } ?>    
                 <div class="large-3 small-6 columns principio">
-                    <img  onerror="this.onerror=null;this.src='http://placehold.it/250x250&text=NYGSOFT';" class="imagenes" img_id="<?php echo $img->imgEnc_id; ?>" style="cursor: pointer;width: 100%;height: 26%" src="<?php echo base_url('uploads' . "/" . $img->id_emp . "/" . $img->imgDet_nombre); ?>"/>
+                    <span id="imaagen<?php echo $i; ?>">
+                        <img  onerror="this.onerror=null;this.src='http://placehold.it/250x250&text=NYGSOFT';" class="imagenes" img_id="<?php echo $img->imgEnc_id; ?>" style="cursor: pointer;width: 100%;height: 26%" src="<?php echo base_url('uploads' . "/" . $img->id_emp . "/" . $img->imgDet_nombre); ?>"/>
+                    </span>
                     <div class="large-12 small-12 columns panel" >
                         <div class="large-8 small-8 columns">
                             <h6 ><?php echo $img->imgEnc_nombre ?></h6>
                         </div>
                         <div class="large-4 small-4 columns">
-                            <img  onerror="this.onerror=null;this.src='http://placehold.it/250x250&text=NYGSOFT';" class="imagenes" img_id="<?php echo $img->imgEnc_id; ?>" style="cursor: pointer;width: 100%;height: 5%" src="<?php echo base_url('img/carrito.jpg'); ?>"/>
+                            <a href="javascript:" data-reveal-id="myModal" onclick="activar('<?php echo $i; ?>','<?php echo $img->imgEnc_nombre ?>','<?php echo $img->imgEnc_id; ?>');"><i class="fa fa-cart-plus fa-2x" ></i></a>
                         </div>
                     </div>
                 </div>
-    <?php if ($h == 4 || $contador == $g + 1) { ?>        
+                <?php if ($h == 4 || $contador == $g + 1) { ?>        
                 </div>
             </div>
         </div>  
@@ -132,7 +135,7 @@ foreach ($imagenes as $img) {
                             $class = '';
                         ?>
                     <li <?php echo $class ?> class="numeracion"><a href="javascript:"><?php echo $i + 1; ?></a></li> 
-<?php } ?>
+                <?php } ?>
                 <!--<li class="arrow"><a href="">&raquo;</a></li>--> 
             </ul>
         </form>    
@@ -167,9 +170,47 @@ foreach ($imagenes as $img) {
     </div> 
     <a class="close-reveal-modal" aria-label="Close">&#215;</a> 
 </div> 
+<div id="myModal" class="reveal-modal tiny" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
+    <div id="imagenes"></div>
+    <form action="<?php echo base_url('index.php'); ?>/login/agregar_carrito" method="post">
+        <div class="large-12 small-12 columns principio panel">
+        <div class="large-12 small-12 columns principio">
+            <div class="large-5 small-5 columns principio">
+                Cantidad 
+            </div>    
+            <div class="large-6 small-6 columns principio">
+                <input class="number2"  type="text" value="0" nim="0" max="50" name="cantidad">
+            </div> 
+        </div>
+
+        <div class="large-12 small-12 columns principio">
+            <input type="hidden" name="opciones[no hay]" value="ya">
+            <input type="hidden" name="id_producto" id="id_producto" value="1">
+            <input type="hidden" name="nombre_producto" id="nombre_producto" value="maqueta">
+            <input type="hidden" name="precio_producto" id="precio_producto" value="0">
+            <center><button class="button tiny"><i class="fa fa-cart-plus" ></i> Agregar</button></center>
+        </div>
+        </div>
+    </form>
+
+</div>
 
 
 <script>
+    function activar(id,nombre,produc) {
+        var imagen = $('#imaagen' + id).html();
+        console.log(imagen);
+        $('#imagenes').html(imagen);
+        $('#nombre_producto').val(nombre);
+        $('#id_producto').val(produc);
+    }
+    $('.number2').change(function () {
+        var numbre = $(this).val();
+        if (isNaN(numbre)) {
+            alert('Valor Incorrecto');
+            $(this).val('0');
+        }
+    })
 
 //  -----------------------------------------------------------------------------
 //                      AUTOCOMPLETAR  

@@ -1,8 +1,8 @@
 <article class="contenido">
     <?php echo anchor('index.php/login/lista_productos','Volver al listado');?>
     <hr>
-    <form action="<?php echo base_url();?>productos/actualizar_carrito" method="post">
-        <table class="carrito">
+    <form action="<?php echo base_url();?>index.php/login/actualizar_carrito" method="post">
+        <table class="carrito" border="1">
             <tr>
                 <th>Nombre del producto</th>
                 <th>Precio</th>
@@ -40,7 +40,7 @@
             <tr>
                 <td colspan="2">
                     <input type="submit" name="actualizar" value="Actualizar Carrito">
-                    <?php echo anchor('productos/vaciar_carrito', 'Vaciar Carrito'); ?>
+                    <?php echo anchor('index.php/vaciar', 'Vaciar Carrito'); ?>
                 </td>
                 <td>Total:</td>
                 <td>Bs.F. <?php echo number_format($this->cart->total(),2,',','.'); ?></td>

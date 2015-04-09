@@ -12,18 +12,11 @@ class Login extends My_Controller {
         $this->load->helper('miscellaneous');
         $this->load->model('Ingreso_model');
         $this->load->model('administracion_model');
+        $this->load->library('cart');
         //$this->load->library('My_PHPMailer');
     }
 
     public function index() {
-        //FUNCION PRINCIPAL PARA EL LOGIN - CARGA LA VISTA LOGIN/INDEX.PHP
-//        $datos = $this->session->userdata('user_id');
-//        if (!empty($datos)) {
-//            redirect('index.php/presentacion/principal', 'location');
-//        } else {
-//            $this->load->view('login/principal');
-//        }
-        
         $categoria = $this->input->post('categoria');
         $buscador = $this->input->post('buscador');
         
@@ -52,9 +45,6 @@ class Login extends My_Controller {
             $desde = 0;
             $numeracion = 1;
         }
-       
-        
-           
         $this->data['categorias'] = $this->administracion_model->categorias();      
         $this->data['imagenesslide'] = $this->Ingreso_model->slide();      
         $this->data['cantidad'] = $this->Ingreso_model->cantidadimagenes($categoria,$this->data['buscador']);        
@@ -217,7 +207,9 @@ class Login extends My_Controller {
             'options' => $opciones
         );
         $this->cart->insert($data);
-        redirect('index.php/Login/lista_productos');
+        redirect('index.php/carrito');
+//        redirect('index.php/Login/mostrar_carrito');
+//        redirect('index.php/Login/lista_productos');
     }
     function lista_productos() {
         $datos['titulo'] = 'Listado de productos';
@@ -233,7 +225,8 @@ class Login extends My_Controller {
     
     function vaciar_carrito() {
         $this->cart->destroy();
-        redirect('index.php/Login/lista_productos');
+        redirect('index.php/productos');
+//        redirect('index.php/Login/lista_productos');
     }
     
     function actualizar_carrito() {
@@ -249,7 +242,7 @@ class Login extends My_Controller {
         }
         
         $this->cart->update($data);
-        redirect('index.php/Login/lista_productos');
+        redirect('index.php/Login');
     }
 
 }

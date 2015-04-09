@@ -204,5 +204,52 @@ class Login extends My_Controller {
         $password = $this->user_model->reset($mail);
         mail($mail, "Restablecer la contraseña. ", 'clave: ' . $password);
     }
+    function agregar_carrito() {
+        $opciones = array();
+        if($this->input->post('opciones')) {
+            $opciones = $this->input->post('opciones');
+        }
+        $data = array(
+            'id' => $this->input->post('id_producto'),
+            'qty' => $this->input->post('cantidad'),
+            'price' => $this->input->post('precio_producto'),
+            'name' => $this->input->post('nombre_producto'),
+            'options' => $opciones
+        );
+        $this->cart->insert($data);
+        redirect('index.php/Login/lista_productos');
+    }
+    function lista_productos() {
+        $datos['titulo'] = 'Listado de productos';
+        $datos['contenido'] = 'lista_productos';
+        $this->load->view('Login/lista_productos', $datos);
+    }
+    
+    function mostrar_carrito() {
+        $datos['titulo'] = 'Listado de productos';
+        $datos['contenido'] = 'carrito';
+        $this->load->view('Login/carrito', $datos);
+    }
+    
+    function vaciar_carrito() {
+        $this->cart->destroy();
+        redirect('index.php/Login/lista_productos');
+    }
+    
+    function actualizar_carrito() {
+        $rows = $this->input->post('rowid');
+        $cantidades = $this->input->post('qty');
+        $data = array();
+        
+        for ($i = 0; $i < sizeof($rows); $i++) {
+            $data[] = array(
+                'rowid' => $rows[$i],
+                'qty' => $cantidades[$i]
+            );
+        }
+        
+        $this->cart->update($data);
+        redirect('index.php/Login/lista_productos');
+    }
 
 }

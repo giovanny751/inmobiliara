@@ -42,23 +42,17 @@
     </ul>
 </nav>
 
-<div class="row panel" data-equalizer style="margin-top: 15%;">
-    <div class="large-12 columns">
+<div class="row" data-equalizer style="margin-top: 10%;">
+    <div class="large-offset-4 large-4 columns">
         <ul class="pricing-table control" data-equalizer-watch>
             <li class="title">OLVIDO CONTRASEÑA</li>
-            <li  class="bullet-item">
-                <div class="large-2 columns">
-                    <label for="correo">CORREO</label>
-                </div>
-                <div class="large-10 columns"> 
-                    <input type="text" placeholder="CORREO" id="correo">
-                </div>
+            <li class="bullet-item">
+                <input type="text" placeholder="CORREO" id="correo">
             </li>
             <li class="cta-button">
                 <button type="button" class="button radius enviar">Enviar</button>
             </li>
         </ul>
-
     </div>
 </div>
 <script>
@@ -77,7 +71,7 @@
                 .done(function (msg) {
 //                    alert($('.control').length);
                     if ($('.alerta').length == 0)
-                        $('.control').append('<li class="row alerta" style="color:blue"><center><b>Correo Enviado Correctamente</b></center></li>');
+                        $('.control').append('<li class="row alerta bullet-item" style="color:blue"><center><b>Correo Enviado Correctamente</b></center></li>');
                 })
                 .fail(function (msg) {
                     if ($('.alertaerror').length == 0)

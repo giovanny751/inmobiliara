@@ -21,6 +21,9 @@ class Empresa_model extends CI_Model {
         $this->db->where('empresa.emp_id', $id);
         $this->db->join('empresa', 'empresa.ing_id = ingreso.ing_id', 'left');
         $datos = $this->db->get('ingreso');
+        
+//        echo $this->db->last_query();
+        
         return $datos->result();
     }
 

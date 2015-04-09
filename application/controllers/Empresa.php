@@ -15,8 +15,14 @@ class Empresa extends My_Controller {
 
     function actualizacionempresa() {
 
-        $id = $this->data['user']['id_usuario'];
+        $id = $this->data['user']['emp_id'];
+        
+//        var_dump($id);die;
+        
         $this->data['datos'] = $this->Empresa_model->datosempresa($id);
+        
+//        var_dump($this->data['datos']);die;
+        
         $this->layout->view('empresa/actualizacionempresa', $this->data);
     }
 

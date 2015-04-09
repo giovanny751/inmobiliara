@@ -92,7 +92,7 @@ class Login extends My_Controller {
         $id = $this->input->post('img');
         
         if(!empty($id)){
-        
+        $this->data['categorias'] = $this->administracion_model->categorias();
         $this->data['datos'] = $this->Ingreso_model->imagenseleccionada($id);  
         $this->data['datosslide'] = $this->Ingreso_model->imagenseleccionada($id);  
         $this->load->view('login/producto',$this->data);

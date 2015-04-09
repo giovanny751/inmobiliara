@@ -78,25 +78,34 @@
 
 
 
-<div class="row" style="margin-top: 3%;">
-    <div class="large-3 small-4 columns">
-        <h1><img src="<?php echo base_url('img/blanco.jpg') ?>"></h1>
-    </div>
-    <div class="large-9 small-8 columns right" style="padding-top: 6%">
-        <form>
-            <div class="row collapse">
-                <div class="large-10 small-8 columns">
-                    <input type="text"/>
-                </div>
+<div class="row" >
+    <div class="large-12 small-12 columns right" style="padding-top: 3%">
+        <div class="row collapse">
+            <div class="large-3 small-12 columns">
+                <form >
 
-                <div class="large-2 small-4 columns">
-                    <a href="#" class="postfix button expand">Search</a>
-                </div>
+                    <a href="#" class="postfix button expand split">Categorias 
+                        <span data-dropdown="drop"></span>
+                    </a><br> 
+                    <ul id="drop" class="f-dropdown" data-dropdown-content> 
+                        <?php foreach ($categorias as $cat) { ?>
+                            <li cat_id="<?php echo $cat->cat_id ?>" class="categorias"><a href="javascript:"><?php echo $cat->cat_categoria ?></a></li> 
+<?php } ?>
+                    </ul>
+                </form>
+
             </div>
-        </form>
+            <form method="post" action='<?php echo base_url('index.php/login/index') ?>'>
+                <div class="large-7 small-12 columns">
+                    <input type="text"  placeholder="Buscar Producto" id='buscador' name="buscador" />
+                </div>
+                <div class="large-2 small-12 columns">
+                    <input type="submit" class="postfix button expand filtro" value="Buscar">
+                </div>
+            </form>    
+        </div>
     </div>
-</div>
-
+</div>   
 
 
 

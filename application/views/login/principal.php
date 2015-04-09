@@ -103,7 +103,7 @@ foreach ($imagenes as $img) {
                             <h6 ><?php echo $img->imgEnc_nombre ?></h6>
                         </div>
                         <div class="large-4 small-4 columns">
-                            <a href="javascript:" data-reveal-id="myModal" onclick="activar('<?php echo $i; ?>','<?php echo $img->imgEnc_nombre ?>','<?php echo $img->imgEnc_id; ?>');"><i class="fa fa-cart-plus fa-2x" ></i></a>
+                            <a href="javascript:" data-reveal-id="myModal" onclick="activar('<?php echo $i; ?>', '<?php echo $img->imgEnc_nombre ?>', '<?php echo $img->imgEnc_id; ?>');"><i class="fa fa-cart-plus fa-2x" ></i></a>
                         </div>
                     </div>
                 </div>
@@ -174,22 +174,24 @@ foreach ($imagenes as $img) {
     <div id="imagenes"></div>
     <form action="<?php echo base_url('index.php'); ?>/login/agregar_carrito" method="post">
         <div class="large-12 small-12 columns principio panel">
-        <div class="large-12 small-12 columns principio">
-            <div class="large-5 small-5 columns principio">
-                Cantidad 
-            </div>    
-            <div class="large-6 small-6 columns principio">
-                <input class="number2"  type="text" value="0" nim="0" max="50" name="cantidad">
-            </div> 
-        </div>
+            <div class="large-12 small-12 columns principio">
+                <div class="large-5 small-5 columns principio">
+                    Cantidad 
+                </div>    
+                <div class="large-6 small-6 columns principio">
+                    <input class="number2"  type="text" value="0" nim="0" max="50" name="cantidad">
+                </div> 
+            </div>
 
-        <div class="large-12 small-12 columns principio">
-            <input type="hidden" name="opciones[no hay]" value="ya">
-            <input type="hidden" name="id_producto" id="id_producto" value="1">
-            <input type="hidden" name="nombre_producto" id="nombre_producto" value="maqueta">
-            <input type="hidden" name="precio_producto" id="precio_producto" value="0">
-            <center><button class="button tiny"><i class="fa fa-cart-plus" ></i> Agregar</button></center>
-        </div>
+            <div class="large-12 small-12 columns principio">
+                <div style="display: none">
+                    <input type="hidden" name="opciones[no hay]" value="ya">
+                    <input type="hidden" name="id_producto" id="id_producto" value="1">
+                    <input type="hidden" name="nombre_producto" id="nombre_producto" value="maqueta">
+                    <input type="hidden" name="precio_producto" id="precio_producto" value="0">
+                </div>
+                <center><button class="button tiny"><i class="fa fa-cart-plus" ></i> Agregar</button></center>
+            </div>
         </div>
     </form>
 
@@ -197,7 +199,7 @@ foreach ($imagenes as $img) {
 
 
 <script>
-    function activar(id,nombre,produc) {
+    function activar(id, nombre, produc) {
         var imagen = $('#imaagen' + id).html();
         console.log(imagen);
         $('#imagenes').html(imagen);

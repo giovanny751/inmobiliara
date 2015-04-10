@@ -12,6 +12,18 @@
     body{
         background-image: url('<?php echo base_url('img/pattern.png') ?>');
     }
+    .categoryTitle {
+        /*background-color: rgba(0, 0, 0, 0.3);*/
+        /*background-image: url('<?php echo base_url('img/Estrella.png'); ?>');*/
+        bottom: 367%;
+        height: 355%;
+        margin: 0;
+        overflow: hidden;
+        position: absolute;
+        top: inherit;
+        left: -28%;
+        z-index: 1;
+    }
 </style>
 
 <nav class="top-bar" data-topbar>
@@ -81,21 +93,13 @@ foreach ($imagenes as $img) {
 
     if ($i == 4) {
         ?>
-        <style>
-            /*            .principio{
-                            background-image: url("<?php echo base_url('img/blanco.jpg') ?>");
-                            background-repeat: no-repeat;
-                            background-position: 10px 30px;
-                            background-size: 80px 60px;
-                            z-index: 100;
-                        }*/
-        </style>
+        
         <div class="row">
             <div class="large-12 columns">
                 <div class="row">
                 <?php } ?>    
                 <div class="large-3 small-6 columns principio">
-                    <span id="imaagen<?php echo $i; ?>">
+                    <span id="imaagen<?php echo $g; ?>">
                         <img  onerror="this.onerror=null;this.src='http://placehold.it/250x250&text=NYGSOFT';" class="imagenes" img_id="<?php echo $img->imgEnc_id; ?>" style="cursor: pointer;width: 100%;height: 26%" src="<?php echo base_url('uploads' . "/" . $img->id_emp . "/" . $img->imgDet_nombre); ?>"/>
                     </span>
                     <div class="large-12 small-12 columns panel" >
@@ -103,7 +107,12 @@ foreach ($imagenes as $img) {
                             <h6 ><?php echo $img->imgEnc_nombre ?></h6>
                         </div>
                         <div class="large-4 small-4 columns">
-                            <a href="javascript:" data-reveal-id="myModal" onclick="activar('<?php echo $i; ?>', '<?php echo $img->imgEnc_nombre ?>', '<?php echo $img->imgEnc_id; ?>');"><i class="fa fa-cart-plus fa-2x" ></i></a>
+                            <i style="cursor:pointer" class="fa fa-cart-plus fa-2x" data-reveal-id="myModal"  onclick="activar('<?php echo $g; ?>', '<?php echo $img->imgEnc_nombre ?>', '<?php echo $img->imgEnc_id; ?>');" ></i>
+                            <?php if ($img->ingEnc_promocion == 2) { ?>
+                                <div class="categoryTitle box">
+                                    <img width="100%" height="100%" src="<?php echo base_url('img/Estrella.png'); ?>" title='PROMOCION'>
+                                </div>
+                            <?php } ?>
                         </div>
                     </div>
                 </div>

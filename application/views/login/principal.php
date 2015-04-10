@@ -1,4 +1,13 @@
-
+<?php
+//echo print_y($this->cart->contents());
+$array_cart = $this->cart->contents();
+if (empty($array_cart)) {
+    $cod_cliente = '';
+} else {
+    foreach ($array_cart as $key => $value)
+        $cod_cliente = $key;
+}
+?>
 <script src="<?php echo base_url('js/vendor/jquery.js') ?>"></script>
 <script src="<?php echo base_url('js/foundation/foundation.js') ?>"></script>
 <script src="<?php echo base_url('js/foundation/foundation.reveal.js') ?>"></script>
@@ -91,9 +100,18 @@ $contador = count($imagenes);
 
 foreach ($imagenes as $img) {
 
+    if (!empty($cod_cliente)) {
+        if ($img->imgEnc_id == $array_cart[$cod_cliente]['id'])
+            $cantidad = $array_cart[$cod_cliente]['qty'];
+        else
+            $cantidad = 0;
+    }else {
+        $cantidad = 0;
+    }
+
     if ($i == 4) {
         ?>
-        
+
         <div class="row">
             <div class="large-12 columns">
                 <div class="row">
@@ -107,7 +125,7 @@ foreach ($imagenes as $img) {
                             <h6 ><?php echo $img->imgEnc_nombre ?></h6>
                         </div>
                         <div class="large-4 small-4 columns">
-                            <i style="cursor:pointer" class="fa fa-cart-plus fa-2x" data-reveal-id="myModal"  onclick="activar('<?php echo $g; ?>', '<?php echo $img->imgEnc_nombre ?>', '<?php echo $img->imgEnc_id; ?>');" ></i>
+                            <i style="cursor:pointer" class="fa fa-cart-plus fa-2x" data-reveal-id="myModal"  onclick="activar('<?php echo $g; ?>', '<?php echo $img->imgEnc_nombre ?>', '<?php echo $img->imgEnc_id; ?>','<?php echo $cantidad; ?>');" ></i>
                             <?php if ($img->ingEnc_promocion == 2) { ?>
                                 <div class="categoryTitle box">
                                     <img width="100%" height="100%" src="<?php echo base_url('img/Estrella.png'); ?>" title='PROMOCION'>
@@ -188,13 +206,13 @@ foreach ($imagenes as $img) {
                     Cantidad 
                 </div>    
                 <div class="large-6 small-6 columns principio">
-                    <input class="number2"  type="text" value="0" nim="0" max="50" name="cantidad">
+                    <input class="number2"  type="text" value="0" nim="0" max="50" name="cantidad" id="cantidad">
                 </div> 
             </div>
 
             <div class="large-12 small-12 columns principio">
                 <div style="display: none">
-                    <input type="hidden" name="opciones[no hay]" value="ya">
+                    <input type="hidden" name="opciones[no hay]" value="" id="opciones">
                     <input type="hidden" name="id_producto" id="id_producto" value="1">
                     <input type="hidden" name="nombre_producto" id="nombre_producto" value="maqueta">
                     <input type="hidden" name="precio_producto" id="precio_producto" value="0">
@@ -208,14 +226,16 @@ foreach ($imagenes as $img) {
 
 
 <script>
-    function activar(id, nombre, produc) {
+    function activar(id, nombre, produc,cantidad) {
         var imagen = $('#imaagen' + id).html();
         console.log(imagen);
         $('#imagenes').html(imagen);
         $('#nombre_producto').val(nombre);
         $('#id_producto').val(produc);
+        $('#cantidad').val(cantidad);
+        $('#opciones').val(imagen);
     }
-    $('.number2').change(function () {
+    $('.number2').change(function() {
         var numbre = $(this).val();
         if (isNaN(numbre)) {
             alert('Valor Incorrecto');
@@ -263,7 +283,7 @@ foreach ($imagenes as $img) {
 //    });
 //------------------------------------------------------------------------------
 
-    $('.imagenes').click(function () {
+    $('.imagenes').click(function() {
         var id = $(this).attr('img_id');
         var form = "<form method='post' action='<?php echo base_url('index.php/login/producto'); ?>' id='producto'>";
         form += "<input type='hidden' value='" + id + "' name='img'>";
@@ -273,7 +293,7 @@ foreach ($imagenes as $img) {
 
         $('#producto').submit();
     });
-    $('.categorias').click(function () {
+    $('.categorias').click(function() {
         var id = $(this).attr('cat_id');
         var form = "<form method='post' action='<?php echo base_url('index.php/login/index'); ?>' id='producto'>";
         form += "<input type='hidden' value='" + id + "' name='categoria'>";
@@ -286,7 +306,7 @@ foreach ($imagenes as $img) {
 
     $(document).foundation();
 
-    $('.numeracion').click(function () {
+    $('.numeracion').click(function() {
         var numeracion = $(this).text();
         $('#f1').append('<input type="hidden" value="' + numeracion + '" name="numeracion">');
         $('#f1').submit();

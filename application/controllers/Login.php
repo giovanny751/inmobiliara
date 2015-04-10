@@ -240,9 +240,8 @@ class Login extends My_Controller {
                 'qty' => $cantidades[$i]
             );
         }
-        
         $this->cart->update($data);
-        redirect('index.php/Login');
+        redirect('index.php/productos');
     }
 
 }

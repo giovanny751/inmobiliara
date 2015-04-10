@@ -33,6 +33,20 @@ if (empty($array_cart)) {
         left: -28%;
         z-index: 1;
     }
+    @media screen and (max-width: 700px) {
+        .categoryTitle {
+            display:none;
+            bottom: 500%;
+            height: 355%;
+            margin: 0;
+            overflow: hidden;
+            position: absolute;
+            top: inherit;
+            left: -28%;
+            z-index: 1;
+        }
+    }
+
 </style>
 
 <nav class="top-bar" data-topbar>
@@ -221,7 +235,6 @@ foreach ($imagenes as $img) {
             </div>
         </div>
     </form>
-
 </div>
 
 

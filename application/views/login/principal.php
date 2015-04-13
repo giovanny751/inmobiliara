@@ -49,8 +49,8 @@ if (empty($array_cart)) {
     }
     @media screen and (max-width: 700px) {
         .textomenu{
-            width: 50%;
-            left: 5%;
+            width: 40%;
+            left: 19%;
         }
         .botonytextomenu{
             top: 2%;
@@ -58,12 +58,20 @@ if (empty($array_cart)) {
         }
         .botonmenu{
             width: 100px;
-            left: 55%;
+            left: 59%;
         }
         .menu{
             width: 100%;
             height: 70px;
             background-color: 008cba;
+        }
+        #carrito{
+            position:absolute;
+            left: 84%;
+            top:2%;
+            width: 45px;
+            height: 35px;
+            cursor: pointer
         }
 
     }
@@ -86,6 +94,24 @@ if (empty($array_cart)) {
             width: 200px;
             left: 59%;
         }
+        #carrito{
+            position:absolute;
+            left: 84%;
+            top:2%;
+            width: 80px;
+            cursor: pointer;
+            height: 35px;
+        }
+        .orbit-container img {
+            border: 0 none;
+            width: 100%;
+        }
+        .menu {
+            background-color: #008cba;
+            max-height: 20%;
+            min-height: 10%;
+            width: 100%;
+        }
     }
 </style>
 
@@ -100,8 +126,10 @@ if (empty($array_cart)) {
         <li class="toggle-topbar menu-icon"><a href="#"><span>menu</span></a></li>
     </ul>
 </nav>-->
-
 <div class="menu">
+    <div style="position:absolute;left: 3%;top:2%;width: 35px;cursor: pointer" data-reveal-id="firstModal" id="sesion">
+        INICIAR SESION
+    </div>
     <form method="post" action='<?php echo base_url('index.php/login/index') ?>'>
         <div class="textomenu botonytextomenu">
             <input type="text" value="" placeholder="Buscar Producto" id='buscador' name="buscador" />
@@ -110,8 +138,8 @@ if (empty($array_cart)) {
             <input type="submit" class="button radius tiny success" value="Buscar">
         </div >
 
-        <div style="position:absolute;left: 85%;">
-            <a href="<?php echo base_url('index.php/carrito') ?>" style="color:black">CARRITO</a>
+        <div >
+            <a href="<?php echo base_url('index.php/carrito') ?>" style="color:black" id="carrito">CARRITO</a>
         </div>
     </form>    
 </div>
@@ -145,7 +173,7 @@ if (empty($array_cart)) {
                     </a><br> 
                     <ul id="drop" class="f-dropdown" data-dropdown-content> 
 <?php foreach ($categorias as $cat) { ?>
-                                        <li cat_id="<?php echo $cat->cat_id ?>" class="categorias"><a href="javascript:"><?php echo $cat->cat_categoria ?></a></li> 
+                                            <li cat_id="<?php echo $cat->cat_id ?>" class="categorias"><a href="javascript:"><?php echo $cat->cat_categoria ?></a></li> 
 <?php } ?>
                     </ul>
                 </form>
@@ -256,6 +284,7 @@ if ($contador > 0) {
 }
 ?>
 <div class="row">
+    <div class="large-offset-4 colums">
     <center>
         <form method="post" id="f1">
             <ul class="pagination"> 
@@ -274,6 +303,7 @@ if ($contador > 0) {
             </ul>
         </form>    
     </center>
+</div>
 </div>
 <div class="row"> 
     <form method="post" id="envio">
@@ -317,15 +347,17 @@ if ($contador > 0) {
 <!-- Reveal Modals begin --> 
 <div id="firstModal" class="reveal-modal" data-reveal aria-labelledby="firstModalTitle" aria-hidden="true" role="dialog"> 
     <div id="firstModal"  data-reveal aria-labelledby="firstModalTitle" aria-hidden="true" role="dialog"> 
-        <h2 id="firstModalTitle">INICIO SESION</h2> 
+        <center><h2 id="firstModalTitle">INICIO SESION</h2></center> 
         <form method="post" action="<?php echo base_url('index.php/login/verify') ?>">
             <label>CORREO</label><input type="text" name="username" placeholder="CORREO">
             <label>CONTRASEÑA</label><input type="password" name="password" placeholder="CONTRASEÑA">
-            <input type="submit" class="button radius success" value="INGRESAR">
+            <center><input type="submit" class="button radius success" value="INGRESAR"></center>
         </form>
         <div class="row">
             <div class="large-12 columns" >
-                <a href="<?php echo base_url('index.php/login/olvidocontrasena') ?>">¿Olvido contraseña?</a>
+                <center>
+                    <a href="<?php echo base_url('index.php/login/olvidocontrasena') ?>">¿Olvido contraseña?</a>
+                </center>    
             </div>
         </div>
     </div> 
@@ -391,9 +423,14 @@ if ($contador > 0) {
         if (ancho < 700) {
             $('#firstModal').addClass('full');
             $('#myModal').addClass('full');
+            $('#sesion').text('');
+            $('#sesion').append('<img style="width:100%;height:100%" src="<?php echo base_url('img/usuario.jpg') ?>" >');
+            $('#carrito').text('');
+            $('#carrito').append('<img style="width:100%;height:100%" src="<?php echo base_url('img/carrito.jpg') ?>" >');
 //            $('#carrito').addClass('fa-2x');
         } else {
             $('#myModal').addClass('tiny');
+            $('#firstModal').addClass('tiny');
 //            $('#carrito').addClass('fa-4x');
         }
     });

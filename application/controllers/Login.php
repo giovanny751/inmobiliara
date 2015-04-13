@@ -31,6 +31,11 @@ class Login extends My_Controller {
         }else{
             $this->data['buscador'] = $buscador;
         } 
+        if(empty($this->input->post('forma'))){
+            $this->data['forma'] = "";
+        }else{
+            $this->data['forma'] = $this->input->post('forma');
+        } 
 //        echo $categoria."***".$buscador;
         
         $cantidad = $this->administracion_model->consultacantidad();
@@ -82,8 +87,13 @@ class Login extends My_Controller {
         $id = $this->input->post('img');
         
         if(!empty($id)){
+        $this->data['id'] = $id;  
+       
         $this->data['categorias'] = $this->administracion_model->categorias();
         $this->data['datos'] = $this->Ingreso_model->imagenseleccionada($id);  
+        
+//         var_dump($this->data['datos']);die;
+        
         $this->data['datosslide'] = $this->Ingreso_model->imagenseleccionada($id);  
         $this->load->view('login/producto',$this->data);
         }else{
@@ -220,7 +230,7 @@ class Login extends My_Controller {
     function mostrar_carrito() {
         $datos['titulo'] = 'Listado de productos';
         $datos['contenido'] = 'carrito';
-        $this->load->view('Login/carrito', $datos);
+        $this->load->view('login/carrito', $datos);
     }
     
     function vaciar_carrito() {

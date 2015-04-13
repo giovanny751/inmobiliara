@@ -173,7 +173,7 @@ if (empty($array_cart)) {
                     </a><br> 
                     <ul id="drop" class="f-dropdown" data-dropdown-content> 
 <?php foreach ($categorias as $cat) { ?>
-                                            <li cat_id="<?php echo $cat->cat_id ?>" class="categorias"><a href="javascript:"><?php echo $cat->cat_categoria ?></a></li> 
+                                                    <li cat_id="<?php echo $cat->cat_id ?>" class="categorias"><a href="javascript:"><?php echo $cat->cat_categoria ?></a></li> 
 <?php } ?>
                     </ul>
                 </form>
@@ -216,6 +216,11 @@ if ($contador > 0) {
                         <div class="row">
                         <?php } ?>    
                         <div class="large-3 small-6 columns principio">
+                            <?php if ($img->ingEnc_promocion == 2) { ?>
+                                
+                                    <img style="position: absolute;width: 30%; float: right;" width="100%" height="100%" src="<?php echo base_url('img/Estrella.png'); ?>" title='PROMOCION'>
+                                
+                            <?php } ?>  
                             <span id="imaagen<?php echo $g; ?>">
                                 <img  onerror="this.onerror=null;this.src='http://placehold.it/250x250&text=NYGSOFT';" class="imagenes" img_id="<?php echo $img->imgEnc_id; ?>" style="cursor: pointer;width: 100%;height: 26%" src="<?php echo base_url('uploads' . "/" . $img->id_emp . "/" . $img->imgDet_nombre); ?>"/>
                             </span>
@@ -226,11 +231,6 @@ if ($contador > 0) {
                                 </div>
                                 <div class="large-4 small-4 columns">
                                     <i style="cursor:pointer" class="fa fa-cart-plus fa-2x" data-reveal-id="myModal"  onclick="activar('<?php echo $g; ?>', '<?php echo $img->imgEnc_nombre ?>', '<?php echo $img->imgEnc_id; ?>', '<?php echo $cantidad; ?>');" ></i>
-                                    <?php if ($img->ingEnc_promocion == 2) { ?>
-                                        <div class="categoryTitle box">
-                                            <img width="100%" height="100%" src="<?php echo base_url('img/Estrella.png'); ?>" title='PROMOCION'>
-                                        </div>
-                                    <?php } ?>  
                                 </div>
                             </div>
                         </div>
@@ -285,25 +285,25 @@ if ($contador > 0) {
 ?>
 <div class="row">
     <div class="large-offset-4 colums">
-    <center>
-        <form method="post" id="f1">
-            <ul class="pagination"> 
-                <li class="arrow unavailable">
-                    <!--<a href="">&laquo;</a></li>--> 
-                    <?php
-                    for ($i = 0; $i < $numeracion; $i++) {
-                        if ($i + 1 == $numero)
-                            $class = "class='current'";
-                        else
-                            $class = '';
-                        ?>
-                    <li <?php echo $class ?> class="numeracion"><a href="javascript:"><?php echo $i + 1; ?></a></li> 
-                <?php } ?>
-                <!--<li class="arrow"><a href="">&raquo;</a></li>--> 
-            </ul>
-        </form>    
-    </center>
-</div>
+        <center>
+            <form method="post" id="f1">
+                <ul class="pagination"> 
+                    <li class="arrow unavailable">
+                        <!--<a href="">&laquo;</a></li>--> 
+                        <?php
+                        for ($i = 0; $i < $numeracion; $i++) {
+                            if ($i + 1 == $numero)
+                                $class = "class='current'";
+                            else
+                                $class = '';
+                            ?>
+                        <li <?php echo $class ?> class="numeracion"><a href="javascript:"><?php echo $i + 1; ?></a></li> 
+                    <?php } ?>
+                    <!--<li class="arrow"><a href="">&raquo;</a></li>--> 
+                </ul>
+            </form>    
+        </center>
+    </div>
 </div>
 <div class="row"> 
     <form method="post" id="envio">
@@ -414,6 +414,19 @@ if ($contador > 0) {
         margin-left: -64px;
         margin-top: -64px;
         z-index: 15000;
+    }
+    .orbit-container img {
+        border: 0 none;
+        width: 100%;
+    }
+    .menu {
+        background-color: #008cba;
+        max-height: 20%;
+        min-height: 10%;
+        width: 100%;
+    }
+    categoryTitle2{
+        
     }
 </style>
 <script>

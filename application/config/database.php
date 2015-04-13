@@ -65,9 +65,9 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'nygsoft.com',
-	'username' => 'nygsoft',
-	'password' => ']4sCrQt5e+O+',
+	'hostname' => 'localhost',
+	'username' => 'root',
+	'password' => '',
 	'database' => 'nygsoft',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',

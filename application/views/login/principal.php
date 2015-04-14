@@ -23,8 +23,6 @@ if (empty($array_cart)) {
         background-image: url('<?php echo base_url('img/pattern.png') ?>');
     }
     .categoryTitle {
-        /*background-color: rgba(0, 0, 0, 0.3);*/
-        /*background-image: url('<?php echo base_url('img/Estrella.png'); ?>');*/
         bottom: 367%;
         height: 355%;
         margin: 0;
@@ -46,8 +44,6 @@ if (empty($array_cart)) {
             left: -28%;
             z-index: 1;
         }
-    }
-    @media screen and (max-width: 700px) {
         .textomenu{
             width: 40%;
             left: 19%;
@@ -73,9 +69,12 @@ if (empty($array_cart)) {
             height: 35px;
             cursor: pointer
         }
-
+        .imagenes{
+            cursor: pointer;
+            width: 70px;
+            height: 60px;
+        }
     }
-
     @media screen and (min-width: 701px ) {
         .menu{
             width: 100%;
@@ -112,20 +111,14 @@ if (empty($array_cart)) {
             min-height: 10%;
             width: 100%;
         }
+        .imagenes{
+            cursor: pointer;
+            width: 90px;
+            height: 80px;
+        }
     }
 </style>
 
-<!--<nav class="top-bar" data-topbar>
-    <ul class="title-area">
-
-        <li class="name">
-            <h1>
-                <a href="#" data-reveal-id="firstModal">Iniciar sesion</a> 
-            </h1>
-        </li>
-        <li class="toggle-topbar menu-icon"><a href="#"><span>menu</span></a></li>
-    </ul>
-</nav>-->
 <div class="menu">
     <div style="position:absolute;left: 3%;top:2%;width: 35px;cursor: pointer" data-reveal-id="firstModal" id="sesion">
         INICIAR SESION
@@ -143,8 +136,6 @@ if (empty($array_cart)) {
         </div>
     </form>    
 </div>
-
-
 <div class="large-12 columns"  >
     <ul class="example-orbit" data-orbit>
         <?php
@@ -173,7 +164,7 @@ if (empty($array_cart)) {
                     </a><br> 
                     <ul id="drop" class="f-dropdown" data-dropdown-content> 
 <?php foreach ($categorias as $cat) { ?>
-                                                    <li cat_id="<?php echo $cat->cat_id ?>" class="categorias"><a href="javascript:"><?php echo $cat->cat_categoria ?></a></li> 
+                                                                <li cat_id="<?php echo $cat->cat_id ?>" class="categorias"><a href="javascript:"><?php echo $cat->cat_categoria ?></a></li> 
 <?php } ?>
                     </ul>
                 </form>
@@ -198,83 +189,114 @@ $g = 0;
 $contador = count($imagenes);
 //echo $contador;die;
 if ($contador > 0) {
-    foreach ($imagenes as $img) {
+    ?>
+    <div class="large-12 columns">
+        <div class="large-3 columns ">
+            <div class="large-12 columns panel">
+                <form method="post" id="envio" >
+                <label>Forma de ver los productos</label>
+                <select name="forma" id="forma">
+                    <option value=''>-Seleccionar-</option>
+                    <option value='1'>Columnas</option>
+                    <option value='2'>Filas</option>
+                </select>
+                </form>
+            </div>
+            <div class="large-12 columns panel">
+                <ul>
+                    <?php foreach ($categorias as $cat => $idsub) { ?>
 
-        if (!empty($cod_cliente)) {
-            if ($img->imgEnc_id == $array_cart[$cod_cliente]['id'])
-                $cantidad = $array_cart[$cod_cliente]['qty'];
-            else
-                $cantidad = 0;
-        }else {
-            $cantidad = 0;
-        }
-        if (empty($forma) || $forma == 1) {
-            if ($i == 4) {
-                ?>
-                <div class="row">
-                    <div class="large-12 columns">
+                        <li><?php echo $cat; ?>
+                            <?php foreach ($idsub as $id => $subcategoria) { ?>
+                                <ul><li><?php echo $subcategoria; ?></li></ul>
+                            <?php } ?>
+                        </li>    
+                    <?php } ?>
+                </ul>
+            </div>
+        </div>
+        <div class="large-9 columns">
+            <?php
+            foreach ($imagenes as $img) {
+
+                if (!empty($cod_cliente)) {
+                    if ($img->imgEnc_id == $array_cart[$cod_cliente]['id'])
+                        $cantidad = $array_cart[$cod_cliente]['qty'];
+                    else
+                        $cantidad = 0;
+                }else {
+                    $cantidad = 0;
+                }
+                if (empty($forma) || $forma == 1) {
+                    if ($i == 4) {
+                        ?>
                         <div class="row">
-                        <?php } ?>    
-                        <div class="large-3 small-6 columns principio">
-                            <?php if ($img->ingEnc_promocion == 2) { ?>
-                                
-                                    <img style="position: absolute;width: 30%; float: right;" width="100%" height="100%" src="<?php echo base_url('img/Estrella.png'); ?>" title='PROMOCION'>
-                                
-                            <?php } ?>  
-                            <span id="imaagen<?php echo $g; ?>">
-                                <img  onerror="this.onerror=null;this.src='http://placehold.it/250x250&text=NYGSOFT';" class="imagenes" img_id="<?php echo $img->imgEnc_id; ?>" style="cursor: pointer;width: 100%;height: 26%" src="<?php echo base_url('uploads' . "/" . $img->id_emp . "/" . $img->imgDet_nombre); ?>"/>
-                            </span>
+                            <div class="large-12 columns">
+                                <div class="row">
+                                <?php } ?>    
+                                <div class="large-3 small-6 columns principio">
+                                    <?php if ($img->ingEnc_promocion == 2) { ?>
 
-                            <div class="large-12 small-12 columns panel" >
-                                <div class="large-8 small-8 columns">
-                                    <h6 ><?php echo $img->imgEnc_nombre ?></h6>
+                                        <img style="position: absolute;width: 30%; float: right;" width="100%" height="100%" src="<?php echo base_url('img/Estrella.png'); ?>" title='PROMOCION'>
+
+                                    <?php } ?>  
+                                    <span id="imaagen<?php echo $g; ?>">
+                                        <img  onerror="this.onerror=null;this.src='http://placehold.it/250x250&text=NYGSOFT';" class="imagenes" img_id="<?php echo $img->imgEnc_id; ?>" src="<?php echo base_url('uploads' . "/" . $img->id_emp . "/" . $img->imgDet_nombre); ?>"/>
+                                    </span>
+
+                                    <div class="large-12 small-12 columns panel" >
+                                        <div class="large-8 small-8 columns">
+                                            <h6 ><?php echo $img->imgEnc_nombre ?></h6>
+                                        </div>
+                                        <div class="large-4 small-4 columns">
+                                            <i style="cursor:pointer" class="fa fa-cart-plus fa-2x" data-reveal-id="myModal"  onclick="activar('<?php echo $g; ?>', '<?php echo $img->imgEnc_nombre ?>', '<?php echo $img->imgEnc_id; ?>', '<?php echo $cantidad; ?>');" ></i>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="large-4 small-4 columns">
-                                    <i style="cursor:pointer" class="fa fa-cart-plus fa-2x" data-reveal-id="myModal"  onclick="activar('<?php echo $g; ?>', '<?php echo $img->imgEnc_nombre ?>', '<?php echo $img->imgEnc_id; ?>', '<?php echo $cantidad; ?>');" ></i>
+                                <?php if ($h == 4 || $contador == $g + 1) { ?>        
                                 </div>
                             </div>
-                        </div>
-                        <?php if ($h == 4 || $contador == $g + 1) { ?>        
+                        </div>  
+                        <?php
+                        $i = 4;
+                        $h = 0;
+                    } else {
+                        $i = 0;
+                    }
+                    $h++;
+                    $g++;
+                } else if ($forma == 2) {
+                    ?>
+                    <div class="large-6 columns">
+                        <div class="large-12 colums">
+                            <table style="width: 100%">
+                                <tr>
+                                    <td style="width: 20%" rowspan="2" >
+                                        <img  onerror="this.onerror=null;this.src='http://placehold.it/250x250&text=NYGSOFT';" class="imagenes" img_id="<?php echo $img->imgEnc_id; ?>" src="<?php echo base_url('uploads' . "/" . $img->id_emp . "/" . $img->imgDet_nombre); ?>"/>
+                                    </td>
+                                    <td style="width: 60%"><center><?php echo $img->imgEnc_nombre ?></center></td>
+                                <td style="width: 20%">
+                                <center>
+                                    <i id="carrito" style="cursor:pointer" class="fa fa-cart-plus fa-2x" data-reveal-id="myModal"  onclick="activar('<?php echo $g; ?>', '<?php echo $img->imgEnc_nombre ?>', '<?php echo $img->imgEnc_id; ?>', '<?php echo $cantidad; ?>');" >
+                                    </i>
+                                </center>    
+                                </td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 80%" colspan="2"><?php echo $img->imgEnc_descripcion_corta ?></td>
+                                </tr>
+                            </table>
                         </div>
                     </div>
-                </div>  
-                <?php
-                $i = 4;
-                $h = 0;
-            } else {
-                $i = 0;
+                    <?php
+                }
             }
-            $h++;
-            $g++;
-        } else if ($forma == 2) {
             ?>
-            <div class="large-6 columns">
-                <div class="large-12 colums">
-                    <table style="width: 100%">
-                        <tr>
-                            <td style="width: 20%" rowspan="2" >
-                                <img  onerror="this.onerror=null;this.src='http://placehold.it/250x250&text=NYGSOFT';" class="imagenes" img_id="<?php echo $img->imgEnc_id; ?>" style="cursor: pointer;width: 100%;height: 26%" src="<?php echo base_url('uploads' . "/" . $img->id_emp . "/" . $img->imgDet_nombre); ?>"/>
-                            </td>
-                            <td style="width: 60%"><center><?php echo $img->imgEnc_nombre ?></center></td>
-                        <td style="width: 20%">
-                        <center>
-                            <i id="carrito" style="cursor:pointer" class="fa fa-cart-plus fa-2x" data-reveal-id="myModal"  onclick="activar('<?php echo $g; ?>', '<?php echo $img->imgEnc_nombre ?>', '<?php echo $img->imgEnc_id; ?>', '<?php echo $cantidad; ?>');" >
-                            </i>
-                        </center>    
-                        </td>
-                        </tr>
-                        <tr>
-                            <td style="width: 80%" colspan="2"><?php echo $img->imgEnc_descripcion_corta ?></td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
-            <?php
-        }
-    }
+        </div>
+    </div><?php
 } else {
     ?>
-    <div class="row">
+    <div class="large-12 columns">
         <div id="mainAlert1" data-alert class="alert-box secondary" tabindex="0" aria-live="assertive" role="dialogalert">
             <center><h4>NO SE ENCONTRARON PRODUCTOS</h4></center>
             <button href="#" tabindex="0" class="close" aria-label="Close Alert">&times;</button>
@@ -283,55 +305,35 @@ if ($contador > 0) {
     <?php
 }
 ?>
-<div class="row">
-    <div class="large-offset-4 colums">
-        <center>
-            <form method="post" id="f1">
-                <ul class="pagination"> 
-                    <li class="arrow unavailable">
-                        <!--<a href="">&laquo;</a></li>--> 
-                        <?php
-                        for ($i = 0; $i < $numeracion; $i++) {
-                            if ($i + 1 == $numero)
-                                $class = "class='current'";
-                            else
-                                $class = '';
-                            ?>
-                        <li <?php echo $class ?> class="numeracion"><a href="javascript:"><?php echo $i + 1; ?></a></li> 
-                    <?php } ?>
-                    <!--<li class="arrow"><a href="">&raquo;</a></li>--> 
-                </ul>
-            </form>    
-        </center>
+<br>
+<!--<div class="row">-->
+<div class="large-12 colums">
+    <!--<div class="large-3 colums">&nbsp;dsd</div>-->
+    <div class="row">
+        <div class="large-offset-6 colums">
+            <center>
+                <form method="post" id="f1">
+                    <ul class="pagination"> 
+                        <li class="arrow unavailable">
+                            <!--<a href="">&laquo;</a></li>--> 
+                            <?php
+                            for ($i = 0; $i < $numeracion; $i++) {
+                                if ($i + 1 == $numero)
+                                    $class = "class='current'";
+                                else
+                                    $class = '';
+                                ?>
+                            <li <?php echo $class ?> class="numeracion"><a href="javascript:"><?php echo $i + 1; ?></a></li> 
+                        <?php } ?>
+                        <!--<li class="arrow"><a href="">&raquo;</a></li>--> 
+                    </ul>
+                </form>    
+            </center>
+        </div>
     </div>
 </div>
-<div class="row"> 
-    <form method="post" id="envio">
-        <div class="large-2 columns">
-            <label>Forma de ver los productos</label>
-        </div>
-        <div class="large-3 columns">
-            <select name="forma" id="forma">
-                <option value=''>-Seleccionar-</option>
-                <option value='1'>Columnas</option>
-                <option value='2'>Filas</option>
-            </select>
-        </div>
-        <div class="large-2 columns">
-            <button type="button" class="button radius tiny enviarorden">Enviar</button>
-        </div>
-        <div class="large-5 columns">
-            &nbsp;
-        </div>
-    </form>    
-</div>
-
-<script>
-    $('.enviarorden').click(function () {
-        $('#envio').submit();
-    });
-</script>    
-
+<!--</div>-->
+<br>
 <footer class="row">
     <div class="large-12 columns">
         <hr>
@@ -426,10 +428,14 @@ if ($contador > 0) {
         width: 100%;
     }
     categoryTitle2{
-        
+
     }
 </style>
 <script>
+    $('#forma').change(function () {
+//        $('#envio').attr('action', '<?php echo base_url('index.php/login/filtros'); ?>');
+        $('#envio').submit();
+    });
 
     $('document').ready(function () {
         var ancho = $('body').width();

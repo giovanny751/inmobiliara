@@ -53,6 +53,7 @@ class administracion_model extends CI_Model {
     }
     function categorias(){
         
+        $this->db->join('subcategoria','subcategoria.cat_id = categoria.cat_id');
         $categoria = $this->db->get('categoria');
         return $categoria->result();
     }

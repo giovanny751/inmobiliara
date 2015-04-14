@@ -50,7 +50,16 @@ class Login extends My_Controller {
             $desde = 0;
             $numeracion = 1;
         }
-        $this->data['categorias'] = $this->administracion_model->categorias();      
+        $categorias = $this->administracion_model->categorias();   
+        
+//        var_dump($categorias);die;
+        $i = array();
+        
+        foreach($categorias as $cat){
+            $i[$cat->cat_categoria][$cat->sub_id] = $cat->sub_subcategoria;
+        }
+        $this->data['categorias'] = $i;
+        
         $this->data['imagenesslide'] = $this->Ingreso_model->slide();      
         $this->data['cantidad'] = $this->Ingreso_model->cantidadimagenes($categoria,$this->data['buscador']);        
         $this->data['numeracion'] = ceil($this->data['cantidad']/$cantidad);
@@ -206,6 +215,13 @@ class Login extends My_Controller {
     }
     function agregar_carrito() {
         $opciones = array();
+        
+        $filtros = array();
+        
+        if(!empty($this->input->post('categoria'))){
+            $categoria = array('categoria'=>$this->input->post('categoria'));
+        }
+        
         if($this->input->post('opciones')) {
             $opciones = $this->input->post('opciones');
         }
@@ -218,6 +234,29 @@ class Login extends My_Controller {
         );
         $this->cart->insert($data);
         redirect('index.php/carrito');
+//        redirect('index.php/Login/mostrar_carrito');
+//        redirect('index.php/Login/lista_productos');
+    }
+    function filtros() {
+        
+        $filtros = array();
+        
+        if(!empty($this->input->post('forma'))){
+            $categoria = array('forma'=>$this->input->post('forma'));
+        }
+        
+//        if($this->input->post('opciones')) {
+//            $opciones = $this->input->post('opciones');
+//        }
+//        $data = array(
+//            'id' => $this->input->post('id_producto'),
+//            'qty' => $this->input->post('cantidad'),
+//            'price' => $this->input->post('precio_producto'),
+//            'name' => $this->input->post('nombre_producto'),
+//            'options' => $opciones
+//        );
+        $this->cart->insert($data);
+        redirect('index.php');
 //        redirect('index.php/Login/mostrar_carrito');
 //        redirect('index.php/Login/lista_productos');
     }

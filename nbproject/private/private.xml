@@ -6,8 +6,10 @@
             <file>file:/C:/xampp/htdocs/inmobiliara/application/views/login/principal.php</file>
             <file>file:/C:/xampp/htdocs/inmobiliara/application/views/login/carrito.php</file>
             <file>file:/C:/xampp/htdocs/inmobiliara/application/config/routes.php</file>
+            <file>file:/C:/xampp/htdocs/inmobiliara/application/models/Administracion_model.php</file>
             <file>file:/C:/xampp/htdocs/inmobiliara/application/controllers/Login.php</file>
             <file>file:/C:/xampp/htdocs/inmobiliara/application/models/Ingreso_model.php</file>
+            <file>file:/C:/xampp/htdocs/inmobiliara/application/views/login/producto.php</file>
         </group>
     </open-files>
 </project-private>

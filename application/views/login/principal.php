@@ -58,7 +58,7 @@ if (empty($array_cart)) {
         }
         .menu{
             width: 100%;
-            height: 70px;
+            height: 87px;
             background-color: 008cba;
         }
         #carrito{
@@ -74,8 +74,50 @@ if (empty($array_cart)) {
             width: 70px;
             height: 60px;
         }
+        #slider,.catprincipal,.datosimagenes{
+            display: none;
+        }
+        .imagenes{
+            width: 219px;
+            height: 180px;
+            margin-top: 20px;
+        }
+        #tipolistado{
+            width: 100px;
+            left: 12px;
+            top:50px;
+            position: absolute;
+            
+        }
+        #tipolistado,#imgsesion{
+            cursor: pointer;
+        }
+        #letrasesion{
+            display:none;
+        }
+        #imgsesion{
+            display: block;
+            height: 20px;
+            left: 11px;
+            position: absolute;
+            width: 34px;
+            height: 36px;
+            top: 9px;
+        }
+
     }
     @media screen and (min-width: 701px ) {
+
+        #letrasesion{
+            display:block;
+            color: white;
+        }
+        #imgsesion{
+            display:none;
+        }
+        .listado{
+            display:none;
+        }
         .menu{
             width: 100%;
             height: 70px;
@@ -116,27 +158,42 @@ if (empty($array_cart)) {
             width: 90px;
             height: 80px;
         }
+        #tipolistado{
+            display:none;
+        }
+        #sesion{
+            position:absolute;
+            left: 3%;
+            top:2%;
+            width: 35px;
+            cursor: pointer;
+        }
+
     }
 </style>
 
 <div class="menu">
-    <div style="position:absolute;left: 3%;top:2%;width: 35px;cursor: pointer" data-reveal-id="firstModal" id="sesion">
-        INICIAR SESION
+    <div data-reveal-id="firstModal" id="sesion">
+        <img id="imgsesion" src="<?php echo base_url('img/usuario.jpg') ?>" >
+        <span id="letrasesion">INICIAR SESION</span>
     </div>
     <form method="post" action='<?php echo base_url('index.php/login/index') ?>'>
         <div class="textomenu botonytextomenu">
             <input type="text" value="" placeholder="Buscar Producto" id='buscador' name="buscador" />
         </div>
         <div class="botonmenu botonytextomenu">  
-            <input type="submit" class="button radius tiny success" value="Buscar">
+            <button class="button radius tiny success" ><i class="fa fa-search fa-1x "></i></button>
         </div >
 
         <div >
             <a href="<?php echo base_url('index.php/carrito') ?>" style="color:black" id="carrito">CARRITO</a>
         </div>
-    </form>    
+    </form>
+    <div id="tipolistado">
+        <i class="fa fa-list fa-2x"></i>
+    </div>
 </div>
-<div class="large-12 columns"  >
+<div class="large-12 columns "  id="slider">
     <ul class="example-orbit" data-orbit>
         <?php
         if (!empty($imagenesslide)) {
@@ -153,34 +210,7 @@ if (empty($array_cart)) {
         <?php } ?>
     </ul>
 </div>
-<!--<div class="row" >
-    <div class="large-12 small-12 columns right" style="padding-top: 3%">
-        <div class="row collapse">
-            <div class="large-3 small-12 columns">
-                <form >
 
-                    <a href="#" class="postfix button expand split">Categorias 
-                        <span data-dropdown="drop"></span>
-                    </a><br> 
-                    <ul id="drop" class="f-dropdown" data-dropdown-content> 
-<?php foreach ($categorias as $cat) { ?>
-                                                                <li cat_id="<?php echo $cat->cat_id ?>" class="categorias"><a href="javascript:"><?php echo $cat->cat_categoria ?></a></li> 
-<?php } ?>
-                    </ul>
-                </form>
-
-            </div>
-            <form method="post" action='<?php echo base_url('index.php/login/index') ?>'>
-                <div class="large-7 small-12 columns">
-                    <input type="text" value="<?php echo $buscador; ?>" placeholder="Buscar Producto" id='buscador' name="buscador" />
-                </div>
-                <div class="large-2 small-12 columns">
-                    <input type="submit" class="postfix button expand filtro" value="Buscar">
-                </div>
-            </form>    
-        </div>
-    </div>
-</div>   -->
 <br>
 <?php
 $i = 4;
@@ -192,17 +222,17 @@ if ($contador > 0) {
     ?>
     <div class="large-12 columns">
         <div class="large-3 columns ">
-            <div class="large-12 columns panel">
+            <div class="large-12 columns panel catprincipal">
                 <form method="post" id="envio" >
-                <label>Forma de ver los productos</label>
-                <select name="forma" id="forma">
-                    <option value=''>-Seleccionar-</option>
-                    <option value='1'>Columnas</option>
-                    <option value='2'>Filas</option>
-                </select>
+                    <label>Forma de ver los productos</label>
+                    <select name="forma" id="forma">
+                        <option value=''>-Seleccionar-</option>
+                        <option value='1'>Columnas</option>
+                        <option value='2'>Filas</option>
+                    </select>
                 </form>
             </div>
-            <div class="large-12 columns panel">
+            <div class="large-12 columns panel catprincipal">
                 <ul>
                     <?php foreach ($categorias as $cat => $idsub) { ?>
 
@@ -241,10 +271,10 @@ if ($contador > 0) {
 
                                     <?php } ?>  
                                     <span id="imaagen<?php echo $g; ?>">
-                                        <img  onerror="this.onerror=null;this.src='http://placehold.it/250x250&text=NYGSOFT';" class="imagenes" img_id="<?php echo $img->imgEnc_id; ?>" src="<?php echo base_url('uploads' . "/" . $img->id_emp . "/" . $img->imgDet_nombre); ?>"/>
+                                        <img onerror="this.onerror=null;this.src='http://placehold.it/250x250&text=NYGSOFT';" class="imagenes" img_id="<?php echo $img->imgEnc_id; ?>" src="<?php echo base_url('uploads' . "/" . $img->id_emp . "/" . $img->imgDet_nombre); ?>"/>
                                     </span>
 
-                                    <div class="large-12 small-12 columns panel" >
+                                    <div class="large-12 small-12 columns panel datosimagenes" >
                                         <div class="large-8 small-8 columns">
                                             <h6 ><?php echo $img->imgEnc_nombre ?></h6>
                                         </div>
@@ -442,8 +472,6 @@ if ($contador > 0) {
         if (ancho < 700) {
             $('#firstModal').addClass('full');
             $('#myModal').addClass('full');
-            $('#sesion').text('');
-            $('#sesion').append('<img style="width:100%;height:100%" src="<?php echo base_url('img/usuario.jpg') ?>" >');
             $('#carrito').text('');
             $('#carrito').append('<img style="width:100%;height:100%" src="<?php echo base_url('img/carrito.jpg') ?>" >');
 //            $('#carrito').addClass('fa-2x');

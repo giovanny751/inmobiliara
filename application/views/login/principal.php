@@ -45,29 +45,24 @@ if (empty($array_cart)) {
             z-index: 1;
         }
         .textomenu{
-            width: 40%;
-            left: 19%;
+            width: 56%;
+            left: 6%;
         }
         .botonytextomenu{
-            top: 2%;
+            top: 22px;
             position:absolute;
         }
         .botonmenu{
             width: 100px;
-            left: 59%;
+            left: 62%;
         }
         .menu{
             width: 100%;
-            height: 87px;
+            height: 140px;
             background-color: 008cba;
         }
         #carrito{
-            position:absolute;
-            left: 84%;
-            top:2%;
-            width: 45px;
-            height: 35px;
-            cursor: pointer
+            display: none;
         }
         .imagenes{
             cursor: pointer;
@@ -83,26 +78,41 @@ if (empty($array_cart)) {
             margin-top: 20px;
         }
         #tipolistado{
-            left: 451px;
+            left: 79%;
             position: absolute;
-            top: 13px;
+            top: 19px;
             width: 100px;
         }
-        #tipolistado,#imgsesion{
+        #tipolistado{
             cursor: pointer;
         }
         #letrasesion{
             display:none;
         }
-        #imgsesion{
-            display: block;
-            height: 37px;
-            left: 11px;
-            position: absolute;
-            width: 34px;
-            top: 13px;
+        #buscador,.botonbuscador{
+            height: 89px;
+            font-size: 70px;
         }
+        .redireccionmenu{
+            font-size: 60px;
+            list-style-type: none;
 
+        }
+        .redireccionmenu:hover{
+            color:white;
+            background-color: blue;
+            cursor:pointer;
+        }
+        .logeo{
+            height: 89px !important;
+            font-size: 70px !important;
+        }
+        .grande{
+
+            line-height: 4.6rem !important;
+            width: 3.6rem !important;
+            font-size: 3rem !important;
+        }
     }
     @media screen and (min-width: 1001px ) {
 
@@ -114,12 +124,11 @@ if (empty($array_cart)) {
             display:none;
         }
         .menu{
-          
+
             background-color: #008cba;
             max-height: 20%;
-            min-height: 9%;
+            min-height: 59px;
             width: 100%;
-            
         }
 
         .botonytextomenu{
@@ -162,11 +171,34 @@ if (empty($array_cart)) {
         }
 
     }
+
+    div.preload{
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        background-color: white;
+        opacity: 0.8;
+        z-index: 10000;
+    }
+
+    div img.load{
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        margin-left: -64px;
+        margin-top: -64px;
+        z-index: 15000;
+    }
+    .orbit-container img {
+        border: 0 none;
+        width: 100%;
+    }
 </style>
 
 <div class="menu">
-    <div data-reveal-id="firstModal" id="sesion">
-        <img id="imgsesion" src="<?php echo base_url('img/usuario.jpg') ?>" >
+    <div data-reveal-id="secondModal" id="sesion">
         <span id="letrasesion">INICIAR SESION</span>
     </div>
     <form method="post" action='<?php echo base_url('index.php/login/index') ?>'>
@@ -174,13 +206,13 @@ if (empty($array_cart)) {
             <input type="text" value="" placeholder="Buscar Producto" id='buscador' name="buscador" />
         </div>
         <div class="botonmenu botonytextomenu">  
-            <button class="button radius tiny success" ><i class="fa fa-search fa-1x "></i></button>
+            <button class="button radius tiny success botonbuscador" ><i class="fa fa-search fa-1x "></i></button>
         </div >
         <div >
             <a href="<?php echo base_url('index.php/carrito') ?>" style="color:black" id="carrito">CARRITO</a>
         </div>
     </form>
-    <div id="tipolistado">
+    <div id="tipolistado"  data-reveal-id="firstModalinicio">
         <i class="fa fa-list fa-4x"></i>
     </div>
 </div>
@@ -238,23 +270,25 @@ if ($contador > 0) {
                                 <div class="row">
                                 <?php } ?>    
                                 <div class="large-3 small-6 columns principio">
-                                    <?php if ($img->ingEnc_promocion == 2) { ?>
+                                    <center>
+                                        <?php if ($img->ingEnc_promocion == 2) { ?>
 
-                                        <img style="position: absolute;width: 30%; float: right;" width="100%" height="100%" src="<?php echo base_url('img/Estrella.png'); ?>" title='PROMOCION'>
+                                            <img style="position: absolute;width: 30%; float: right;" width="100%" height="100%" src="<?php echo base_url('img/Estrella.png'); ?>" title='PROMOCION'>
 
-                                    <?php } ?>  
-                                    <span id="imaagen<?php echo $g; ?>">
-                                        <img onerror="this.onerror=null;this.src='http://placehold.it/250x250&text=NYGSOFT';" class="imagenes" img_id="<?php echo $img->imgEnc_id; ?>" src="<?php echo base_url('uploads' . "/" . $img->id_emp . "/" . $img->imgDet_nombre); ?>"/>
-                                    </span>
+                                        <?php } ?>  
+                                        <span id="imaagen<?php echo $g; ?>">
+                                            <img onerror="this.onerror=null;this.src='http://placehold.it/250x250&text=NYGSOFT';" class="imagenes" img_id="<?php echo $img->imgEnc_id; ?>" src="<?php echo base_url('uploads' . "/" . $img->id_emp . "/" . $img->imgDet_nombre); ?>"/>
+                                        </span>
 
-                                    <div class="large-12 small-12 columns panel datosimagenes" >
-                                        <div class="large-8 small-8 columns">
-                                            <h6 ><?php echo $img->imgEnc_nombre ?></h6>
+                                        <div class="large-12 small-12 columns panel datosimagenes" >
+                                            <div class="large-8 small-8 columns">
+                                                <h6 ><?php echo $img->imgEnc_nombre ?></h6>
+                                            </div>
+                                            <div class="large-4 small-4 columns">
+                                                <i style="cursor:pointer" class="fa fa-cart-plus fa-2x" data-reveal-id="myModal"  onclick="activar('<?php echo $g; ?>', '<?php echo $img->imgEnc_nombre ?>', '<?php echo $img->imgEnc_id; ?>', '<?php echo $cantidad; ?>');" ></i>
+                                            </div>
                                         </div>
-                                        <div class="large-4 small-4 columns">
-                                            <i style="cursor:pointer" class="fa fa-cart-plus fa-2x" data-reveal-id="myModal"  onclick="activar('<?php echo $g; ?>', '<?php echo $img->imgEnc_nombre ?>', '<?php echo $img->imgEnc_id; ?>', '<?php echo $cantidad; ?>');" ></i>
-                                        </div>
-                                    </div>
+                                    </center>
                                 </div>
                                 <?php if ($h == 4 || $contador == $g + 1) { ?>        
                                 </div>
@@ -309,11 +343,12 @@ if ($contador > 0) {
 }
 ?>
 <br>
-<!--<div class="row">-->
+<div class="row"> 
+    &nbsp;
+</div>    
 <div class="large-12 colums">
-    <!--<div class="large-3 colums">&nbsp;dsd</div>-->
     <div class="row">
-        <div class="large-offset-6 colums">
+        <div class="large-offset-6 small-offset-5 colums">
             <center>
                 <form method="post" id="f1">
                     <ul class="pagination"> 
@@ -322,27 +357,25 @@ if ($contador > 0) {
                             <?php
                             for ($i = 0; $i < $numeracion; $i++) {
                                 if ($i + 1 == $numero)
-                                    $class = "class='current'";
+                                    $class = "class='current grande'";
                                 else
                                     $class = '';
                                 ?>
-                            <li <?php echo $class ?> class="numeracion"><a href="javascript:"><?php echo $i + 1; ?></a></li> 
+                            <li <?php echo $class ?> class="numeracion grande"><a href="javascript:"><?php echo $i + 1; ?></a></li> 
                         <?php } ?>
-                        <!--<li class="arrow"><a href="">&raquo;</a></li>--> 
                     </ul>
                 </form>    
             </center>
         </div>
     </div>
-</div>
-<!--</div>-->
+</div>  
 <br>
 <footer class="row">
     <div class="large-12 columns">
         <hr>
         <div class="row">
             <div class="large-12 columns">
-                <p>Â© Copyright NYGSOFT.COM 2015-2020</p>
+                <p>© Copyright NYGSOFT.COM 2015-2020</p>
             </div>
         </div>
     </div>
@@ -350,18 +383,30 @@ if ($contador > 0) {
 
 <!--MODAL-->
 <!-- Reveal Modals begin --> 
-<div id="firstModal" class="reveal-modal" data-reveal aria-labelledby="firstModalTitle" aria-hidden="true" role="dialog"> 
+<div id="firstModalinicio" class="reveal-modal" data-reveal aria-labelledby="firstModalTitle" aria-hidden="true" role="dialog"> 
     <div id="firstModal"  data-reveal aria-labelledby="firstModalTitle" aria-hidden="true" role="dialog"> 
-        <center><h2 id="firstModalTitle">INICIO SESION</h2></center> 
+        <ul>
+            <li class="redireccionmenu"  data-reveal-id="secondModal">INICIAR SESIÓN</li>
+            <li class="redireccionmenu">CARRITO DE COMPRAS</li>
+            <li class="redireccionmenu">INSCRIBIRSE</li>
+            <li class="redireccionmenu">AYUDA</li>
+        </ul>
+    </div> 
+    <a class="close-reveal-modal" aria-label="Close">&#215;</a> 
+</div> 
+
+<div id="secondModal" class="reveal-modal" data-reveal aria-labelledby="firstModalTitle" aria-hidden="true" role="dialog"> 
+    <div id="secondModal"  data-reveal aria-labelledby="firstModalTitle" aria-hidden="true" role="dialog"> 
+        <center><div style="font-size: 70px;margin-top: 30%;">INICIO SESION</h2></div></center> 
         <form method="post" action="<?php echo base_url('index.php/login/verify') ?>">
-            <label>CORREO</label><input type="text" name="username" placeholder="CORREO">
-            <label>CONTRASEÃ‘A</label><input type="password" name="password" placeholder="CONTRASEÃ‘A">
-            <center><input type="submit" class="button radius success" value="INGRESAR"></center>
+            <label class="label">CORREO</label><input type="text" name="username" placeholder="CORREO" class="logeo">
+            <label class="label">CONTRASEÑA</label><input type="password" name="password" placeholder="CONTRASEÑA" class="logeo">
+            <center><input style="width: 100%;height: 80px;font-size: 50px" type="submit" class="button radius success" value="INGRESAR"></center>
         </form>
         <div class="row">
-            <div class="large-12 columns" >
+            <div class="large-12 columns" style="font-size: 50px;">
                 <center>
-                    <a href="<?php echo base_url('index.php/login/olvidocontrasena') ?>">Â¿Olvido contraseÃ±a?</a>
+                    <a href="<?php echo base_url('index.php/login/olvidocontrasena') ?>">Olvido Contraseña</a>
                 </center>    
             </div>
         </div>
@@ -400,32 +445,9 @@ if ($contador > 0) {
 <div class="preload">
     <img class="load" src="<?php echo base_url('img/blanco.jpg') ?>" width="128" height="128" />
 </div>
-<style>
-    div.preload{
-        position: fixed;
-        width: 100%;
-        height: 100%;
-        top: 0;
-        left: 0;
-        background-color: white;
-        opacity: 0.8;
-        z-index: 10000;
-    }
 
-    div img.load{
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        margin-left: -64px;
-        margin-top: -64px;
-        z-index: 15000;
-    }
-    .orbit-container img {
-        border: 0 none;
-        width: 100%;
-    }
-</style>
 <script>
+
     $('#forma').change(function () {
 //        $('#envio').attr('action', '<?php echo base_url('index.php/login/filtros'); ?>');
         $('#envio').submit();
@@ -433,19 +455,16 @@ if ($contador > 0) {
 
     $('document').ready(function () {
         var ancho = $('body').width();
-        
-//        alert(ancho);
-        
+
         if (ancho <= 1000) {
-            $('#firstModal').addClass('full');
+            $('.label').remove( );
+            $('#secondModal').addClass('full');
             $('#myModal').addClass('full');
-            $('#carrito').text('');
-            $('#carrito').append('<img style="width:100%;height:100%" src="<?php echo base_url('img/carrito.jpg') ?>" >');
+            $('#firstModalinicio').addClass('full');
 //            $('#carrito').addClass('fa-2x');
         } else {
             $('#myModal').addClass('tiny');
             $('#firstModal').addClass('tiny');
-//            $('#carrito').addClass('fa-4x');
         }
     });
 

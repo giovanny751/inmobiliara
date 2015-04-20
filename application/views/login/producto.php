@@ -42,39 +42,6 @@
 </div> 
 
 
-
-<!--<div class="row" >
-    <div class="large-12 small-12 columns right" style="padding-top: 3%">
-        <div class="row collapse">
-            <div class="large-3 small-12 columns">
-                <form >
-
-                    <a href="#" class="postfix button expand split">Categorias 
-                        <span data-dropdown="drop"></span>
-                    </a><br> 
-                    <ul id="drop" class="f-dropdown" data-dropdown-content> 
-<?php foreach ($categorias as $cat) { ?>
-                                <li cat_id="<?php echo $cat->cat_id ?>" class="categorias"><a href="javascript:"><?php echo $cat->cat_categoria ?></a></li> 
-<?php } ?>
-                    </ul>
-                </form>
-
-            </div>
-            <form method="post" action='<?php echo base_url('index.php/login/index') ?>'>
-                <div class="large-7 small-12 columns">
-                    <input type="text"  placeholder="Buscar Producto" id='buscador' name="buscador" />
-                </div>
-                <div class="large-2 small-12 columns">
-                    <input type="submit" class="postfix button expand filtro" value="Buscar">
-                </div>
-            </form>    
-        </div>
-    </div>
-</div>   -->
-
-
-
-
 <div class="row">
     <br>
     <center><h4><?php echo strtoupper($datos[0]->imgEnc_nombre) ?></h4></center>
@@ -127,22 +94,6 @@
         </p>
     </div>
 </div>
-
-<!--<div id="firstModal2" class="reveal-modal-full" data-reveal aria-labelledby="firstModalTitle" aria-hidden="true" role="dialog"> 
-    <div id="firstModal"  data-reveal aria-labelledby="firstModalTitle" aria-hidden="true" role="dialog"> 
-        <div class="row">  
-            <div class="large-12 columns"  >
-                <ul class="example-orbit" data-orbit>
-<?php foreach ($datosslide as $imagenes2) { ?>
-                                    <li><img src="<?php echo base_url('uploads' . "/" . $imagenes->id_emp . "/" . $imagenes->imgDet_nombre); ?>"></li>
-<?php } ?>
-                </ul>
-            </div>
-        </div>
-    </div> 
-    <a class="close-reveal-modal" aria-label="Close">&#215;</a> 
-</div> -->
-
 
 <div class="row">
     <hr>

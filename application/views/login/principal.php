@@ -32,7 +32,7 @@ if (empty($array_cart)) {
         left: -28%;
         z-index: 1;
     }
-    @media screen and (max-width: 700px) {
+    @media screen and (max-width: 1000px) {
         .categoryTitle {
             display:none;
             bottom: 500%;
@@ -83,11 +83,10 @@ if (empty($array_cart)) {
             margin-top: 20px;
         }
         #tipolistado{
-            width: 100px;
-            left: 12px;
-            top:50px;
+            left: 451px;
             position: absolute;
-            
+            top: 13px;
+            width: 100px;
         }
         #tipolistado,#imgsesion{
             cursor: pointer;
@@ -97,32 +96,32 @@ if (empty($array_cart)) {
         }
         #imgsesion{
             display: block;
-            height: 20px;
+            height: 37px;
             left: 11px;
             position: absolute;
             width: 34px;
-            height: 36px;
-            top: 9px;
+            top: 13px;
         }
 
     }
-    @media screen and (min-width: 701px ) {
+    @media screen and (min-width: 1001px ) {
 
         #letrasesion{
             display:block;
             color: white;
         }
-        #imgsesion{
-            display:none;
-        }
-        .listado{
+        #imgsesion,.listado{
             display:none;
         }
         .menu{
+          
+            background-color: #008cba;
+            max-height: 20%;
+            min-height: 9%;
             width: 100%;
-            height: 70px;
-            background-color: 008cba;  
+            
         }
+
         .botonytextomenu{
             top: 2%;
             position:absolute;
@@ -147,12 +146,6 @@ if (empty($array_cart)) {
             border: 0 none;
             width: 100%;
         }
-        .menu {
-            background-color: #008cba;
-            max-height: 20%;
-            min-height: 10%;
-            width: 100%;
-        }
         .imagenes{
             cursor: pointer;
             width: 90px;
@@ -165,7 +158,6 @@ if (empty($array_cart)) {
             position:absolute;
             left: 3%;
             top:2%;
-            width: 35px;
             cursor: pointer;
         }
 
@@ -184,33 +176,14 @@ if (empty($array_cart)) {
         <div class="botonmenu botonytextomenu">  
             <button class="button radius tiny success" ><i class="fa fa-search fa-1x "></i></button>
         </div >
-
         <div >
             <a href="<?php echo base_url('index.php/carrito') ?>" style="color:black" id="carrito">CARRITO</a>
         </div>
     </form>
     <div id="tipolistado">
-        <i class="fa fa-list fa-2x"></i>
+        <i class="fa fa-list fa-4x"></i>
     </div>
 </div>
-<div class="large-12 columns "  id="slider">
-    <ul class="example-orbit" data-orbit>
-        <?php
-        if (!empty($imagenesslide)) {
-            foreach ($imagenesslide as $img) {
-                ?>
-                <li >
-                    <img  onerror="this.onerror=null;this.src='http://placehold.it/1350x400&amp;text=[%20img%1350%20]';" src="<?php echo base_url('uploads') . "/" . $img->emp_id . "/" . $img->sli_nombre_archivo; ?>">
-                </li>
-                <?php
-            }
-        } else {
-            ?>
-            <li><img  onerror="this.onerror=null;this.src='http://placehold.it/1350x400&amp;text=[%20img%1350%20]';" src="http://placehold.it/1350x400&amp;text=[%20img%1350%20]"></li> 
-        <?php } ?>
-    </ul>
-</div>
-
 <br>
 <?php
 $i = 4;
@@ -369,7 +342,7 @@ if ($contador > 0) {
         <hr>
         <div class="row">
             <div class="large-12 columns">
-                <p>© Copyright NYGSOFT.COM 2015-2020</p>
+                <p>Â© Copyright NYGSOFT.COM 2015-2020</p>
             </div>
         </div>
     </div>
@@ -382,13 +355,13 @@ if ($contador > 0) {
         <center><h2 id="firstModalTitle">INICIO SESION</h2></center> 
         <form method="post" action="<?php echo base_url('index.php/login/verify') ?>">
             <label>CORREO</label><input type="text" name="username" placeholder="CORREO">
-            <label>CONTRASEÑA</label><input type="password" name="password" placeholder="CONTRASEÑA">
+            <label>CONTRASEÃ‘A</label><input type="password" name="password" placeholder="CONTRASEÃ‘A">
             <center><input type="submit" class="button radius success" value="INGRESAR"></center>
         </form>
         <div class="row">
             <div class="large-12 columns" >
                 <center>
-                    <a href="<?php echo base_url('index.php/login/olvidocontrasena') ?>">¿Olvido contraseña?</a>
+                    <a href="<?php echo base_url('index.php/login/olvidocontrasena') ?>">Â¿Olvido contraseÃ±a?</a>
                 </center>    
             </div>
         </div>
@@ -451,15 +424,6 @@ if ($contador > 0) {
         border: 0 none;
         width: 100%;
     }
-    .menu {
-        background-color: #008cba;
-        max-height: 20%;
-        min-height: 10%;
-        width: 100%;
-    }
-    categoryTitle2{
-
-    }
 </style>
 <script>
     $('#forma').change(function () {
@@ -469,7 +433,10 @@ if ($contador > 0) {
 
     $('document').ready(function () {
         var ancho = $('body').width();
-        if (ancho < 700) {
+        
+//        alert(ancho);
+        
+        if (ancho <= 1000) {
             $('#firstModal').addClass('full');
             $('#myModal').addClass('full');
             $('#carrito').text('');

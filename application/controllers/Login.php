@@ -91,6 +91,19 @@ class Login extends My_Controller {
         $correo = $this->input->post('correo');
         
     }
+    function registro(){
+        
+        $datos = array(
+            'ing_celular'=>$this->input->post('celular'),
+            'ing_telefono'=>$this->input->post('telefono'),
+            'ing_nombre'=>$this->input->post('nombre'),
+            'ing_apellido'=>$this->input->post('apellido'),
+            'ing_correo'=>$this->input->post('correo'),
+            'ing_contrasena'=>$this->input->post('password')
+        );
+        
+        $this->Ingreso_model->insertarusuario($datos);
+    }
     function producto(){
         
         $id = $this->input->post('img');

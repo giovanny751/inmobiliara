@@ -387,8 +387,8 @@ if ($contador > 0) {
     <div id="firstModal"  data-reveal aria-labelledby="firstModalTitle" aria-hidden="true" role="dialog"> 
         <ul>
             <li class="redireccionmenu"  data-reveal-id="secondModal">INICIAR SESIÓN</li>
+            <li class="redireccionmenu"  data-reveal-id="secondModal2">REGISTRESE </li>
             <li class="redireccionmenu">CARRITO DE COMPRAS</li>
-            <li class="redireccionmenu">INSCRIBIRSE</li>
             <li class="redireccionmenu">AYUDA</li>
         </ul>
     </div> 
@@ -410,6 +410,22 @@ if ($contador > 0) {
                 </center>    
             </div>
         </div>
+    </div> 
+    <a class="close-reveal-modal" aria-label="Close">&#215;</a> 
+<div id="secondModal2" class="reveal-modal" data-reveal aria-labelledby="firstModalTitle" aria-hidden="true" role="dialog"> 
+    <div id="secondModal2"  data-reveal aria-labelledby="firstModalTitle" aria-hidden="true" role="dialog"> 
+</div> 
+        <center><h2>REGISTRO</h2></center> 
+        <form method="post" action="<?php echo base_url('index.php/login/registro') ?>">
+            <div class="large-2 columns"><label for="nombre">Nombre</label></div><div class="large-10 columns"><input type="text" name="nombre" id="nombre" placeholder="Nombre" ></div>
+            <div class="large-2 columns"><label for="apellido">Apellido</label></div><div class="large-10 columns"><input type="text" name="apellido" id="apellido" placeholder="Apellido" ></div>
+            <div class="large-2 columns"><label for="correo">Correo</label></div><div class="large-10 columns"><input type="text" name="correo" id="correo" placeholder="Correo" ></div>
+            <div class="large-2 columns"><label for="rcorreo">Repetir Correo</label></div><div class="large-10 columns"><input type="text" name="rcorreo" id="rcorreo" placeholder="Repetir Correo"></div>
+            <div class="large-2 columns"><label for="telefono">Telefono</label></div><div class="large-10 columns"><input type="text" name="telefono" id="telefono" placeholder="Telefono" ></div>
+            <div class="large-2 columns"><label for="celular">Celular</label></div><div class="large-10 columns"><input type="text" name="celular" id="celular" placeholder="Celular"></div>
+            <div class="large-2 columns"><label for="contrasena">Contraseña</label></div><div class="large-10 columns"><input type="password" name="contrasena" id="contrasena" placeholder="Contraseña" ></div>
+            <div class="large-12 columns"><center><input style="width: 100%;height: 80px;font-size: 50px" type="submit" class="button radius success" value="Registrar"></center></div>
+        </form>
     </div> 
     <a class="close-reveal-modal" aria-label="Close">&#215;</a> 
 </div> 
@@ -459,12 +475,14 @@ if ($contador > 0) {
         if (ancho <= 1000) {
             $('.label').remove( );
             $('#secondModal').addClass('full');
+            $('#secondModal2').addClass('full');
             $('#myModal').addClass('full');
             $('#firstModalinicio').addClass('full');
 //            $('#carrito').addClass('fa-2x');
         } else {
             $('#myModal').addClass('tiny');
             $('#firstModal').addClass('tiny');
+             $('#secondModal2').addClass('small');
         }
     });
 

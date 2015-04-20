@@ -369,4 +369,9 @@ class Ingreso_model extends CI_Model {
         $dato = $this->db->get('empresa');
         return $dato->result();
     }
+    function insertarusuario(){
+        
+        
+        
+    }
 }

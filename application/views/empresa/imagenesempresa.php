@@ -92,10 +92,9 @@ if (isset($listado[0][0]->imgDet_nombre)) {
                 <?php
             }
             ?>
-            <div  class="large-12 columns" >
+            <div  class="large-12 zcolumns" >
                 <img ok="<?php echo $ima; ?>" <?php echo $nombre ?> width="100%" height="100%" id="num<?php echo $i; ?>" src="<?php echo $ruta; ?>">
             </div>
-            <br>    
         </div>
         <?php
     }

@@ -214,8 +214,8 @@ class Login extends My_Controller {
                     $this->session->set_flashdata(array('message' => 'Usuario sin permisos', 'message_type' => 'warning'));
                     redirect('index.php', 'location');
                 }
-                echo print_y($user);
-                die();
+//                echo print_y($user);
+//                die();
                 $this->acceso($user, $acceso, $ing_id);
                 redirect('index.php/presentacion/principal', 'location');
             }

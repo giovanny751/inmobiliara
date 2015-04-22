@@ -21,11 +21,9 @@
         <div style="width: 200px;position:absolute;left: 59%;top: 3%">  
             <input type="submit" class="button radius tiny success" value="Buscar">
         </div >
-
         <div style="position:absolute;left: 85%;">
             <a href="<?php echo base_url('index.php/carrito') ?>" style="color:black">CARRITO</a>
         </div>
-
     </form>    
 </div>
 

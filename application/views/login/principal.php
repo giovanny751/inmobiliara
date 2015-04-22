@@ -661,7 +661,7 @@ if ($contador > 0) {
 
     $('.imagenes').click(function () {
         var id = $(this).attr('img_id');
-        var form = "<form method='post' action='<?php echo base_url('index.php/login/producto'); ?>' id='producto'>";
+        var form = "<form method='get' action='<?php echo base_url('index.php/login/producto'); ?>' id='producto'>";
         form += "<input type='hidden' value='" + id + "' name='img'>";
         form += "</form>";
 

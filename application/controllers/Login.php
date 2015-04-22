@@ -136,7 +136,7 @@ class Login extends My_Controller {
 
     function producto() {
 
-        $id = $this->input->post('img');
+        $id = $this->input->get('img');
 
         if (!empty($id)) {
             $this->data['id'] = $id;

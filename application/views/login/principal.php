@@ -68,6 +68,7 @@ if (empty($array_cart)) {
             cursor: pointer;
             width: 70px;
             height: 60px;
+            border: 2px solid black ;
         }
         #slider,.catprincipal,.datosimagenes{
             display: none;
@@ -113,9 +114,35 @@ if (empty($array_cart)) {
             width: 3.6rem !important;
             font-size: 3rem !important;
         }
+        .labelregistro{
+            display: none;
+        }
+        .registro{
+            width: 100% !important;
+            height: 70px !important;
+            font-size: 50px !important;
+        }
+        .cerrarmodal{
+            width: 100px !important;
+            height: 100px !important;
+            font-size: 90px !important;
+        }
+        .ingresarsesion{
+            width: 100%;
+            height: 80px;
+            font-size: 50px;
+        }
+        #olvidocontrasena{
+            font-size: 19px;
+        }
+
     }
     @media screen and (min-width: 1001px ) {
-
+        .botonbuscador{
+            height: 37px !important;
+            /*background-color:white !important;*/
+            border-left-width: 4px;
+        }
         #letrasesion{
             display:block;
             color: white;
@@ -123,16 +150,25 @@ if (empty($array_cart)) {
         #imgsesion,.listado{
             display:none;
         }
+        .iniciosesion{
+            font-size: 38px;
+            margin-top: 30px;
+        }
         .menu{
-
+            position: fixed;
+            top: 0px;
+            left: 0px;
+            z-index: 10;
             background-color: #008cba;
+        }
+        .menu,.blanco{
             max-height: 20%;
             min-height: 59px;
             width: 100%;
         }
 
         .botonytextomenu{
-            top: 2%;
+            top: 18%;
             position:absolute;
         }
         .textomenu{
@@ -144,12 +180,11 @@ if (empty($array_cart)) {
             left: 59%;
         }
         #carrito{
-            position:absolute;
             left: 84%;
-            top:2%;
+            top:27%;
             width: 80px;
-            cursor: pointer;
             height: 35px;
+            color:white;
         }
         .orbit-container img {
             border: 0 none;
@@ -157,19 +192,26 @@ if (empty($array_cart)) {
         }
         .imagenes{
             cursor: pointer;
-            width: 90px;
-            height: 80px;
+            width: 152px;
+            height: 142px;
         }
         #tipolistado{
             display:none;
         }
-        #sesion{
+        #sesion,#carrito{
             position:absolute;
-            left: 3%;
-            top:2%;
             cursor: pointer;
         }
-
+        #sesion{
+            left: 3%;
+            top:27%;
+        }
+        #secondModal{
+            /*position: fixed !important;*/
+        }
+        .reveal-modal{
+            background-color: #f5e7fd !important;
+        }
     }
 
     div.preload{
@@ -196,20 +238,27 @@ if (empty($array_cart)) {
         width: 100%;
     }
 </style>
-
+<div class="blanco"></div>
 <div class="menu">
     <div data-reveal-id="secondModal" id="sesion">
-        <span id="letrasesion">INICIAR SESION</span>
+        <?php
+
+        ?>
+        <span id="letrasesion">
+            <?php if(!empty($user))echo $user[0]->ing_nombre." ".$user[0]->ing_apellido; 
+                  else echo "INICIAR SESIÓN";  
+            ?>
+        </span>
     </div>
     <form method="post" action='<?php echo base_url('index.php/login/index') ?>'>
         <div class="textomenu botonytextomenu">
             <input type="text" value="" placeholder="Buscar Producto" id='buscador' name="buscador" />
         </div>
         <div class="botonmenu botonytextomenu">  
-            <button class="button radius tiny success botonbuscador" ><i class="fa fa-search fa-1x "></i></button>
+            <button class="button radius tiny success botonbuscador" >BUSCAR</button>
         </div >
         <div >
-            <a href="<?php echo base_url('index.php/carrito') ?>" style="color:black" id="carrito">CARRITO</a>
+            <a href="<?php echo base_url('index.php/carrito') ?>" id="carrito">CARRITO</a>
         </div>
     </form>
     <div id="tipolistado"  data-reveal-id="firstModalinicio">
@@ -308,10 +357,10 @@ if ($contador > 0) {
                         <div class="large-12 colums">
                             <table style="width: 100%">
                                 <tr>
-                                    <td style="width: 20%" rowspan="2" >
+                                    <td style="width: 32%;height: 161px" rowspan="2" >
                                         <img  onerror="this.onerror=null;this.src='http://placehold.it/250x250&text=NYGSOFT';" class="imagenes" img_id="<?php echo $img->imgEnc_id; ?>" src="<?php echo base_url('uploads' . "/" . $img->id_emp . "/" . $img->imgDet_nombre); ?>"/>
                                     </td>
-                                    <td style="width: 60%"><center><?php echo $img->imgEnc_nombre ?></center></td>
+                                    <td style="width: 48%"><center><?php echo $img->imgEnc_nombre ?></center></td>
                                 <td style="width: 20%">
                                 <center>
                                     <i id="carrito" style="cursor:pointer" class="fa fa-cart-plus fa-2x" data-reveal-id="myModal"  onclick="activar('<?php echo $g; ?>', '<?php echo $img->imgEnc_nombre ?>', '<?php echo $img->imgEnc_id; ?>', '<?php echo $cantidad; ?>');" >
@@ -375,7 +424,7 @@ if ($contador > 0) {
         <hr>
         <div class="row">
             <div class="large-12 columns">
-                <p>© Copyright NYGSOFT.COM 2015-2020</p>
+                <center><p>© Copyright NYGSOFT.COM 2015-2020</p></center>
             </div>
         </div>
     </div>
@@ -397,38 +446,59 @@ if ($contador > 0) {
 
 <div id="secondModal" class="reveal-modal" data-reveal aria-labelledby="firstModalTitle" aria-hidden="true" role="dialog"> 
     <div id="secondModal"  data-reveal aria-labelledby="firstModalTitle" aria-hidden="true" role="dialog"> 
-        <center><div style="font-size: 70px;margin-top: 30%;">INICIO SESION</h2></div></center> 
+        <center><div class="iniciosesion">INICIO SESIÓN</h2></div></center> 
         <form method="post" action="<?php echo base_url('index.php/login/verify') ?>">
-            <label class="label">CORREO</label><input type="text" name="username" placeholder="CORREO" class="logeo">
-            <label class="label">CONTRASEÑA</label><input type="password" name="password" placeholder="CONTRASEÑA" class="logeo">
-            <center><input style="width: 100%;height: 80px;font-size: 50px" type="submit" class="button radius success" value="INGRESAR"></center>
+            <label class="label" for="usuario">CORREO</label><input id="usuario" type="text" name="username" placeholder="CORREO" class="logeo">
+            <label class="label" for="contrasena">CONTRASEÑA</label><input id="contrasena" type="password" name="password" placeholder="CONTRASEÑA" class="logeo">
+            <center><input  type="submit" class="button radius success ingresarsesion" value="INGRESAR"></center>
         </form>
         <div class="row">
-            <div class="large-12 columns" style="font-size: 50px;">
+            <div class="large-12 columns" id="olvidocontrasena">
                 <center>
-                    <a href="<?php echo base_url('index.php/login/olvidocontrasena') ?>">Olvido Contraseña</a>
+                    <a href="<?php echo base_url('index.php/login/olvidocontrasena') ?>"  data-reveal-id="secondModal3">¿Olvido Contraseña?</a>
                 </center>    
             </div>
         </div>
     </div> 
     <a class="close-reveal-modal" aria-label="Close">&#215;</a> 
+</div>
 <div id="secondModal2" class="reveal-modal" data-reveal aria-labelledby="firstModalTitle" aria-hidden="true" role="dialog"> 
     <div id="secondModal2"  data-reveal aria-labelledby="firstModalTitle" aria-hidden="true" role="dialog"> 
-</div> 
-        <center><h2>REGISTRO</h2></center> 
-        <form method="post" action="<?php echo base_url('index.php/login/registro') ?>">
-            <div class="large-2 columns"><label for="nombre">Nombre</label></div><div class="large-10 columns"><input type="text" name="nombre" id="nombre" placeholder="Nombre" ></div>
-            <div class="large-2 columns"><label for="apellido">Apellido</label></div><div class="large-10 columns"><input type="text" name="apellido" id="apellido" placeholder="Apellido" ></div>
-            <div class="large-2 columns"><label for="correo">Correo</label></div><div class="large-10 columns"><input type="text" name="correo" id="correo" placeholder="Correo" ></div>
-            <div class="large-2 columns"><label for="rcorreo">Repetir Correo</label></div><div class="large-10 columns"><input type="text" name="rcorreo" id="rcorreo" placeholder="Repetir Correo"></div>
-            <div class="large-2 columns"><label for="telefono">Telefono</label></div><div class="large-10 columns"><input type="text" name="telefono" id="telefono" placeholder="Telefono" ></div>
-            <div class="large-2 columns"><label for="celular">Celular</label></div><div class="large-10 columns"><input type="text" name="celular" id="celular" placeholder="Celular"></div>
-            <div class="large-2 columns"><label for="contrasena">Contraseña</label></div><div class="large-10 columns"><input type="password" name="contrasena" id="contrasena" placeholder="Contraseña" ></div>
-            <div class="large-12 columns"><center><input style="width: 100%;height: 80px;font-size: 50px" type="submit" class="button radius success" value="Registrar"></center></div>
-        </form>
     </div> 
-    <a class="close-reveal-modal" aria-label="Close">&#215;</a> 
+    <a class="close-reveal-modal cerrarmodal" aria-label="Close">&#215;</a> 
+    <center><h1>REGISTRO</h1></center> 
+    <form method="post" id="formregistro" action="<?php echo base_url('index.php/login/registro') ?>">
+        <div class="large-2 columns labelregistro" ><label for="nombre">Nombre</label></div><div class="large-10 columns "><input type="text" name="nombre" id="nombre" placeholder="Nombre" class="obligatorio registro"></div>
+        <div class="large-2 columns labelregistro" ><label for="apellido">Apellido</label></div><div class="large-10 columns "><input type="text" name="apellido" id="apellido" placeholder="Apellido" class="obligatorio registro" ></div>
+        <div class="large-2 columns labelregistro" ><label for="correo">Correo</label></div><div class="large-10 columns "><input type="text" name="correo" id="correo" placeholder="Correo" class="obligatorio registro" ></div>
+        <div class="large-2 columns labelregistro" ><label for="rcorreo">Repetir Correo</label></div><div class="large-10 columns "><input type="text" name="rcorreo" id="rcorreo" placeholder="Repetir Correo" class="obligatorio registro"></div>
+        <div class="large-2 columns labelregistro" ><label for="telefono">Telefono</label></div><div class="large-10 columns "><input type="text" name="telefono" id="telefono" placeholder="Telefono" class="obligatorio registro" ></div>
+        <div class="large-2 columns labelregistro" ><label for="celular">Celular</label></div><div class="large-10 columns "><input type="text" name="celular" id="celular" placeholder="Celular" class="obligatorio registro"></div>
+        <div class="large-2 columns labelregistro" ><label for="contrasena">Contraseña</label></div><div class="large-10 columns "><input type="password" name="contrasena" id="contrasena" placeholder="Contraseña" class="obligatorio registro" ></div>
+    </form>
+    <div class="large-12 columns"><center><input style="width: 100%;height: 80px;font-size: 50px" type="submit" class="button radius success enviar" value="Registrar"></center></div>
+    <div class="large-12 columns alerta">
+
+    </div>
 </div> 
+<div id="secondModal3" class="reveal-modal tiny" data-reveal aria-labelledby="firstModalTitle" aria-hidden="true" role="dialog"> 
+    <div id="secondModal3"  data-reveal aria-labelledby="firstModalTitle" aria-hidden="true" role="dialog"> 
+    </div> 
+    <a class="close-reveal-modal cerrarmodal" aria-label="Close">&#215;</a> 
+    <center><h3>OLVIDO CONTRASEÑA</h3></center> 
+    <form method="post" id="formregistro" action="<?php echo base_url('index.php/login/registro') ?>">
+        <div class="large-12 columns labelregistro" >
+            <label class="label" for="correo">Correo</label>
+            <input type="text" name="correo" id="correo" placeholder="Correo" class="registro">
+        </div>
+    </form>
+    <div class="large-12 columns">
+        <center>
+            <input  type="submit" class="button radius success tiny enviar" value="Enviar">
+        </center>
+    </div>
+</div> 
+
 <div id="myModal" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
 
     <form id='enviarproducto'  method="post">
@@ -461,8 +531,43 @@ if ($contador > 0) {
 <div class="preload">
     <img class="load" src="<?php echo base_url('img/blanco.jpg') ?>" width="128" height="128" />
 </div>
-
+<style>
+    .estiloobligatorio{
+        background-color: orange;
+    }
+</style>
 <script>
+
+    $('.enviar').click(function () {
+
+        var datosobligatorios = obligatorio();
+
+        if (datosobligatorios == true) {
+            $('#formregistro').submit();
+        } else {
+            if ($('#error').length == 0) {
+                $('.alerta').append('<center><h4 id="error" style="color:red">POR FAVOR INGRESAR TODOS LOS DATOS</h4></center>');
+            }
+        }
+    });
+    function obligatorio() {
+        var i = 0;
+        $('.obligatorio').each(function (key, val) {
+            if ($(this).val() == "") {
+                $(this).addClass('estiloobligatorio');
+                console.log($(this));
+                i++;
+            } else {
+                $(this).removeClass('estiloobligatorio');
+            }
+        });
+        if (i == 0) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 
     $('#forma').change(function () {
 //        $('#envio').attr('action', '<?php echo base_url('index.php/login/filtros'); ?>');
@@ -474,15 +579,11 @@ if ($contador > 0) {
 
         if (ancho <= 1000) {
             $('.label').remove( );
-            $('#secondModal').addClass('full');
-            $('#secondModal2').addClass('full');
-            $('#myModal').addClass('full');
-            $('#firstModalinicio').addClass('full');
+            $('#firstModalinicio,#secondModal3,#myModal,#secondModal2,#secondModal').addClass('full');
 //            $('#carrito').addClass('fa-2x');
         } else {
-            $('#myModal').addClass('tiny');
-            $('#firstModal').addClass('tiny');
-             $('#secondModal2').addClass('small');
+            $('#myModal,#firstModal,#secondModal').addClass('tiny');
+            $('#secondModal2').addClass('small');
         }
     });
 

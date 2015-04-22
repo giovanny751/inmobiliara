@@ -17,120 +17,150 @@ class Login extends My_Controller {
     }
 
     public function index() {
+
+        if (!empty($_SESSION['id'])) {
+            $user = $_SESSION['id'];
+//            var_dump($user);die;
+            $datos = $this->Ingreso_model->datosusuario($user);
+            $_SESSION['user'] = $datos;
+            $this->data['user'] = $_SESSION['user'];
+        } else {
+            $this->data['user'] = "";
+        }
+
+//        var_dump($this->data['user']);die;
+        
         $categoria = $this->input->post('categoria');
         $buscador = $this->input->post('buscador');
-        
-        if(empty($categoria)){
+
+        if (empty($categoria)) {
             $categoria = "";
             $this->data['existenciacategoria'] = $categoria;
-        }else{
+        } else {
             $this->data['existenciacategoria'] = $categoria;
-        } 
-        if(empty($buscador)){
+        }
+        if (empty($buscador)) {
             $this->data['buscador'] = "";
-        }else{
+        } else {
             $this->data['buscador'] = $buscador;
-        } 
-        if(empty($this->input->post('forma'))){
+        }
+        if (empty($this->input->post('forma'))) {
             $this->data['forma'] = "";
-        }else{
+        } else {
             $this->data['forma'] = $this->input->post('forma');
-        } 
+        }
 //        echo $categoria."***".$buscador;
-        
+
         $cantidad = $this->administracion_model->consultacantidad();
-        
+
         $cantidad = $cantidad[0]->can_cantidadimgprincipal;
-        
+
         $numeracion = $this->input->post('numeracion');
-        if(!empty($numeracion))
-        {
-            $desde = $numeracion*$cantidad-$cantidad;
-        }else{
+        if (!empty($numeracion)) {
+            $desde = $numeracion * $cantidad - $cantidad;
+        } else {
             $desde = 0;
             $numeracion = 1;
         }
-        $categorias = $this->administracion_model->categorias();   
-        
+        $categorias = $this->administracion_model->categorias();
+
 //        var_dump($categorias);die;
         $i = array();
-        
-        foreach($categorias as $cat){
+
+        foreach ($categorias as $cat) {
             $i[$cat->cat_categoria][$cat->sub_id] = $cat->sub_subcategoria;
         }
         $this->data['categorias'] = $i;
-        
-        $this->data['imagenesslide'] = $this->Ingreso_model->slide();      
-        $this->data['cantidad'] = $this->Ingreso_model->cantidadimagenes($categoria,$this->data['buscador']);        
-        $this->data['numeracion'] = ceil($this->data['cantidad']/$cantidad);
-        $this->data['numero'] =  $numeracion;
-          
-        $this->data['imagenes'] = $this->Ingreso_model->imagenesprincipales($desde,$cantidad,$categoria,$this->data['buscador']);
-        $this->load->view('login/principal',$this->data);
+
+        $this->data['imagenesslide'] = $this->Ingreso_model->slide();
+        $this->data['cantidad'] = $this->Ingreso_model->cantidadimagenes($categoria, $this->data['buscador']);
+        $this->data['numeracion'] = ceil($this->data['cantidad'] / $cantidad);
+        $this->data['numero'] = $numeracion;
+
+        $this->data['imagenes'] = $this->Ingreso_model->imagenesprincipales($desde, $cantidad, $categoria, $this->data['buscador']);
+        $this->load->view('login/principal', $this->data);
     }
-    function autocomplete(){
-        
+
+    function autocomplete() {
+
         $data = array();
-        $rows = $this->Ingreso_model->productos(); 
-            foreach( $rows as $row )
-            {
-                $data[] = array(
-                    'label' => $row->imgEnc_id.', '. $row->imgEnc_nombre,
-                    'value' => $row->imgEnc_id.', '. $row->imgEnc_nombre);   // here i am taking name as value so it will display name in text field, you can change it as per your choice.
-            }
+        $rows = $this->Ingreso_model->productos();
+        foreach ($rows as $row) {
+            $data[] = array(
+                'label' => $row->imgEnc_id . ', ' . $row->imgEnc_nombre,
+                'value' => $row->imgEnc_id . ', ' . $row->imgEnc_nombre);   // here i am taking name as value so it will display name in text field, you can change it as per your choice.
+        }
         echo json_encode($data);
-        
-        
-        $productos = $this->Ingreso_model->productos(); 
-        
+
+
+        $productos = $this->Ingreso_model->productos();
+
         $this->output->set_content_type('application/json')->set_output(json_encode($productos));
-        
     }
-    function envioolvidocontrasena(){
-        
+
+    function envioolvidocontrasena() {
+
         $correo = $this->input->post('correo');
-        
     }
-    function registro(){
-        
+
+    function registro() {
+
         $datos = array(
-            'ing_celular'=>$this->input->post('celular'),
-            'ing_telefono'=>$this->input->post('telefono'),
-            'ing_nombre'=>$this->input->post('nombre'),
-            'ing_apellido'=>$this->input->post('apellido'),
-            'ing_correo'=>$this->input->post('correo'),
-            'ing_contrasena'=>$this->input->post('password')
+            'ing_celular' => $this->input->post('celular'),
+            'ing_telefono' => $this->input->post('telefono'),
+            'ing_nombre' => $this->input->post('nombre'),
+            'ing_apellido' => $this->input->post('apellido'),
+            'ing_correo' => $this->input->post('correo'),
+            'ing_contrasena' => $this->input->post('contrasena'),
+            'tipUsu_id' => 3
         );
-        
-        $this->Ingreso_model->insertarusuario($datos);
+
+        $id = $this->Ingreso_model->insertarusuario($datos);
+
+        $data = array();
+        if (!empty($_SESSION["cart_contents"])) {
+            foreach ($_SESSION["cart_contents"] as $datos => $carro) {
+                if (is_array($carro)) {
+                    $data[] = array(
+                        'ing_id' => $id,
+                        'imgEnc_id' => $carro['id'],
+                        'proUsu_Cantidad' => $carro['qty']
+                    );
+                }
+            }
+            $this->Ingreso_model->insertaproductosusuario($data);
+        }
+        $_SESSION['id'] = $id;
+        redirect('index.php');
     }
-    function producto(){
-        
+
+    function producto() {
+
         $id = $this->input->post('img');
-        
-        if(!empty($id)){
-        $this->data['id'] = $id;  
-       
-        $this->data['categorias'] = $this->administracion_model->categorias();
-        $this->data['datos'] = $this->Ingreso_model->imagenseleccionada($id);  
-        
+
+        if (!empty($id)) {
+            $this->data['id'] = $id;
+
+            $this->data['categorias'] = $this->administracion_model->categorias();
+            $this->data['datos'] = $this->Ingreso_model->imagenseleccionada($id);
+
 //         var_dump($this->data['datos']);die;
-        
-        $this->data['datosslide'] = $this->Ingreso_model->imagenseleccionada($id);  
-        $this->load->view('login/producto',$this->data);
-        }else{
+
+            $this->data['datosslide'] = $this->Ingreso_model->imagenseleccionada($id);
+            $this->load->view('login/producto', $this->data);
+        } else {
             redirect('index.php/login/index', 'location');
         }
     }
-    function olvidocontrasena(){
-        
+
+    function olvidocontrasena() {
+
         $this->load->view('login/olvidocontrasena');
-        
     }
-    function cambiocontrasenausuarios(){
-        
+
+    function cambiocontrasenausuarios() {
+
         $this->load->view('login/cambiocontrasenausuarios');
-        
     }
 
     public function make_hash($var = 1) {
@@ -181,7 +211,7 @@ class Login extends My_Controller {
                     $user[0]->ing_id = 0;
                     $user[0]->emp_id = 0;
                 }
-                $this->acceso($user, $acceso,$ing_id);
+                $this->acceso($user, $acceso, $ing_id);
                 redirect('index.php/presentacion/principal', 'location');
             }
             //PREPARAMOS LAS VARIABLES QUE VAMOS A GUARDAR EN SESSION
@@ -198,7 +228,7 @@ class Login extends My_Controller {
         redirect('index.php/login', 'location');
     }
 
-    function acceso($user = null, $acceso = null,$ing_id=NULL) {
+    function acceso($user = null, $acceso = null, $ing_id = NULL) {
         $i = 0;
         if (!empty($id)) {
             $user = $this->user_model->validacionusuario(deencrypt_id($id));
@@ -226,16 +256,17 @@ class Login extends My_Controller {
         $password = $this->user_model->reset($mail);
         mail($mail, "Restablecer la contraseña. ", 'clave: ' . $password);
     }
+
     function agregar_carrito() {
         $opciones = array();
-        
+
         $filtros = array();
-        
-        if(!empty($this->input->post('categoria'))){
-            $categoria = array('categoria'=>$this->input->post('categoria'));
+
+        if (!empty($this->input->post('categoria'))) {
+            $categoria = array('categoria' => $this->input->post('categoria'));
         }
-        
-        if($this->input->post('opciones')) {
+
+        if ($this->input->post('opciones')) {
             $opciones = $this->input->post('opciones');
         }
         $data = array(
@@ -250,14 +281,15 @@ class Login extends My_Controller {
 //        redirect('index.php/Login/mostrar_carrito');
 //        redirect('index.php/Login/lista_productos');
     }
+
     function filtros() {
-        
+
         $filtros = array();
-        
-        if(!empty($this->input->post('forma'))){
-            $categoria = array('forma'=>$this->input->post('forma'));
+
+        if (!empty($this->input->post('forma'))) {
+            $categoria = array('forma' => $this->input->post('forma'));
         }
-        
+
 //        if($this->input->post('opciones')) {
 //            $opciones = $this->input->post('opciones');
 //        }
@@ -273,29 +305,30 @@ class Login extends My_Controller {
 //        redirect('index.php/Login/mostrar_carrito');
 //        redirect('index.php/Login/lista_productos');
     }
+
     function lista_productos() {
         $datos['titulo'] = 'Listado de productos';
         $datos['contenido'] = 'lista_productos';
         $this->load->view('Login/lista_productos', $datos);
     }
-    
+
     function mostrar_carrito() {
         $datos['titulo'] = 'Listado de productos';
         $datos['contenido'] = 'carrito';
         $this->load->view('login/carrito', $datos);
     }
-    
+
     function vaciar_carrito() {
         $this->cart->destroy();
         redirect('index.php/productos');
 //        redirect('index.php/Login/lista_productos');
     }
-    
+
     function actualizar_carrito() {
         $rows = $this->input->post('rowid');
         $cantidades = $this->input->post('qty');
         $data = array();
-        
+
         for ($i = 0; $i < sizeof($rows); $i++) {
             $data[] = array(
                 'rowid' => $rows[$i],

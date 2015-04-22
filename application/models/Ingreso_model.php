@@ -263,9 +263,15 @@ class Ingreso_model extends CI_Model {
 
     function totalusuarios() {
 
-//        $this->db->where();
+        
         $usuarios = $this->db->get('ingreso');
         return $usuarios->result_array();
+    }
+    function datosusuario($user) {
+
+        $this->db->where('ing_id',$user);
+        $usuarios = $this->db->get('ingreso');
+        return $usuarios->result();
     }
     function creacionusuario($data){
         
@@ -369,9 +375,16 @@ class Ingreso_model extends CI_Model {
         $dato = $this->db->get('empresa');
         return $dato->result();
     }
-    function insertarusuario(){
+    function insertarusuario($data){
         
+        $this->db->insert('ingreso',$data);
+        return $this->db->insert_id();
+    }
+    function insertaproductosusuario($datos){
+                
+        $this->db->insert_batch('producto_usuario',$datos);
         
+//        echo $this->db->last_query();die;
         
     }
 }

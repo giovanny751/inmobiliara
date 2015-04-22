@@ -10,10 +10,23 @@ class administracion_model extends CI_Model {
     
     function consultacantidad(){
         
-        
-        
         $cantidad = $this->db->get('cantidad');
         return $cantidad->result();
+    }
+    function consultacantidadempresa($id){
+        
+        $this->db->where('emp_id',$id);
+        $cantidad = $this->db->get('empresa');
+        $datos =  $cantidad->result();
+        
+        return $datos;
+    }
+    function actualizacantidadempresa($cantidad,$id) {
+        $this->db->where('emp_id',$id);
+        $this->db->set('emp_cantidadproductos', $cantidad);
+        $dato = $this->db->update('empresa');
+        
+        echo $this->db->last_query();
     }
     function actualizacantidad($cantidad) {
         

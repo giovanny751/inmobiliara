@@ -41,6 +41,24 @@ class Administracion extends My_Controller {
             $this->administracion_model->actualizaempresacantidad($cantidaddesubir, $idempresa);
         }
     }
+    function guardarcantidadempresa(){
+        
+       $cantidad = $this->input->post('cantidad');
+       $empresa = $this->input->post('empresa'); 
+       
+       $consultacantidad = $this->administracion_model->actualizacantidadempresa($cantidad,$empresa);
+        
+    }
+    function cantidadporempresa(){
+        
+       $empresa = $this->input->post('empresa');  
+       $consultacantidad = $this->administracion_model->consultacantidadempresa($empresa);
+       
+       if(!empty($consultacantidad[0]->emp_cantidadproductos))
+       $this->output->set_content_type('application/json')->set_output(json_encode($consultacantidad[0]->emp_cantidadproductos));
+       else echo "";
+       
+    }
     function candidaempresa(){
         
         $empresa = $this->input->post('idempresa');

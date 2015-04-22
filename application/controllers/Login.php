@@ -29,7 +29,7 @@ class Login extends My_Controller {
         }
 
 //        var_dump($this->data['user']);die;
-        
+
         $categoria = $this->input->post('categoria');
         $buscador = $this->input->post('buscador');
 
@@ -199,6 +199,11 @@ class Login extends My_Controller {
                     case 1://administrador
                         $user = $this->user_model->get_administrador($user[0]->ing_id);
                         break;
+                    case 3://visitante
+                        $user[0]->nombres = $user[0]->ing_nombre." ".$user[0]->ing_apellido;
+                        $user[0]->documento = 0;
+                        $user[0]->emp_id = 0;
+                        break;
                     default :
                         $this->session->set_flashdata(array('message' => 'Usuario sin permisos', 'message_type' => 'warning'));
                         redirect('', 'refresh');
@@ -206,11 +211,11 @@ class Login extends My_Controller {
 //                echo print_y($user);
 //                die;
                 if (count($user) == 0) {
-                    $user[0]->nombres = 0;
-                    $user[0]->documento = 0;
-                    $user[0]->ing_id = 0;
-                    $user[0]->emp_id = 0;
+                    $this->session->set_flashdata(array('message' => 'Usuario sin permisos', 'message_type' => 'warning'));
+                    redirect('index.php', 'location');
                 }
+                echo print_y($user);
+                die();
                 $this->acceso($user, $acceso, $ing_id);
                 redirect('index.php/presentacion/principal', 'location');
             }

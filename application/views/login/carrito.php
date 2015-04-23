@@ -49,6 +49,10 @@
             left: 59%;
         }
     }
+    .imagenes{
+        width: 100% !important;
+        height: 100% !important;
+    }
 </style>
 
 <div class="menu">

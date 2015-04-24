@@ -138,19 +138,25 @@ if (isset($listado[0][0]->imgDet_nombre)) {
             </div>
         </div>
         <div  class="large-12 columns" >
+            <div  class="large-3 columns" >
+                Filtros de busqueda
+            </div>
+            <div  class="large-2 columns">
+                <input type="text" name="filtro" id="filtro" >
+            </div>
+            <div  class="large-1 columns">
+                <a href="javascript:" class="fa fa-plus-square fa-2x active_filter"style="color:#00D900"></a>
+            </div>
+            <div  class="large-6 columns" >
+                <div id="fil2" ></div>
+            </div>
+        </div>
+        <div  class="large-12 columns" >
             <div  class="large-3 columns" ><label for='imgEnc_descripcion_corta'>Descripción Corta</label></div>
             <div  class="large-9 columns" ><input type="text" id="imgEnc_descripcion_corta" name="imgEnc_descripcion_corta" value="<?php echo $desc_corta; ?>"/> </div>
         </div>
         <div  class="large-12 columns" >
             <div  class="large-2 columns" ><label for='imgEnc_descripcion_larga'>Descripción Larga</label> </div>
-        </div>
-        <div  class="large-12 columns" >
-            <div  class="large-6 columns" >
-                
-            </div>
-            <div  class="large-6 columns" >
-                
-            </div>
         </div>
         <div  class="large-12 columns" >
             <div  class="large-12 columns" ><textarea id="imgEnc_descripcion_larga" name="imgEnc_descripcion_larga" style="height: 100px"><?php echo $desc_larga; ?></textarea> </div>
@@ -161,154 +167,176 @@ if (isset($listado[0][0]->imgDet_nombre)) {
         </div>
     </form>
 </div>
+<link href="<?php echo base_url('css/nygsoft.css" rel="stylesheet" type="text/css') ?>" />
+<script src="<?php echo base_url('js/nygsoft.js') ?>"></script>
 <script>
-    cantidad_maxima =<?php echo $datos[0]->emp_max_img ?>;
-    cantidad_filtros =<?php echo $datos[0]->emp_filtros ?>;
-
-
-    $('#cat_id').change(function () {
-        var cat_id = $('#cat_id').val();
-        var url = "<?php echo base_url('index.php/Empresa/buscar_sub_categorias'); ?>";
-        jQuery(".preload, .load").show();
-        $.post(url, {cat_id: cat_id})
-                .done(function (msg) {
-                    jQuery(".preload, .load").hide();
-                    $('#subCat_id').html(msg)
-                })
-                .fail(function (msg) {
-                    jQuery(".preload, .load").hide();
-                    alertas('rojo', 'Error de base de datos');
-                })
-    })
-    function activar() {
-        var nombre = $('#imgEnc_nombre').val();
-        if (nombre == "") {
-            alertas('rojo', 'Campo Nombre Obligatorio');
-            return false;
-        }
-        var cat_id = $('#cat_id').val();
-        if (cat_id == "") {
-            alertas('rojo', 'Campo Categoria Obligatorio');
-            return false;
-        }
-        var sub_categoria = $('#sub_categoria').val();
-        if (sub_categoria == "") {
-            alertas('rojo', 'Campo Sub Categoria Obligatorio');
-            return false;
-        }
-        var imgEnc_descripcion_corta = $('#imgEnc_descripcion_corta').val();
-        if (imgEnc_descripcion_corta == "") {
-            alertas('rojo', 'Campo Descripción Corta Obligatorio');
-            return false;
-        }
-        var imgEnc_descripcion_larga = $('#imgEnc_descripcion_larga').val();
-        if (imgEnc_descripcion_larga == "") {
-            alertas('rojo', 'Campo Descripcion Larga Obligatorio');
-            return false;
-        }
-        var url = "<?php echo base_url('index.php/Empresa/guardar_imagen_general'); ?>";
-        $('#form1').attr('action', url);
-        return true;
-    }
-    $('#uploadFile').submit(function (e) {
-        e.preventDefault();
-        var id = "1";
-        var name = $('#userFile').val();
-        var i = 0;
-        for (i = 0; i < cantidad_maxima; i++) {
-            var numero = $('#num' + i).attr('ok');
-            if (numero == "ok") {
-                numero = i;
-                i = cantidad_maxima;
-            }
-//            console.log(imagen);
-        }
-        //        false;
-        var imagen = $('#imgEnc_id').val();
-        if (name == "") {
-            return false;
-        }
-        jQuery(".preload, .load").show();
-        var doUploadFileMethodURL = "<?php echo base_url('index.php/Empresa/doUploadFile'); ?>?imgEnc_id=" + imagen;
-        $.ajaxFileUpload({
-            url: doUploadFileMethodURL,
-            secureuri: false,
-            type: 'post',
-            fileElementId: 'userFile',
-            dataType: 'json',
-            data: {id: id},
-            success: function (data) {
-                jQuery(".preload, .load").hide();
-                $('#imgEnc_id').val(data.id);
-                var ruta = "<?php echo base_url('uploads') ?>/" + data.ruta
-                $('#num' + numero).attr('src', ruta);
-                $('#num' + numero).attr('ok', 'ya');
-                //                $('#num' + numero).attr('style', 'margin-top: -57');
-                $('#num' + numero).attr('nombre', data.message);
-                $('#principal' + numero).show();
-                $('#eliminar' + numero).show();
-                $('#userFile').val('');
-                if (numero == 0) {
-                    principal(numero);
-                }
-
-            },
-            error: function (data) {
-                alertas('rojo', 'El archivo no se ha podido cargar, el formato puede no ser valido');
-                jQuery(".preload, .load").hide();
-            }
+        cantidad_maxima =<?php echo $datos[0]->emp_max_img ?>;
+        cantidad_filtros =<?php echo $datos[0]->emp_filtros ?>;
+        filtros = 0;
+        $('.active_filter').click(function () {
+            var valor_filtro = $('#filtro').val();
+            if (valor_filtro != '') {
+                if (cantidad_filtros != filtros) {
+                    $('#fil2').append('<a href="javascript:" class="quitar acti' + filtros + '" aaa="acti' + filtros + '" style="color: #00a6fc" >' + valor_filtro + '    <i class="fa fa-trash-o" title="eliminar"></i><br></a>')
+                    filtros++
+                }else
+                    alertas('naranja', 'Maximo Numero de Filtros Autorizados Consulte al Administrador');
+            } else
+                alertas('naranja', 'Campo Filtro Obligatorio');
+        });
+        $('body').delegate('.quitar', 'click', function () {
+            rr=$(this).attr('aaa')
+        var r=confirm("Desea Eliminar el Filtro")
+           if(r==true){
+               $('#fil2 .'+rr).remove();
+               cantidad_filtros++
+           }
         });
 
-        return false;
-        //                    return false;
-    });
-    function principal(numero) {
-        var nombre = $('#num' + numero).attr('nombre')
-        var id = $('#imgEnc_id').val()
-        var url = "<?php echo base_url('index.php/Empresa/img_principal'); ?>"
-        jQuery(".preload, .load").show();
-        $.post(url, {id: id, nombre: nombre, accion: 'update'})
-                .done(function () {
-                    var i = 0;
-                    for (i = 0; i <= cantidad_maxima; i++) {
-                        var si = $('#principal' + i).attr('ok');
-                        if (si == 'ya') {
-                            $('#principal' + i).attr('style', 'background:blue');
-                            $('#principal' + i).attr('ok', 'ok');
-                        }
-                    }
-                    $('#principal' + numero).attr('style', 'background:green');
-                    $('#principal' + numero).attr('ok', 'ya');
-                    jQuery(".preload, .load").hide();
-                }).fail(function () {
-            jQuery(".preload, .load").hide();
-            alertas('rojo', 'Error de base de datos');
-        })
-    }
-    function eliminar(numero) {
-        var nombre = $('#num' + numero).attr('nombre')
-        var id = $('#imgEnc_id').val()
-        var prin = $('#principal' + numero).attr('ok');
-        if (prin == 'ya') {
-            alertas('rojo', 'Imagen principal no puede ser eliminada');
-            return false;
-        }
-        $('#num' + numero).attr('ok', 'ok');
-        $('#num' + numero).attr('src', 'http://placehold.it/250x250&text=NYGSOFT.COM');
-        $('#eliminar' + numero).hide()
-        $('#principal' + numero).hide()
-        jQuery(".preload, .load").show();
-        var url = "<?php echo base_url('index.php/Empresa/img_principal'); ?>"
-        $.post(url, {id: id, nombre: nombre, accion: 'delete'})
-                .done(function () {
-                    jQuery(".preload, .load").hide();
-                    //                    $('#principal' + numero).attr('style', 'background:green')
-                }).fail(function () {
-            jQuery(".preload, .load").hide();
-            alertas('rojo', 'Error de base de datos');
 
+        $('#cat_id').change(function () {
+            var cat_id = $('#cat_id').val();
+            var url = "<?php echo base_url('index.php/Empresa/buscar_sub_categorias'); ?>";
+            jQuery(".preload, .load").show();
+            $.post(url, {cat_id: cat_id})
+                    .done(function (msg) {
+                        jQuery(".preload, .load").hide();
+                        $('#subCat_id').html(msg)
+                    })
+                    .fail(function (msg) {
+                        jQuery(".preload, .load").hide();
+                        alertas('rojo', 'Error de base de datos');
+                    })
         })
-    }
+        function activar() {
+            var nombre = $('#imgEnc_nombre').val();
+            if (nombre == "") {
+                alertas('rojo', 'Campo Nombre Obligatorio');
+                return false;
+            }
+            var cat_id = $('#cat_id').val();
+            if (cat_id == "") {
+                alertas('rojo', 'Campo Categoria Obligatorio');
+                return false;
+            }
+            var sub_categoria = $('#sub_categoria').val();
+            if (sub_categoria == "") {
+                alertas('rojo', 'Campo Sub Categoria Obligatorio');
+                return false;
+            }
+            var imgEnc_descripcion_corta = $('#imgEnc_descripcion_corta').val();
+            if (imgEnc_descripcion_corta == "") {
+                alertas('rojo', 'Campo Descripción Corta Obligatorio');
+                return false;
+            }
+            var imgEnc_descripcion_larga = $('#imgEnc_descripcion_larga').val();
+            if (imgEnc_descripcion_larga == "") {
+                alertas('rojo', 'Campo Descripcion Larga Obligatorio');
+                return false;
+            }
+            var url = "<?php echo base_url('index.php/Empresa/guardar_imagen_general'); ?>";
+            $('#form1').attr('action', url);
+            return true;
+        }
+        $('#uploadFile').submit(function (e) {
+            e.preventDefault();
+            var id = "1";
+            var name = $('#userFile').val();
+            var i = 0;
+            for (i = 0; i < cantidad_maxima; i++) {
+                var numero = $('#num' + i).attr('ok');
+                if (numero == "ok") {
+                    numero = i;
+                    i = cantidad_maxima;
+                }
+//            console.log(imagen);
+            }
+            //        false;
+            var imagen = $('#imgEnc_id').val();
+            if (name == "") {
+                return false;
+            }
+            jQuery(".preload, .load").show();
+            var doUploadFileMethodURL = "<?php echo base_url('index.php/Empresa/doUploadFile'); ?>?imgEnc_id=" + imagen;
+            $.ajaxFileUpload({
+                url: doUploadFileMethodURL,
+                secureuri: false,
+                type: 'post',
+                fileElementId: 'userFile',
+                dataType: 'json',
+                data: {id: id},
+                success: function (data) {
+                    jQuery(".preload, .load").hide();
+                    $('#imgEnc_id').val(data.id);
+                    var ruta = "<?php echo base_url('uploads') ?>/" + data.ruta
+                    $('#num' + numero).attr('src', ruta);
+                    $('#num' + numero).attr('ok', 'ya');
+                    //                $('#num' + numero).attr('style', 'margin-top: -57');
+                    $('#num' + numero).attr('nombre', data.message);
+                    $('#principal' + numero).show();
+                    $('#eliminar' + numero).show();
+                    $('#userFile').val('');
+                    if (numero == 0) {
+                        principal(numero);
+                    }
+
+                },
+                error: function (data) {
+                    alertas('rojo', 'El archivo no se ha podido cargar, el formato puede no ser valido');
+                    jQuery(".preload, .load").hide();
+                }
+            });
+
+            return false;
+            //                    return false;
+        });
+        function principal(numero) {
+            var nombre = $('#num' + numero).attr('nombre')
+            var id = $('#imgEnc_id').val()
+            var url = "<?php echo base_url('index.php/Empresa/img_principal'); ?>"
+            jQuery(".preload, .load").show();
+            $.post(url, {id: id, nombre: nombre, accion: 'update'})
+                    .done(function () {
+                        var i = 0;
+                        for (i = 0; i <= cantidad_maxima; i++) {
+                            var si = $('#principal' + i).attr('ok');
+                            if (si == 'ya') {
+                                $('#principal' + i).attr('style', 'background:blue');
+                                $('#principal' + i).attr('ok', 'ok');
+                            }
+                        }
+                        $('#principal' + numero).attr('style', 'background:green');
+                        $('#principal' + numero).attr('ok', 'ya');
+                        jQuery(".preload, .load").hide();
+                    }).fail(function () {
+                jQuery(".preload, .load").hide();
+                alertas('rojo', 'Error de base de datos');
+            })
+        }
+        function eliminar(numero) {
+            var nombre = $('#num' + numero).attr('nombre')
+            var id = $('#imgEnc_id').val()
+            var prin = $('#principal' + numero).attr('ok');
+            if (prin == 'ya') {
+                alertas('rojo', 'Imagen principal no puede ser eliminada');
+                return false;
+            }
+            $('#num' + numero).attr('ok', 'ok');
+            $('#num' + numero).attr('src', 'http://placehold.it/250x250&text=NYGSOFT.COM');
+            $('#eliminar' + numero).hide()
+            $('#principal' + numero).hide()
+            jQuery(".preload, .load").show();
+            var url = "<?php echo base_url('index.php/Empresa/img_principal'); ?>"
+            $.post(url, {id: id, nombre: nombre, accion: 'delete'})
+                    .done(function () {
+                        jQuery(".preload, .load").hide();
+                        //                    $('#principal' + numero).attr('style', 'background:green')
+                    }).fail(function () {
+                jQuery(".preload, .load").hide();
+                alertas('rojo', 'Error de base de datos');
+
+            })
+        }
 
 </script>
 

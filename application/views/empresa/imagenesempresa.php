@@ -1,7 +1,7 @@
 <?php
 if (isset($listado[0][0]->imgDet_nombre)) {
     $imgEnc_id = $listado[0][0]->imgEnc_id;
-    $nombre_form= $listado[0][0]->imgEnc_nombre;
+    $nombre_form = $listado[0][0]->imgEnc_nombre;
     $categoria = $listado[0][0]->cat_categoria;
     $subcategoria_id = $listado[0][0]->sub_id;
     $subcategoria = $listado[0][0]->sub_subcategoria;
@@ -60,14 +60,14 @@ if (isset($listado[0][0]->imgDet_nombre)) {
     if (isset($listado[0][$i]->imgDet_padre)) {
         if ($listado[0][$i]->imgDet_padre == '1') {
             $color = "green";
-            $acti="ya";
+            $acti = "ya";
         } else {
             $color = "blue";
-            $acti="ok";
+            $acti = "ok";
         }
     } else {
         $color = "blue";
-        $acti="ok";
+        $acti = "ok";
     }
     ?>
         <div class="large-<?php echo $colum; ?> columns">
@@ -79,11 +79,11 @@ if (isset($listado[0][0]->imgDet_nombre)) {
             if (isset($listado[0][$i]->imgDet_nombre)) {
                 $ruta = base_url() . "uploads/" . $listado[0][$i]->id_emp . "/" . $listado[0][$i]->imgDet_nombre;
                 $ima = "ya";
-                $nombre="nombre='".$listado[0][$i]->imgDet_nombre."'";
+                $nombre = "nombre='" . $listado[0][$i]->imgDet_nombre . "'";
             } else {
                 $ruta = 'http://placehold.it/250x250&amp;text=NYGSOFT.COM';
                 $ima = "ok";
-                $nombre="";
+                $nombre = "";
                 ?>
                 <script>
                     $('#eliminar<?php echo $i ?>').hide();
@@ -145,6 +145,14 @@ if (isset($listado[0][0]->imgDet_nombre)) {
             <div  class="large-2 columns" ><label for='imgEnc_descripcion_larga'>Descripción Larga</label> </div>
         </div>
         <div  class="large-12 columns" >
+            <div  class="large-6 columns" >
+                
+            </div>
+            <div  class="large-6 columns" >
+                
+            </div>
+        </div>
+        <div  class="large-12 columns" >
             <div  class="large-12 columns" ><textarea id="imgEnc_descripcion_larga" name="imgEnc_descripcion_larga" style="height: 100px"><?php echo $desc_larga; ?></textarea> </div>
         </div>
         <input type="hidden" name="imgEnc_id" id="imgEnc_id" value="<?php echo $imgEnc_id; ?>">
@@ -154,16 +162,20 @@ if (isset($listado[0][0]->imgDet_nombre)) {
     </form>
 </div>
 <script>
-    $('#cat_id').change(function() {
+    cantidad_maxima =<?php echo $datos[0]->emp_max_img ?>;
+    cantidad_filtros =<?php echo $datos[0]->emp_filtros ?>;
+
+
+    $('#cat_id').change(function () {
         var cat_id = $('#cat_id').val();
         var url = "<?php echo base_url('index.php/Empresa/buscar_sub_categorias'); ?>";
         jQuery(".preload, .load").show();
         $.post(url, {cat_id: cat_id})
-                .done(function(msg) {
+                .done(function (msg) {
                     jQuery(".preload, .load").hide();
                     $('#subCat_id').html(msg)
                 })
-                .fail(function(msg) {
+                .fail(function (msg) {
                     jQuery(".preload, .load").hide();
                     alertas('rojo', 'Error de base de datos');
                 })
@@ -198,8 +210,7 @@ if (isset($listado[0][0]->imgDet_nombre)) {
         $('#form1').attr('action', url);
         return true;
     }
-    cantidad_maxima =<?php echo $datos[0]->emp_max_img ?>;
-    $('#uploadFile').submit(function(e) {
+    $('#uploadFile').submit(function (e) {
         e.preventDefault();
         var id = "1";
         var name = $('#userFile').val();
@@ -218,7 +229,7 @@ if (isset($listado[0][0]->imgDet_nombre)) {
             return false;
         }
         jQuery(".preload, .load").show();
-        var doUploadFileMethodURL = "<?php echo base_url('index.php/Empresa/doUploadFile'); ?>?imgEnc_id=" + imagen ;
+        var doUploadFileMethodURL = "<?php echo base_url('index.php/Empresa/doUploadFile'); ?>?imgEnc_id=" + imagen;
         $.ajaxFileUpload({
             url: doUploadFileMethodURL,
             secureuri: false,
@@ -226,7 +237,7 @@ if (isset($listado[0][0]->imgDet_nombre)) {
             fileElementId: 'userFile',
             dataType: 'json',
             data: {id: id},
-            success: function(data) {
+            success: function (data) {
                 jQuery(".preload, .load").hide();
                 $('#imgEnc_id').val(data.id);
                 var ruta = "<?php echo base_url('uploads') ?>/" + data.ruta
@@ -242,7 +253,7 @@ if (isset($listado[0][0]->imgDet_nombre)) {
                 }
 
             },
-            error: function(data) {
+            error: function (data) {
                 alertas('rojo', 'El archivo no se ha podido cargar, el formato puede no ser valido');
                 jQuery(".preload, .load").hide();
             }
@@ -257,18 +268,19 @@ if (isset($listado[0][0]->imgDet_nombre)) {
         var url = "<?php echo base_url('index.php/Empresa/img_principal'); ?>"
         jQuery(".preload, .load").show();
         $.post(url, {id: id, nombre: nombre, accion: 'update'})
-                .done(function() {
+                .done(function () {
                     var i = 0;
                     for (i = 0; i <= cantidad_maxima; i++) {
                         var si = $('#principal' + i).attr('ok');
                         if (si == 'ya') {
                             $('#principal' + i).attr('style', 'background:blue');
+                            $('#principal' + i).attr('ok', 'ok');
                         }
                     }
                     $('#principal' + numero).attr('style', 'background:green');
                     $('#principal' + numero).attr('ok', 'ya');
                     jQuery(".preload, .load").hide();
-                }).fail(function() {
+                }).fail(function () {
             jQuery(".preload, .load").hide();
             alertas('rojo', 'Error de base de datos');
         })
@@ -278,7 +290,6 @@ if (isset($listado[0][0]->imgDet_nombre)) {
         var id = $('#imgEnc_id').val()
         var prin = $('#principal' + numero).attr('ok');
         if (prin == 'ya') {
-//            var color = "verde";
             alertas('rojo', 'Imagen principal no puede ser eliminada');
             return false;
         }
@@ -289,10 +300,10 @@ if (isset($listado[0][0]->imgDet_nombre)) {
         jQuery(".preload, .load").show();
         var url = "<?php echo base_url('index.php/Empresa/img_principal'); ?>"
         $.post(url, {id: id, nombre: nombre, accion: 'delete'})
-                .done(function() {
+                .done(function () {
                     jQuery(".preload, .load").hide();
                     //                    $('#principal' + numero).attr('style', 'background:green')
-                }).fail(function() {
+                }).fail(function () {
             jQuery(".preload, .load").hide();
             alertas('rojo', 'Error de base de datos');
 

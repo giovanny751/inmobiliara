@@ -28,6 +28,8 @@ class Empresa_model extends CI_Model {
     }
 
     function update_imagen_general($post, $id_user) {
+        unset($post['filtro']);
+        unset($post['filter']);
         $this->db->set('id_emp', $id_user);
         $this->db->set('imgEnc_user_id', $id_user);
         $this->db->where('imgEnc_id', $post['imgEnc_id']);
@@ -35,6 +37,15 @@ class Empresa_model extends CI_Model {
     }
 
     function guarda_imagen_general($post, $id_user) {
+        if(count($post['filter'])!=0){
+            for($i=0;$i<=count($post['filter']);$i++){
+            $this->db->set('id_emp', $id_user);
+            $this->db->set('fil_nombre', $post['filter'][$i]);
+            $this->db->insert('filtro', $post);
+            }
+        }
+        unset($post['filtro']);
+        unset($post['filter']);
         $this->db->set('id_emp', $id_user);
         $this->db->set('imgEnc_fecha_crear', date('Y-m-d H:i:s'));
         $this->db->set('imgEnc_user_id', $id_user);

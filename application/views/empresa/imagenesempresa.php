@@ -177,7 +177,7 @@ if (isset($listado[0][0]->imgDet_nombre)) {
             var valor_filtro = $('#filtro').val();
             if (valor_filtro != '') {
                 if (cantidad_filtros != filtros) {
-                    $('#fil2').append('<a href="javascript:" class="quitar acti' + filtros + '" aaa="acti' + filtros + '" style="color: #00a6fc" >' + valor_filtro + '    <i class="fa fa-trash-o" title="eliminar"></i><br></a>')
+                    $('#fil2').append('<a href="javascript:" class="quitar acti' + filtros + '" aaa="acti' + filtros + '" style="color: #00a6fc" >' + valor_filtro + '    <i class="fa fa-trash-o" title="eliminar"></i><br><input type="hidden" name="filter[]" value="'+ valor_filtro +'"></a>')
                     filtros++
                 }else
                     alertas('naranja', 'Maximo Numero de Filtros Autorizados Consulte al Administrador');

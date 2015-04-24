@@ -144,7 +144,7 @@ class Empresa extends My_Controller {
         } else {
             $id = $this->Empresa_model->guarda_imagen_general($post, $emp_id);
         }
-        redirect('index.php/Empresa/listado', 'location');
+//        redirect('index.php/Empresa/listado', 'location');
     }
 
     function img_principal() {

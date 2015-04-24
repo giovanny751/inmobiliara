@@ -84,14 +84,7 @@
         </div>
     </div>
 </div>
-
 <div class="row">
-
-    <!--<div class="large-9 small-12 columns">-->
-    <?php // echo "<pre>";var_dump($this->cart->contents());die; ?>
-    <!--<div class="row">-->
-
-<!--<div class="large-2 columns small-3"><img src="http://placehold.it/80x80&text=[img]"/></div>-->
     <div class="large-12 small-12 columns">
         <div class="row">
 
@@ -109,9 +102,9 @@
                     <table class="carrito" border="1" style="width: 100%">
                         <tr>
                             <th width="20%"><center>Imagen</center></th>
-                        <th width="60%"><center>Nombre del producto</center></th>
+                        <th width="50%"><center>Nombre del producto</center></th>
                         <th width="10%"><center>Cantidad</center></th>
-                        <th width="10%"><center>Precio</center></th>
+                        <th width="20%"><center>Precio</center></th>
                         </tr>
                         <?php
                         foreach ($this->cart->contents() as $item):
@@ -126,14 +119,14 @@
                                         echo "";
                                     ?>
                                 </td>
-                                <td>
+                                <td><center>
                                     <?php
                                     echo $item['name'];
                                     if ($this->cart->has_options($item['rowid']) === TRUE):
                                         ?>
                                     <?php endif; ?>
+                                    </center>
                                 </td>
-                                <!--<td>Bs.F. <?php echo number_format($item['price'], 2, ',', '.'); ?></td>-->
                                 <td>
                                     <input style="text-align: center" type="text" name="qty[]" value="<?php echo $item['qty']; ?>" maxlength="3" size="5">
                                 </td>

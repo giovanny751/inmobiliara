@@ -74,8 +74,8 @@ if (empty($array_cart)) {
             display: none;
         }
         .imagenes{
-            width: 219px;
-            height: 180px;
+            width: 270px;
+            height: 280px;
             margin-top: 20px;
         }
         #tipolistado{
@@ -133,9 +133,12 @@ if (empty($array_cart)) {
             font-size: 50px;
         }
         #olvidocontrasena{
-            font-size: 19px;
+            font-size: 50px;
         }
-
+        .iniciosesion{
+            font-size: 80px;
+            margin-top: 120px;
+        }
     }
     @media screen and (min-width: 1001px ) {
         .botonbuscador{
@@ -449,12 +452,12 @@ if ($contador > 0) {
             <li class="redireccionmenu">AYUDA</li>
         </ul>
     </div> 
-    <a class="close-reveal-modal" aria-label="Close">&#215;</a> 
+    <a class="close-reveal-modal cerrarmodal" aria-label="Close">&#215;</a> 
 </div> 
 
 <div id="secondModal" class="reveal-modal" data-reveal aria-labelledby="firstModalTitle" aria-hidden="true" role="dialog"> 
     <div id="secondModal"  data-reveal aria-labelledby="firstModalTitle" aria-hidden="true" role="dialog"> 
-        <center><div class="iniciosesion">INICIO SESIÓN</h2></div></center> 
+        <center><div class="iniciosesion">INICIO SESIÓN</div></center> 
         <form method="post" action="<?php echo base_url('index.php/login/verify') ?>">
             <label class="label" for="usuario">CORREO</label><input id="usuario" type="text" name="username" placeholder="CORREO" class="logeo">
             <label class="label" for="contrasena">CONTRASEÑA</label><input id="contrasena" type="password" name="password" placeholder="CONTRASEÑA" class="logeo">
@@ -468,7 +471,7 @@ if ($contador > 0) {
             </div>
         </div>
     </div> 
-    <a class="close-reveal-modal" aria-label="Close">&#215;</a> 
+    <a class="close-reveal-modal cerrarmodal" aria-label="Close">&#215;</a> 
 </div>
 <div id="secondModal2" class="reveal-modal" data-reveal aria-labelledby="firstModalTitle" aria-hidden="true" role="dialog"> 
     <div id="secondModal2"  data-reveal aria-labelledby="firstModalTitle" aria-hidden="true" role="dialog"> 
@@ -493,16 +496,16 @@ if ($contador > 0) {
     <div id="secondModal3"  data-reveal aria-labelledby="firstModalTitle" aria-hidden="true" role="dialog"> 
     </div> 
     <a class="close-reveal-modal cerrarmodal" aria-label="Close">&#215;</a> 
-    <center><h3>OLVIDO CONTRASEÑA</h3></center> 
+    <div class="iniciosesion"><center>OLVIDO CONTRASEÑA</h3></center></div> 
     <form method="post" id="formregistro" action="<?php echo base_url('index.php/login/registro') ?>">
-        <div class="large-12 columns labelregistro" >
+        <div class="large-12 columns" >
             <label class="label" for="correo">Correo</label>
-            <input type="text" name="correo" id="correo" placeholder="Correo" class="registro">
+            <input type="text" name="correo" id="correo" placeholder="Correo" class="registro logeo">
         </div>
     </form>
     <div class="large-12 columns">
         <center>
-            <input  type="submit" class="button radius success tiny enviar" value="Enviar">
+            <input style="width: 100%;height: 80px;font-size: 50px" type="submit" class="button radius success tiny enviar" value="Enviar">
         </center>
     </div>
 </div> 

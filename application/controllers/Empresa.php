@@ -43,6 +43,7 @@ class Empresa extends My_Controller {
         $id = $this->data['user']['emp_id'];
         $this->data['datos'] = $this->Empresa_model->datosempresa($id);
         $this->data['categorias'] = $this->Empresa_model->categorias();
+        $this->data['filtros'] = $this->Empresa_model->filtros($imgEnc_id);
         $this->data['listado'] = $this->Empresa_model->listado(NULL,NULL,$imgEnc_id);
         $this->layout->view('empresa/imagenesempresa', $this->data);
     }
@@ -144,7 +145,7 @@ class Empresa extends My_Controller {
         } else {
             $id = $this->Empresa_model->guarda_imagen_general($post, $emp_id);
         }
-//        redirect('index.php/Empresa/listado', 'location');
+        redirect('index.php/Empresa/listado', 'location');
     }
 
     function img_principal() {

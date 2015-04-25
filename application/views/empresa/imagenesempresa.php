@@ -139,7 +139,9 @@ if (isset($listado[0][0]->imgDet_nombre)) {
         </div>
         <div  class="large-12 columns" >
             <div  class="large-3 columns" >
-                Filtros de busqueda
+                <label for="filtro">
+                    Filtros de busqueda
+                </label>
             </div>
             <div  class="large-2 columns">
                 <input type="text" name="filtro" id="filtro" >
@@ -148,7 +150,15 @@ if (isset($listado[0][0]->imgDet_nombre)) {
                 <a href="javascript:" class="fa fa-plus-square fa-2x active_filter"style="color:#00D900"></a>
             </div>
             <div  class="large-6 columns" >
-                <div id="fil2" ></div>
+                <div id="fil2" >
+                    <?php
+                    $i = 0;
+                    foreach ($filtros as $value) {
+                        echo '<a href="javascript:" class="quitar acti' . $i . '" aaa="acti' . $i . '" style="color: #00a6fc" >' . $value->fil_nombre . '    <i class="fa fa-trash-o" title="eliminar"></i><br><input type="hidden" name="filter[]" value="' . $value->fil_nombre . '"></a>';
+                        $i++;
+                    }
+                    ?>
+                </div>
             </div>
         </div>
         <div  class="large-12 columns" >
@@ -172,25 +182,32 @@ if (isset($listado[0][0]->imgDet_nombre)) {
 <script>
         cantidad_maxima =<?php echo $datos[0]->emp_max_img ?>;
         cantidad_filtros =<?php echo $datos[0]->emp_filtros ?>;
-        filtros = 0;
+        filtros = <?php echo $i ?>;
         $('.active_filter').click(function () {
             var valor_filtro = $('#filtro').val();
+            var valor_filtro2 = valor_filtro.split(' ');
+            if (valor_filtro2.length > 2) {
+                alertas('naranja', 'Maximo un Espacio');
+                return false;
+            }
+
             if (valor_filtro != '') {
                 if (cantidad_filtros != filtros) {
-                    $('#fil2').append('<a href="javascript:" class="quitar acti' + filtros + '" aaa="acti' + filtros + '" style="color: #00a6fc" >' + valor_filtro + '    <i class="fa fa-trash-o" title="eliminar"></i><br><input type="hidden" name="filter[]" value="'+ valor_filtro +'"></a>')
-                    filtros++
-                }else
+                    $('#fil2').append('<a href="javascript:" class="quitar acti' + filtros + '" aaa="acti' + filtros + '" style="color: #00a6fc" >' + valor_filtro + '    <i class="fa fa-trash-o" title="eliminar"></i><br><input type="hidden" name="filter[]" value="' + valor_filtro + '"></a>')
+                    filtros++;
+                    $('#filtro').val('');
+                } else
                     alertas('naranja', 'Maximo Numero de Filtros Autorizados Consulte al Administrador');
             } else
                 alertas('naranja', 'Campo Filtro Obligatorio');
         });
         $('body').delegate('.quitar', 'click', function () {
-            rr=$(this).attr('aaa')
-        var r=confirm("Desea Eliminar el Filtro")
-           if(r==true){
-               $('#fil2 .'+rr).remove();
-               cantidad_filtros++
-           }
+            rr = $(this).attr('aaa')
+            var r = confirm("Desea Eliminar el Filtro")
+            if (r == true) {
+                $('#fil2 .' + rr).remove();
+                cantidad_filtros++
+            }
         });
 
 

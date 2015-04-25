@@ -21,29 +21,38 @@ class Empresa_model extends CI_Model {
         $this->db->where('empresa.emp_id', $id);
         $this->db->join('empresa', 'empresa.ing_id = ingreso.ing_id', 'left');
         $datos = $this->db->get('ingreso');
-        
+
 //        echo $this->db->last_query();
-        
+
         return $datos->result();
     }
 
     function update_imagen_general($post, $id_user) {
+        $fil['filter'] = $post['filter'];
         unset($post['filtro']);
         unset($post['filter']);
         $this->db->set('id_emp', $id_user);
         $this->db->set('imgEnc_user_id', $id_user);
         $this->db->where('imgEnc_id', $post['imgEnc_id']);
         $this->db->update('imagenes_encabezado', $post);
+
+        
+        $this->db->where('id_img', $post['imgEnc_id']);
+        $this->db->delete('filtro');
+        
+        if (count($fil['filter']) != 0) {
+            for ($i = 0; $i < count($fil['filter']); $i++) {
+                $this->db->set('id_emp', $id_user);
+                $this->db->set('fil_nombre', $fil['filter'][$i]);
+                $this->db->set('id_img', $post['imgEnc_id']);
+                $this->db->insert('filtro');
+            }
+        }
     }
 
     function guarda_imagen_general($post, $id_user) {
-        if(count($post['filter'])!=0){
-            for($i=0;$i<=count($post['filter']);$i++){
-            $this->db->set('id_emp', $id_user);
-            $this->db->set('fil_nombre', $post['filter'][$i]);
-            $this->db->insert('filtro', $post);
-            }
-        }
+
+        $fil['filter'] = $post['filter'];
         unset($post['filtro']);
         unset($post['filter']);
         $this->db->set('id_emp', $id_user);
@@ -51,6 +60,16 @@ class Empresa_model extends CI_Model {
         $this->db->set('imgEnc_user_id', $id_user);
         $this->db->insert('imagenes_encabezado', $post);
         $last_id = $this->db->insert_id();
+
+        if (count($fil['filter']) != 0) {
+            for ($i = 0; $i < count($fil['filter']); $i++) {
+                $this->db->set('id_emp', $id_user);
+                $this->db->set('fil_nombre', $fil['filter'][$i]);
+                $this->db->set('id_img', $last_id);
+                $this->db->insert('filtro');
+            }
+        }
+
         return $last_id;
     }
 
@@ -131,6 +150,13 @@ class Empresa_model extends CI_Model {
         return array($datos->result(), $new_query);
     }
 
+    function filtros($imgEnc_id) {
+        $imgEnc_id = deencrypt_id($imgEnc_id);
+        $this->db->where('id_img', $imgEnc_id);
+        $datos = $this->db->get('filtro');
+        return $datos->result();
+    }
+
     function inactivar($id, $num) {
         $this->db->set('est_id', $num);
         $this->db->where('imgEnc_id', $id);
@@ -151,6 +177,7 @@ class Empresa_model extends CI_Model {
         $this->db->update('imagenes_encabezado');
 //                echo $this->db->last_query();
     }
+
     function promocion($id, $num) {
         $this->db->set('ingEnc_promocion', $num);
         $this->db->where('imgEnc_id', $id);
@@ -197,8 +224,8 @@ class Empresa_model extends CI_Model {
             } else {
                 $table.= '<a href="' . base_url('index.php/Empresa/inactivar_slider') . "/" . encrypt_id($value->sli_id) . "/" . encrypt_id(2) . '"><i class="fa fa-eye fa-2x" title="Activo"></i> </a>';
             }
-            $editar="'".$value->sli_descripcion."','".$value->sli_id."'";
-            $table.= '<a href="javascript:" onclick="editar('.$editar.')"; ><i class="fa fa-pencil fa-2x" title="Editar"></i></td>'
+            $editar = "'" . $value->sli_descripcion . "','" . $value->sli_id . "'";
+            $table.= '<a href="javascript:" onclick="editar(' . $editar . ')"; ><i class="fa fa-pencil fa-2x" title="Editar"></i></td>'
                     . "</tr>";
         }
         $table.="</table>";

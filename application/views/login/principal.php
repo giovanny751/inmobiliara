@@ -271,7 +271,7 @@ if (empty($array_cart)) {
     </div>
 </div>
 
-    <?php if ($this->session->flashdata('message')) { ?>
+<?php if ($this->session->flashdata('message')) { ?>
     <div class="alert-box <?php echo $this->session->flashdata('message_type'); ?>">
         <center><?php echo $this->session->flashdata('message'); ?></center>
     </div>
@@ -289,24 +289,34 @@ if ($contador > 0) {
         <div class="large-3 columns ">
             <div class="large-12 columns panel catprincipal">
                 <form method="post" id="envio" >
-                    <label>Forma de ver los productos</label>
-                    <select name="forma" id="forma">
+                    <label class="label" for="forma">Forma de ver los productos</label>
+                    <select name="forma" id="forma"  style="text-align: center">
                         <option value=''>-Seleccionar-</option>
                         <option value='1'>Columnas</option>
                         <option value='2'>Filas</option>
                     </select>
                 </form>
+                <label class="label" for="ordenamiento">
+                    Ordenar Productos
+                </label>
+                <select id="ordenamiento" style="text-align: center">
+                    <option value=""></option>
+                    <option value="1" >A-Z</option>
+                    <option value="">Z-A</option>
+                    <option value="">Precio</option>
+                </select>
+                <br>
             </div>
             <div class="large-12 columns panel catprincipal">
                 <ul>
-                        <?php foreach ($categorias as $cat => $idsub) { ?>
+                    <?php foreach ($categorias as $cat => $idsub) { ?>
 
                         <li><?php echo $cat; ?>
                             <?php foreach ($idsub as $id => $subcategoria) { ?>
                                 <ul><li><?php echo $subcategoria; ?></li></ul>
-                        <?php } ?>
+                            <?php } ?>
                         </li>    
-    <?php } ?>
+                    <?php } ?>
                 </ul>
             </div>
         </div>
@@ -328,14 +338,14 @@ if ($contador > 0) {
                         <div class="row">
                             <div class="large-12 columns">
                                 <div class="row">
-                                        <?php } ?>    
+                                <?php } ?>    
                                 <div class="large-3 small-6 columns principio">
                                     <center>
-            <?php if ($img->ingEnc_promocion == 2) { ?>
+                                        <?php if ($img->ingEnc_promocion == 2) { ?>
 
                                             <img style="position: absolute;width: 30%; float: right;" width="100%" height="100%" src="<?php echo base_url('img/Estrella.png'); ?>" title='PROMOCION'>
 
-            <?php } ?>  
+                                        <?php } ?>  
                                         <span id="imaagen<?php echo $g; ?>">
                                             <img onerror="this.onerror=null;this.src='http://placehold.it/250x250&text=NYGSOFT';" class="imagenes" img_id="<?php echo $img->imgEnc_id; ?>" src="<?php echo base_url('uploads' . "/" . $img->id_emp . "/" . $img->imgDet_nombre); ?>"/>
                                         </span>
@@ -350,7 +360,7 @@ if ($contador > 0) {
                                         </div>
                                     </center>
                                 </div>
-            <?php if ($h == 4 || $contador == $g + 1) { ?>        
+                                <?php if ($h == 4 || $contador == $g + 1) { ?>        
                                 </div>
                             </div>
                         </div>  
@@ -391,8 +401,8 @@ if ($contador > 0) {
             ?>
         </div>
     </div><?php
-        } else {
-            ?>
+} else {
+    ?>
     <div class="large-12 columns">
         <div id="mainAlert1" data-alert class="alert-box secondary" tabindex="0" aria-live="assertive" role="dialogalert">
             <center><h4>NO SE ENCONTRARON PRODUCTOS</h4></center>
@@ -422,7 +432,7 @@ if ($contador > 0) {
                                     $class = '';
                                 ?>
                             <li <?php echo $class ?> class="numeracion grande"><a href="javascript:"><?php echo $i + 1; ?></a></li> 
-<?php } ?>
+                        <?php } ?>
                     </ul>
                 </form>    
             </center>

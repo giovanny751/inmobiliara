@@ -80,7 +80,11 @@ class Login extends My_Controller {
         $this->data['imagenes'] = $this->Ingreso_model->imagenesprincipales($desde, $cantidad, $categoria, $this->data['buscador']);
         $this->load->view('login/principal', $this->data);
     }
-
+    function presentacion(){
+        
+        $this->load->view('login/presentacion');
+        
+    }
     function autocomplete() {
 
         $data = array();
